@@ -1,0 +1,16 @@
+proj.ios/
+proj.mac/
+proj.tizen/
+proj.winrt/
+proj.blackberry/
+proj.linux/
+proj.marmalade/
+proj.win32/
+proj.wp8/
+proj.android/assets/
+proj.android/bin/
+proj.android/gen/
+proj.android/libs/
+proj.android/obj/
+proj.android/res/
+proj.android/build_native.sh
