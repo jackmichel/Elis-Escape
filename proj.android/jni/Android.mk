@@ -10,7 +10,8 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
                    ../../Classes/MainMenu.cpp \
                    ../../Classes/Game.cpp \
-                   ../../Classes/Utils.cpp
+                   ../../Classes/Utils.cpp \
+                   ../../Classes/MenuButton.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
