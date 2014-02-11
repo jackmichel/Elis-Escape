@@ -12,6 +12,7 @@ class About : public cocos2d::CCLayer {
 public:
 	static cocos2d::CCScene* scene();
 	virtual bool init();
+	virtual void mainMenu();
 	CREATE_FUNC(About);
 };
 

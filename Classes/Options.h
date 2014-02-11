@@ -10,8 +10,9 @@ class Options : public cocos2d::CCLayer {
 	cocos2d::CCSize windowSize;
 
 public:
-	static cocos2d::CCScene* scene();
+	static CCScene* scene();
 	virtual bool init();
+	virtual void mainMenu();
 	CREATE_FUNC(Options);
 };
 

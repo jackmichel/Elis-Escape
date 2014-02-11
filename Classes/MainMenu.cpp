@@ -40,8 +40,6 @@ bool MainMenu::init() {
     menu->setPosition(ccp(windowSize.width - 200, windowSize.height/2 - windowSize.height/4.0f));
     this->addChild(menu,2);
 
-    this->setTouchEnabled(true);
-
     return true;
 }
 
