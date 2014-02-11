@@ -1,6 +1,8 @@
 #include "MainMenu.h"
 #include "Constants.h"
 #include "Game.h"
+#include "Options.h"
+#include "About.h"
 #include "Utils.h"
 
 using namespace cocos2d;
@@ -23,23 +25,20 @@ bool MainMenu::init() {
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
     CCLabelTTF* pLabel = CCLabelTTF::create("Eli's Escape", FONT_MAIN, 64);
-    pLabel->setPosition(ccp(origin.x + visibleSize.width/2,
+    pLabel->setPosition(ccp(origin.x + pLabel->getContentSize().width,
                             origin.y + visibleSize.height - pLabel->getContentSize().height));
     this->addChild(pLabel, 1);
 
-    CCLabelTTF* startLabel = CCLabelTTF::create("Play!", FONT_MAIN, 34);
-    startLabel->setPosition(ccp(origin.x + visibleSize.width/2,
-                            origin.y + visibleSize.height/2 + 6));
-    this->addChild(startLabel, 2);
-
-    // add "HelloWorld" splash screen"
-    CCSprite* pSprite = CCSprite::create("button.png");
-
-    // position the sprite on the center of the screen
-    pSprite->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-
-    // add the sprite as a child to this layer
-    this->addChild(pSprite, 0);
+    //Create Menu and Menu Buttons
+    CCMenuItemImage *playButton = CCMenuItemImage::create("button.png", "button.png", this, menu_selector(MainMenu::playGame));
+    CCMenuItemImage *optionsButton = CCMenuItemImage::create("button.png", "button.png", this, menu_selector(MainMenu::options));
+    CCMenuItemImage *aboutButton = CCMenuItemImage::create("button.png", "button.png", this, menu_selector(MainMenu::about));
+    playButton->setPosition(0,400);
+    optionsButton->setPosition(0,200);
+    aboutButton->setPosition(0,0);
+    CCMenu *menu = CCMenu::create(playButton, optionsButton, aboutButton, NULL);
+    menu->setPosition(ccp(windowSize.width - 200, windowSize.height/2 - windowSize.height/4.0f));
+    this->addChild(menu,2);
 
     this->setTouchEnabled(true);
 
@@ -51,14 +50,16 @@ void MainMenu::playGame()
     CCDirector::sharedDirector()->replaceScene(Game::scene());
 }
 
-void MainMenu::mainMenu() {
-    CCDirector::sharedDirector()->replaceScene(MainMenu::scene());
+void MainMenu::options()
+{
+    CCDirector::sharedDirector()->replaceScene(Options::scene());
 }
 
-void MainMenu::ccTouchesBegan(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent) {
-    CCTouch *touch = (CCTouch *) pTouches->anyObject();
+void MainMenu::about()
+{
+    CCDirector::sharedDirector()->replaceScene(About::scene());
+}
 
-    if (touch) {
-    	CCDirector::sharedDirector()->replaceScene(Game::scene());
-    }
+void MainMenu::mainMenu() {
+    CCDirector::sharedDirector()->replaceScene(MainMenu::scene());
 }

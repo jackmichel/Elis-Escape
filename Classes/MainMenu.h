@@ -11,9 +11,10 @@ class MainMenu : public cocos2d::CCLayer {
 public:
     virtual bool init();
     virtual void playGame();
+    virtual void options();
+    virtual void about();
     static void mainMenu();
     static CCScene* scene();
-    void ccTouchesBegan(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent);
     CREATE_FUNC(MainMenu);
 };
 
