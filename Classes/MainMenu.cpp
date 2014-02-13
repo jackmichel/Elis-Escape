@@ -25,19 +25,20 @@ bool MainMenu::init() {
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
-    CCLabelTTF* pLabel = CCLabelTTF::create("Eli's Escape", FONT_MAIN, 64);
-    pLabel->setPosition(ccp(origin.x + pLabel->getContentSize().width,
-                            origin.y + visibleSize.height - pLabel->getContentSize().height));
-    this->addChild(pLabel, 1);
+    CCSprite* bg = CCSprite::create("Start_Screen.png");
+    bg->setPosition(ccp(windowSize.width/2,windowSize.height/2));
+    Utils::scaleSprite(bg);
+    this->addChild(bg,-1);
 
     //Create Menu and Menu Buttons
     CCMenuItemImage *levelButton = CCMenuItemImage::create("button.png", "button.png", this, menu_selector(MainMenu::levelSelect));
     CCMenuItemImage *optionsButton = CCMenuItemImage::create("button.png", "button.png", this, menu_selector(MainMenu::options));
     CCMenuItemImage *aboutButton = CCMenuItemImage::create("button.png", "button.png", this, menu_selector(MainMenu::about));
-    levelButton->setPosition(0,400);
-    optionsButton->setPosition(0,200);
-    aboutButton->setPosition(0,0);
+    playButton->setPosition(-42,250);
+    optionsButton->setPosition(-84,100);
+    aboutButton->setPosition(-140,-50);
     CCMenu *menu = CCMenu::create(levelButton, optionsButton, aboutButton, NULL);
+
     menu->setPosition(ccp(windowSize.width - 200, windowSize.height/2 - windowSize.height/4.0f));
     this->addChild(menu,2);
 
