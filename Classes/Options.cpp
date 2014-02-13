@@ -30,9 +30,9 @@ bool Options::init() {
     this->addChild(bg,-1);
 
     //Create Menu and Menu Buttons
-    CCMenuItemImage *mainMenuButton = CCMenuItemImage::create("button.png", "button.png", this, menu_selector(Options::mainMenu));
+    CCMenuItemImage *mainMenuButton = CCMenuItemImage::create("main_menu_button.png", "main_menu_button_selected.png", this, menu_selector(Options::mainMenu));
     CCMenu *menu = CCMenu::create(mainMenuButton, NULL);
-    menu->setPosition(ccp(windowSize.width - 200, windowSize.height/2 - windowSize.height/4.0f));
+    menu->setPosition(ccp(windowSize.width - 950, windowSize.height/2 - 230));
     this->addChild(menu,2);
 
 	return true;
