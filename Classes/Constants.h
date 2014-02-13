@@ -13,6 +13,8 @@ typedef enum {
     TAG_ABOUT_SCENE,
     TAG_PAUSE,
     TAG_GAMEOVER,
+    TAG_LEVELSELECT_LAYER,
+    TAG_LEVELSELECT_SCENE,
 } tags;
 
 #endif

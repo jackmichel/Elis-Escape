@@ -2,6 +2,7 @@
 #include "Constants.h"
 #include "Game.h"
 #include "Options.h"
+#include "LevelSelect.h"
 #include "About.h"
 #include "Utils.h"
 
@@ -30,22 +31,22 @@ bool MainMenu::init() {
     this->addChild(pLabel, 1);
 
     //Create Menu and Menu Buttons
-    CCMenuItemImage *playButton = CCMenuItemImage::create("button.png", "button.png", this, menu_selector(MainMenu::playGame));
+    CCMenuItemImage *levelButton = CCMenuItemImage::create("button.png", "button.png", this, menu_selector(MainMenu::levelSelect));
     CCMenuItemImage *optionsButton = CCMenuItemImage::create("button.png", "button.png", this, menu_selector(MainMenu::options));
     CCMenuItemImage *aboutButton = CCMenuItemImage::create("button.png", "button.png", this, menu_selector(MainMenu::about));
-    playButton->setPosition(0,400);
+    levelButton->setPosition(0,400);
     optionsButton->setPosition(0,200);
     aboutButton->setPosition(0,0);
-    CCMenu *menu = CCMenu::create(playButton, optionsButton, aboutButton, NULL);
+    CCMenu *menu = CCMenu::create(levelButton, optionsButton, aboutButton, NULL);
     menu->setPosition(ccp(windowSize.width - 200, windowSize.height/2 - windowSize.height/4.0f));
     this->addChild(menu,2);
 
     return true;
 }
 
-void MainMenu::playGame()
+void MainMenu::levelSelect()
 {
-    CCDirector::sharedDirector()->replaceScene(Game::scene());
+    CCDirector::sharedDirector()->replaceScene(LevelSelect::scene());
 }
 
 void MainMenu::options()

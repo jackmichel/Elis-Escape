@@ -10,7 +10,7 @@ class MainMenu : public cocos2d::CCLayer {
 
 public:
     virtual bool init();
-    virtual void playGame();
+    virtual void levelSelect();
     virtual void options();
     virtual void about();
     static void mainMenu();
