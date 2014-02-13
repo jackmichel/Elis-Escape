@@ -31,10 +31,10 @@ bool MainMenu::init() {
     this->addChild(bg,-1);
 
     //Create Menu and Menu Buttons
-    CCMenuItemImage *levelButton = CCMenuItemImage::create("button.png", "button.png", this, menu_selector(MainMenu::levelSelect));
-    CCMenuItemImage *optionsButton = CCMenuItemImage::create("button.png", "button.png", this, menu_selector(MainMenu::options));
-    CCMenuItemImage *aboutButton = CCMenuItemImage::create("button.png", "button.png", this, menu_selector(MainMenu::about));
-    playButton->setPosition(-42,250);
+    CCMenuItemImage *levelButton = CCMenuItemImage::create("play_button.png", "play_button_selected.png", this, menu_selector(MainMenu::levelSelect));
+    CCMenuItemImage *optionsButton = CCMenuItemImage::create("options_button.png", "options_button_selected.png", this, menu_selector(MainMenu::options));
+    CCMenuItemImage *aboutButton = CCMenuItemImage::create("about_button.png", "about_button_selected.png", this, menu_selector(MainMenu::about));
+    levelButton->setPosition(-42,250);
     optionsButton->setPosition(-84,100);
     aboutButton->setPosition(-140,-50);
     CCMenu *menu = CCMenu::create(levelButton, optionsButton, aboutButton, NULL);
