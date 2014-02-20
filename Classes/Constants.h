@@ -15,6 +15,7 @@ typedef enum {
     TAG_GAMEOVER,
     TAG_LEVELSELECT_LAYER,
     TAG_LEVELSELECT_SCENE,
+    TAG_LEVEL1
 } tags;
 
 #endif

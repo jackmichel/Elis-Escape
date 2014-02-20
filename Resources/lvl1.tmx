@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="80" height="48" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="main" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="Tiled/examples/tmw_desert_spacing.png" width="265" height="199"/>
+ </tileset>
+ <tileset firstgid="49" name="sub" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="Tiled/examples/sewer_tileset.png" width="192" height="217"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="80" height="48">
+  <data encoding="base64" compression="zlib">
+   eJztmEEKg0AQBOfsh/JdnxpyCHiRZOmd2XanCuom2BasgkdEHCgJ49BP40n9HM+M05Zf0E+Dfhr006CfBv006KdBPw36adBPw6XfK+L8unrLCO793P/XOGz4sKLfjOd175cJ/TSc+ylnsGO/Wb269MvqtWu/qg679qvmyf0cWtJvzi73e7i8y+92/XNNZ5V+cA/9NOg3xqxz34Ws92YXKr5BFVRtWvENz2LFrh36Ve3KbIWIiIiIiIiIePUNoTtM8A==
+  </data>
+ </layer>
+ <objectgroup name="Objects" width="80" height="48">
+  <object name="SpawnPoint" x="33" y="448" width="46" height="32"/>
+ </objectgroup>
+</map>
