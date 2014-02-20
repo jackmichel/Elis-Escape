@@ -31,8 +31,27 @@ bool Game::init() {
 
     addChild(map, 0, TAG_LEVEL1);
 
+    eli = new CCSprite();
+    eli->initWithFile("eli.png");
+    eli->setPosition(ccp(100,600));
 
-
+    this->addChild(eli, 1);
+   // this->setViewPointCenter(eli->getPosition());
 
 	return true;
+}
+
+void Game::setViewPointCenter(CCPoint position) {
+
+    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+
+    int x = MAX(position.x, winSize.width/2);
+    int y = MAX(position.y, winSize.height/2);
+    x = MIN(x, (map->getMapSize().width * this->map->getTileSize().width) - winSize.width / 2);
+    y = MIN(y, (map->getMapSize().height * map->getTileSize().height) - winSize.height/2);
+    CCPoint actualPosition = ccp(x, y);
+
+    CCPoint centerOfView = ccp(winSize.width/2, winSize.height/2);
+    CCPoint viewPoint = ccpSub(centerOfView, actualPosition);
+    this->setPosition(viewPoint);
 }
