@@ -27,16 +27,16 @@ bool Game::init() {
 
     // create a Tiled TMX map
 
-    CCTMXTiledMap *map = CCTMXTiledMap::create("lvl1-1.tmx");
+    _tileMap = new CCTMXTiledMap();
+    _tileMap->initWithTMXFile("lvl1-1.tmx");
 
-    addChild(map, 0, TAG_LEVEL1);
+    this->addChild(_tileMap, 0);
 
-    eli = new CCSprite();
-    eli->initWithFile("eli.png");
+    CCSprite* eli = CCSprite::create("CloseNormal.png");
     eli->setPosition(ccp(100,600));
 
     this->addChild(eli, 1);
-   // this->setViewPointCenter(eli->getPosition());
+    this->setPosition(ccp(0,-1100));
 
 	return true;
 }
@@ -47,11 +47,18 @@ void Game::setViewPointCenter(CCPoint position) {
 
     int x = MAX(position.x, winSize.width/2);
     int y = MAX(position.y, winSize.height/2);
-    x = MIN(x, (map->getMapSize().width * this->map->getTileSize().width) - winSize.width / 2);
-    y = MIN(y, (map->getMapSize().height * map->getTileSize().height) - winSize.height/2);
+    x = MIN(x, (_tileMap->getMapSize().width * this->_tileMap->getTileSize().width) - winSize.width / 2);
+    y = MIN(y, (_tileMap->getMapSize().height * _tileMap->getTileSize().height) - winSize.height/2);
     CCPoint actualPosition = ccp(x, y);
 
     CCPoint centerOfView = ccp(winSize.width/2, winSize.height/2);
     CCPoint viewPoint = ccpSub(centerOfView, actualPosition);
     this->setPosition(viewPoint);
+}
+
+void Game::ccTouchesEnded(CCSet *pTouches, CCEvent *event) {
+	CCTouch *touch = (CCTouch *)pTouches->anyObject();
+	CCPoint location = touch->getLocationInView();
+	CCPoint convertedLocation = CCDirector::sharedDirector()->convertToGL(location);
+	this->setViewPointCenter(convertedLocation);
 }
