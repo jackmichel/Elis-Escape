@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="80" height="48" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="main" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="Tiled/examples/sewer_tileset.png" width="192" height="217"/>
+ </tileset>
+ <tileset firstgid="31" name="sub" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="Tiled/examples/tmw_desert_spacing.png" width="265" height="199"/>
+ </tileset>
+ <layer name="Background" width="80" height="48">
+  <data encoding="base64" compression="zlib">
+   eJztmVEOwiAQBXsc7n9CY/wjFBbesnTrTNJoDO6DCV1iLdd1lT+7PPGu55mzY26Z/c1m4U/Lwp+WVY+ve1jrdZQR6a+e384s6/hSvW/59JxDdD1rVmtv9cb3alj3X+T5a1mfV5bX+Oh6o5pPvX/v9ptl/3kT2W9H54Ele3T/3n2v97lCdP+7W+NM/1s9f7P7m83L3v92ZOEvLiu7P69nGyt1dl3eZJt3dL9eweLh1Doy+LOAPw38aeBP48Q63uLuC/408KeBPw38rbPrt5A1Ozsn14C/vNle4E8DfxqcHzr408CfBv7Wof/p4E8Dfxr40+D5i8ap/8qfytvX9zRwpYE/Dfxp4E8Dfxr408Dfjw8uGTY5
+  </data>
+ </layer>
+</map>
