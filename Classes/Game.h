@@ -11,6 +11,7 @@ class Game : public cocos2d::CCLayer {
 
 public:
 	static cocos2d::CCScene* scene();
+	virtual void mainMenu();
 	virtual bool init();
 	CREATE_FUNC(Game);
 };

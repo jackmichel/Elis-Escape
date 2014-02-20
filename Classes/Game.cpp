@@ -37,5 +37,15 @@ bool Game::init() {
 
     this->addChild(pLabel, 2);
 
+    //Create Menu and Menu Buttons
+        CCMenuItemImage *mainMenuButton = CCMenuItemImage::create("main_menu_button.png", "main_menu_button_selected.png", this, menu_selector(Game::mainMenu));
+        CCMenu *menu = CCMenu::create(mainMenuButton, NULL);
+        menu->setPosition(ccp(windowSize.width - 1010, windowSize.height/2 - 280));
+        this->addChild(menu,3);
+
 	return true;
+}
+
+void Game::mainMenu() {
+    CCDirector::sharedDirector()->replaceScene(MainMenu::scene());
 }
