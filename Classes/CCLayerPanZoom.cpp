@@ -103,8 +103,8 @@ bool CCLayerPanZoom::init()
     //m_bIsRelativeAnchorPoint = true;
    // m_bIsTouchEnabled = true;
 
-    _maxScale = 3.0f;
-    _minScale = 0.7f;
+    _maxScale = 1.0f;
+    _minScale = 1.0f;
     _touches = CCArray::createWithCapacity(10);
     _touches->retain();
 
@@ -115,10 +115,10 @@ bool CCLayerPanZoom::init()
     _mode = kCCLayerPanZoomModeSheet;
     _minSpeed = 100.0f;
     _maxSpeed = 1000.0f;
-    _topFrameMargin = 100.0f;
-    _bottomFrameMargin = 100.0f;
-    _leftFrameMargin = 100.0f;
-    _rightFrameMargin = 100.0f;
+    _topFrameMargin = 0;
+    _bottomFrameMargin = 0;
+    _leftFrameMargin = 0;
+    _rightFrameMargin = 0;
 
     _rubberEffectRatio = 0.0f;
     _rubberEffectRecoveryTime = 0.2f;
@@ -131,6 +131,9 @@ bool CCLayerPanZoom::init()
     _tileMap = new CCTMXTiledMap();
     _tileMap->initWithTMXFile("lvl1-1.tmx");
     this->addChild(_tileMap, 0);
+
+    CCRect bounds = CCRectMake(-642, -599, _tileMap->getMapSize().width - 80, _tileMap->getMapSize().height + 100);
+    this->setPanBoundsRect(bounds);
 
     return true;
 }
