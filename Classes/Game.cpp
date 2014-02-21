@@ -26,15 +26,13 @@ bool Game::init() {
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
     // create a Tiled TMX map
-
     _tileMap = new CCTMXTiledMap();
     _tileMap->initWithTMXFile("lvl1-1.tmx");
-
     this->addChild(_tileMap, 0);
 
+    // create an Eli Sprite
     CCSprite* eli = CCSprite::create("CloseNormal.png");
     eli->setPosition(ccp(100,600));
-
     this->addChild(eli, 1);
     this->setPosition(ccp(0,-1100));
 
@@ -54,11 +52,4 @@ void Game::setViewPointCenter(CCPoint position) {
     CCPoint centerOfView = ccp(winSize.width/2, winSize.height/2);
     CCPoint viewPoint = ccpSub(centerOfView, actualPosition);
     this->setPosition(viewPoint);
-}
-
-void Game::ccTouchesEnded(CCSet *pTouches, CCEvent *event) {
-	CCTouch *touch = (CCTouch *)pTouches->anyObject();
-	CCPoint location = touch->getLocationInView();
-	CCPoint convertedLocation = CCDirector::sharedDirector()->convertToGL(location);
-	this->setViewPointCenter(convertedLocation);
 }

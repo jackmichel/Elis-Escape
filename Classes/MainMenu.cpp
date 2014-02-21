@@ -47,7 +47,7 @@ bool MainMenu::init() {
 
 void MainMenu::levelSelect()
 {
-    CCDirector::sharedDirector()->replaceScene(Game::scene());
+    CCDirector::sharedDirector()->replaceScene(CCLayerPanZoom::scene());
 }
 
 void MainMenu::options()

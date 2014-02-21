@@ -3,10 +3,11 @@
 
 #include "cocos2d.h"
 #include "AppDelegate.h"
+#include "CCLayerPanZoom.h"
 
 using namespace cocos2d;
 
-class Game : public cocos2d::CCLayer {
+class Game : public CCLayerPanZoom {
 	cocos2d::CCSize windowSize;
 
 private:
@@ -15,7 +16,6 @@ private:
 
 public:
 	static cocos2d::CCScene* scene();
-	void ccTouchesEnded(CCSet *pTouches, CCEvent *event);
 	void setViewPointCenter(CCPoint position);
 	virtual bool init();
 	CREATE_FUNC(Game);
