@@ -19,24 +19,27 @@ bool Game::init() {
 		return false;
 	}
 
-	this->setTouchEnabled(true);
 	windowSize = CCDirector::sharedDirector()->getWinSize();
 
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
     // create a Tiled TMX map
-
     _tileMap = new CCTMXTiledMap();
     _tileMap->initWithTMXFile("lvl1-1.tmx");
-
     this->addChild(_tileMap, 0);
 
+    // Important inits
+    _touches = CCArray::createWithCapacity(10);
+    _touches->retain();
+    _maxTouchDistanceToClick = 315.0f;
+
+    // Experimentation
     CCSprite* eli = CCSprite::create("CloseNormal.png");
     eli->setPosition(ccp(100,600));
-
     this->addChild(eli, 1);
-    this->setPosition(ccp(0,-1100));
+
+    this->setTouchEnabled(true);
 
 	return true;
 }
@@ -56,9 +59,101 @@ void Game::setViewPointCenter(CCPoint position) {
     this->setPosition(viewPoint);
 }
 
+
+void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent){
+    CCTouch *pTouch;
+    CCSetIterator setIter;
+    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
+    {
+        pTouch = (CCTouch *)(*setIter);
+        _touches->addObject(pTouch);
+    }
+
+
+    if (_touches->count() == 1)
+    {
+        _touchMoveBegan = false;
+        time_t seconds;
+
+        seconds = time (NULL);
+        _singleTouchTimestamp = seconds/60;
+    }
+    else
+        _singleTouchTimestamp = INFINITY;
+}
+
+void Game::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent){
+    bool multitouch = _touches->count() > 1;
+    if (multitouch) {
+        // Get the two first touches
+        CCTouch *touch1 = (CCTouch*)_touches->objectAtIndex(0);
+        CCTouch *touch2 = (CCTouch*)_touches->objectAtIndex(1);
+        // Get current and previous positions of the touches
+        CCPoint curPosTouch1 = CCDirector::sharedDirector()->convertToGL(touch1->getLocationInView());
+        CCPoint curPosTouch2 = CCDirector::sharedDirector()->convertToGL(touch2->getLocationInView());
+
+        CCPoint prevPosTouch1 = CCDirector::sharedDirector()->convertToGL(touch1->getPreviousLocationInView());
+        CCPoint prevPosTouch2 = CCDirector::sharedDirector()->convertToGL(touch2->getPreviousLocationInView());
+
+        // Calculate current and previous positions of the layer relative the anchor point
+        CCPoint curPosLayer = ccpMidpoint(curPosTouch1, curPosTouch2);
+        CCPoint prevPosLayer = ccpMidpoint(prevPosTouch1, prevPosTouch2);
+
+        // If current and previous position of the multitouch's center aren't equal -> change position of the layer
+        if (!prevPosLayer.equals(curPosLayer))
+        {
+            this->setPosition(ccp(this->getPosition().x + curPosLayer.x - prevPosLayer.x,
+                this->getPosition().y + curPosLayer.y - prevPosLayer.y));
+        }
+        // Don't click with multitouch
+        _touchDistance = INFINITY;
+    } else {
+        // Get the single touch and it's previous & current position.
+        CCTouch *touch = (CCTouch*)_touches->objectAtIndex(0);
+        CCPoint curTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->getLocationInView());
+        CCPoint prevTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->getPreviousLocationInView());
+
+        // Accumulate touch distance for all modes.
+        _touchDistance += ccpDistance(curTouchPosition, prevTouchPosition);
+    }
+}
+
+void Game::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent){
+    _singleTouchTimestamp = INFINITY;
+
+    // Process click event in single touch.
+    if (  (_touchDistance < _maxTouchDistanceToClick) && (_touches->count() == 1)) {
+        CCTouch *touch = (CCTouch*)_touches->objectAtIndex(0);
+        CCPoint curPos = CCDirector::sharedDirector()->convertToGL(touch->getLocationInView());
+    }
+
+    CCTouch *pTouch;
+    CCSetIterator setIter;
+    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter) {
+        pTouch = (CCTouch *)(*setIter);
+        _touches->removeObject(pTouch);
+    }
+
+    if (_touches->count() == 0) {
+        _touchDistance = 0.0f;
+    }
+}
+
+void  Game::onEnter(){
+    CCLayer::onEnter();
+    CCDirector::sharedDirector()->getScheduler()->scheduleUpdateForTarget(this, 0, false);
+}
+
+void  Game::onExit(){
+    // CCDirector::sharedDirector()->getScheduler()->unscheduleAllSelectorsForTarget(this);
+    CCLayer::onExit();
+}
+
+/*
 void Game::ccTouchesEnded(CCSet *pTouches, CCEvent *event) {
 	CCTouch *touch = (CCTouch *)pTouches->anyObject();
 	CCPoint location = touch->getLocationInView();
 	CCPoint convertedLocation = CCDirector::sharedDirector()->convertToGL(location);
 	this->setViewPointCenter(convertedLocation);
 }
+*/
