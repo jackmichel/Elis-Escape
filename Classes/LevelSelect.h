@@ -12,6 +12,7 @@ class LevelSelect : public cocos2d::CCLayer {
 public:
 	static CCScene* scene();
 	virtual void mainMenu();
+	virtual void game();
 	virtual bool init();
 	CREATE_FUNC(LevelSelect);
 };
