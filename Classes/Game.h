@@ -29,17 +29,20 @@ static union MSVC_EVIL_FLOAT_HACK INFINITY_HACK = {{0x00, 0x00, 0x80, 0x7F}};
 using namespace cocos2d;
 
 class Game : public cocos2d::CCLayer {
-	cocos2d::CCSize windowSize;
 
 private:
 	CCTMXTiledMap *_tileMap;
     CCSprite *eli;
+    CCSize windowSize;
+    int mapWidth;
+    int mapHeight;
 
 public:
 	static cocos2d::CCScene* scene();
 	void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
 	void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
 	void ccTouchesEnded(CCSet *pTouches, CCEvent *event);
+	void setPosition(CCPoint  position);
 	void setViewPointCenter(CCPoint position);
 	void onEnter();
 	void onExit();

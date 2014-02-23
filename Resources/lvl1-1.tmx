@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="90" height="48" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="80" height="36" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="main" tilewidth="32" tileheight="32" spacing="1" margin="1">
   <image source="Tiled/examples/tmw_desert_spacing.png" width="265" height="199"/>
  </tileset>
  <tileset firstgid="49" name="sub" tilewidth="32" tileheight="32" spacing="1" margin="1">
   <image source="Tiled/examples/sewer_tileset.png" width="192" height="217"/>
  </tileset>
- <layer name="Background" width="90" height="48">
+ <layer name="Background" width="80" height="36">
   <data encoding="base64" compression="zlib">
-   eJzt1bENwzAMBVHVHiIjZP/xDHdpI1NHgrwDfmswL4B9rbUu55xzzjnXdvZ/OjN1dK54s85MOjPpzKQzk85MOjPpzKQzk85MOjPpfK7Pz3acq/8vFW54quwc4dLF+WSdnL9L56jnVnkP7P6WiGe8vZl2neKc7drVmXKY7kw3wbmCuc5M05yzzCOd335bOizKxvbSmUnnM9HvpSllv/+nVOmbS0TdlOGa7ZxxV7Yx6Uzdle3pnHPOOefq7waGJ1SP
+   eJzt2EEKhDAQRNGsPYRH8P7HE3duxIRKdyrJ/9C7QXseGMGjlHIw0lB7+GnN5Of4zDjt8hd+Wvhp4aeFnxZ+Wvhp4aeFnxZ+Wvhpufidr5npe43DDk8j/Hr8X3e/yFbyuwp+f9d1O8+c/Hp57eIX5bWqX5bDqn7ZzeznYIlfn73c7+Fyln/tVfObnUfxo+/w08KvrV7P/S5FnZu7lPEOyihrpxHv8KhG7LWCX9ZekVZM/dxq/BxP
   </data>
  </layer>
 </map>

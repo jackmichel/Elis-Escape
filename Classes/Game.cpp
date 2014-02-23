@@ -30,14 +30,11 @@ bool Game::init() {
     this->addChild(_tileMap, 0);
 
     // Important inits
+    mapHeight = _tileMap->getMapSize().height * _tileMap->getTileSize().height;
+    mapWidth = _tileMap->getMapSize().width * this->_tileMap->getTileSize().width;
     _touches = CCArray::createWithCapacity(10);
     _touches->retain();
     _maxTouchDistanceToClick = 315.0f;
-
-    // Experimentation
-    CCSprite* eli = CCSprite::create("CloseNormal.png");
-    eli->setPosition(ccp(100,600));
-    this->addChild(eli, 1);
 
     this->setTouchEnabled(true);
 
@@ -113,6 +110,9 @@ void Game::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent){
         CCPoint curTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->getLocationInView());
         CCPoint prevTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->getPreviousLocationInView());
 
+        this->setPosition(ccp(this->getPosition().x + curTouchPosition.x - prevTouchPosition.x,
+            this->getPosition().y + curTouchPosition.y - prevTouchPosition.y));
+
         // Accumulate touch distance for all modes.
         _touchDistance += ccpDistance(curTouchPosition, prevTouchPosition);
     }
@@ -139,21 +139,30 @@ void Game::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent){
     }
 }
 
+void Game::setPosition(CCPoint  position){
+    CCPoint prevPosition = this->getPosition();
+    CCNode::setPosition(position);
+
+	if (this->getPosition().x > 0) {
+		CCNode::setPosition(ccp(0, this->getPosition().y));
+	}
+	if (this->getPosition().y > 0) {
+		CCNode::setPosition(ccp(this->getPosition().x, 0));
+	}
+	if (this->getPosition().x < -mapWidth + windowSize.width) {
+		CCNode::setPosition(ccp(-mapWidth + windowSize.width, this->getPosition().y));
+	}
+	if (this->getPosition().y < -mapHeight + windowSize.height) {
+		CCNode::setPosition(ccp(this->getPosition().x, -mapHeight + windowSize.height));
+	}
+}
+
 void  Game::onEnter(){
     CCLayer::onEnter();
     CCDirector::sharedDirector()->getScheduler()->scheduleUpdateForTarget(this, 0, false);
 }
 
 void  Game::onExit(){
-    // CCDirector::sharedDirector()->getScheduler()->unscheduleAllSelectorsForTarget(this);
+    CCDirector::sharedDirector()->getScheduler()->unscheduleUpdateForTarget(this);
     CCLayer::onExit();
 }
-
-/*
-void Game::ccTouchesEnded(CCSet *pTouches, CCEvent *event) {
-	CCTouch *touch = (CCTouch *)pTouches->anyObject();
-	CCPoint location = touch->getLocationInView();
-	CCPoint convertedLocation = CCDirector::sharedDirector()->convertToGL(location);
-	this->setViewPointCenter(convertedLocation);
-}
-*/
