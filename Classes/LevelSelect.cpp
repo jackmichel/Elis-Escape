@@ -2,6 +2,7 @@
 #include "MainMenu.h"
 #include "Constants.h"
 #include "Utils.h"
+#include "Game.h"
 
 using namespace cocos2d;
 
@@ -35,9 +36,19 @@ bool LevelSelect::init() {
     menu->setPosition(ccp(windowSize.width - 1010, windowSize.height/2 - 280));
     this->addChild(menu,2);
 
+    //Create level Buttons
+    CCMenuItemImage *levelOne = CCMenuItemImage::create("level1_button.png", "level1_button_selected.png", this, menu_selector(LevelSelect::game));
+    CCMenu *levels = CCMenu::create(levelOne, NULL);
+    levels->setPosition(ccp(0 + (windowSize.width / 10), windowSize.height/2 + 80));
+    this->addChild(levels,2);
+
 	return true;
 }
 
 void LevelSelect::mainMenu() {
     CCDirector::sharedDirector()->replaceScene(MainMenu::scene());
+}
+
+void LevelSelect::game() {
+    CCDirector::sharedDirector()->replaceScene(Game::scene());
 }
