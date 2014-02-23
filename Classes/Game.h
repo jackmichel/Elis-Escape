@@ -44,6 +44,7 @@ public:
 	void ccTouchesEnded(CCSet *pTouches, CCEvent *event);
 	void setPosition(CCPoint  position);
 	void setViewPointCenter(CCPoint position);
+	void gameLoop(float dt);
 	void onEnter();
 	void onExit();
 	virtual bool init();
@@ -54,6 +55,7 @@ public:
 	CC_SYNTHESIZE(float, _maxTouchDistanceToClick, maxTouchDistanceToClick);
 	double _singleTouchTimestamp;
 	bool _touchMoveBegan;
+	bool _running;
 };
 
 #endif

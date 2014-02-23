@@ -31,33 +31,28 @@ bool Game::init() {
 
     // Important inits
     mapHeight = _tileMap->getMapSize().height * _tileMap->getTileSize().height;
-    mapWidth = _tileMap->getMapSize().width * this->_tileMap->getTileSize().width;
+    mapWidth = _tileMap->getMapSize().width * _tileMap->getTileSize().width;
     _touches = CCArray::createWithCapacity(10);
     _touches->retain();
     _maxTouchDistanceToClick = 315.0f;
 
+    // Listen for touches
     this->setTouchEnabled(true);
+
+    // This variable is a flag for whether or not the main game loop should fire
+    _running = false;
+    // Initialize game loop
+    this->schedule(schedule_selector(Game::gameLoop));
 
 	return true;
 }
 
-void Game::setViewPointCenter(CCPoint position) {
-
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-
-    int x = MAX(position.x, winSize.width/2);
-    int y = MAX(position.y, winSize.height/2);
-    x = MIN(x, (_tileMap->getMapSize().width * this->_tileMap->getTileSize().width) - winSize.width / 2);
-    y = MIN(y, (_tileMap->getMapSize().height * _tileMap->getTileSize().height) - winSize.height/2);
-    CCPoint actualPosition = ccp(x, y);
-
-    CCPoint centerOfView = ccp(winSize.width/2, winSize.height/2);
-    CCPoint viewPoint = ccpSub(centerOfView, actualPosition);
-    this->setPosition(viewPoint);
+void Game::gameLoop(float dt) {
+	if (!_running) { return; }
+	CCLog("Loop");
 }
 
-
-void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent){
+void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
     CCTouch *pTouch;
     CCSetIterator setIter;
     for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
@@ -79,7 +74,7 @@ void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent){
         _singleTouchTimestamp = INFINITY;
 }
 
-void Game::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent){
+void Game::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent) {
     bool multitouch = _touches->count() > 1;
     if (multitouch) {
         // Get the two first touches
@@ -118,7 +113,7 @@ void Game::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent){
     }
 }
 
-void Game::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent){
+void Game::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent) {
     _singleTouchTimestamp = INFINITY;
 
     // Process click event in single touch.
@@ -139,7 +134,7 @@ void Game::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent){
     }
 }
 
-void Game::setPosition(CCPoint  position){
+void Game::setPosition(CCPoint  position) {
     CCPoint prevPosition = this->getPosition();
     CCNode::setPosition(position);
 
@@ -157,12 +152,27 @@ void Game::setPosition(CCPoint  position){
 	}
 }
 
-void  Game::onEnter(){
+void Game::setViewPointCenter(CCPoint position) {
+
+    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+
+    int x = MAX(position.x, winSize.width/2);
+    int y = MAX(position.y, winSize.height/2);
+    x = MIN(x, (_tileMap->getMapSize().width * this->_tileMap->getTileSize().width) - winSize.width / 2);
+    y = MIN(y, (_tileMap->getMapSize().height * _tileMap->getTileSize().height) - winSize.height/2);
+    CCPoint actualPosition = ccp(x, y);
+
+    CCPoint centerOfView = ccp(winSize.width/2, winSize.height/2);
+    CCPoint viewPoint = ccpSub(centerOfView, actualPosition);
+    this->setPosition(viewPoint);
+}
+
+void  Game::onEnter() {
     CCLayer::onEnter();
     CCDirector::sharedDirector()->getScheduler()->scheduleUpdateForTarget(this, 0, false);
 }
 
-void  Game::onExit(){
+void  Game::onExit() {
     CCDirector::sharedDirector()->getScheduler()->unscheduleUpdateForTarget(this);
     CCLayer::onExit();
 }
