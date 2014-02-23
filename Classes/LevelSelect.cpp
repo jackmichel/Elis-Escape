@@ -39,7 +39,7 @@ bool LevelSelect::init() {
     //Create level Buttons
     CCMenuItemImage *levelOne = CCMenuItemImage::create("level1_button.png", "level1_button_selected.png", this, menu_selector(LevelSelect::game));
     CCMenu *levels = CCMenu::create(levelOne, NULL);
-    levels->setPosition(ccp(windowSize.width - 1022, windowSize.height/2 + 100));
+    levels->setPosition(ccp(0 + (windowSize.width / 10), windowSize.height/2 + 80));
     this->addChild(levels,2);
 
 	return true;
