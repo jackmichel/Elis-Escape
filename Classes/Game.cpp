@@ -41,6 +41,7 @@ bool Game::init() {
 
     // This variable is a flag for whether or not the main game loop should fire
     _running = false;
+
     // Initialize game loop
     this->schedule(schedule_selector(Game::gameLoop));
 
