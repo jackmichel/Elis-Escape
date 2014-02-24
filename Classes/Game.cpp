@@ -70,7 +70,6 @@ bool Game::init() {
 
 void Game::gameLoop(float dt) {
 	if (!_running) { return; }
-	CCLog("Loop");
 }
 
 void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
@@ -174,16 +173,13 @@ void Game::setPosition(CCPoint  position) {
 }
 
 void Game::setViewPointCenter(CCPoint position) {
-
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-
-    int x = MAX(position.x, winSize.width/2);
-    int y = MAX(position.y, winSize.height/2);
-    x = MIN(x, (_tileMap->getMapSize().width * this->_tileMap->getTileSize().width) - winSize.width / 2);
-    y = MIN(y, (_tileMap->getMapSize().height * _tileMap->getTileSize().height) - winSize.height/2);
+    int x = MAX(position.x, windowSize.width/2);
+    int y = MAX(position.y, windowSize.height/2);
+    x = MIN(x, mapWidth - windowSize.width / 2);
+    y = MIN(y, mapHeight - windowSize.height/2);
     CCPoint actualPosition = ccp(x, y);
 
-    CCPoint centerOfView = ccp(winSize.width/2, winSize.height/2);
+    CCPoint centerOfView = ccp(windowSize.width/2, windowSize.height/2);
     CCPoint viewPoint = ccpSub(centerOfView, actualPosition);
     this->setPosition(viewPoint);
 }
