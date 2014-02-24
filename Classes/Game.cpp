@@ -2,6 +2,7 @@
 #include "MainMenu.h"
 #include "Constants.h"
 #include "Utils.h"
+#include "Eli.h"
 
 using namespace cocos2d;
 
@@ -63,8 +64,7 @@ bool Game::init() {
     int x = ((CCString)*spawnPoint->valueForKey("x")).intValue();
     int y = ((CCString)*spawnPoint->valueForKey("y")).intValue();
 
-    eli = new CCSprite();
-    eli->initWithFile("eli.png");
+    eli = Eli::create();
     eli->setPosition(ccp(x,y));
 
     this->addChild(eli);

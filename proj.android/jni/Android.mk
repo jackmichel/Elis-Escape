@@ -14,7 +14,8 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/Options.cpp \
                    ../../Classes/About.cpp \
                    ../../Classes/LevelSelect.cpp \
-                   ../../Classes/HudLayer.cpp
+                   ../../Classes/HudLayer.cpp \
+                   ../../Classes/Eli.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
