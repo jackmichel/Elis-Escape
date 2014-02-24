@@ -3,9 +3,12 @@
  <tileset firstgid="1" name="platform" tilewidth="50" tileheight="50">
   <image source="Tiled/platform.png" width="50" height="50"/>
  </tileset>
- <layer name="Tile Layer 1" width="42" height="22">
+ <layer name="Platform" width="42" height="22">
   <data encoding="base64" compression="zlib">
    eJztldsJADAIxHT/pTuDR+oLA34qodTTzcyHVHfOk+U8Wc6TZZonlbFET8YtiPRU3qMtnqpD5Xsqc+l52Z70Lqr/b3p+VpO9/yq/84ru3+bZqR6XOgEZ
   </data>
  </layer>
+ <objectgroup name="Objects" width="42" height="22">
+  <object name="SpawnPoint" x="100" y="400" width="50" height="20"/>
+ </objectgroup>
 </map>
