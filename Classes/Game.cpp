@@ -28,6 +28,8 @@ bool Game::init() {
     // create a Tiled TMX map
 
     CCTMXTiledMap *_tileMap = CCTMXTiledMap::create("testsmile.tmx");
+    //CCTMXLayer *_background = CCTMXLayer::create(_tilemap, layerNamed("Background"));
+
 
     addChild(_tileMap, 0, TAG_LEVEL1);
 
