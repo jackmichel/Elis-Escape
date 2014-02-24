@@ -45,6 +45,26 @@ bool Game::init() {
     // Initialize game loop
     this->schedule(schedule_selector(Game::gameLoop));
 
+    // Reference to the objects in tilemap
+    CCTMXObjectGroup *objectGroup = _tileMap->objectGroupNamed("Objects");
+
+    if(objectGroup == NULL){
+        CCLog("tile map has no objects object layer");
+        return false;
+    }
+
+    CCDictionary *spawnPoint = objectGroup->objectNamed("SpawnPoint");
+
+    int x = ((CCString)*spawnPoint->valueForKey("x")).intValue();
+    int y = ((CCString)*spawnPoint->valueForKey("y")).intValue();
+
+    eli = new CCSprite();
+    eli->initWithFile("eli.png");
+    eli->setPosition(ccp(x,y));
+
+    this->addChild(eli);
+    this->setViewPointCenter(eli->getPosition());
+
 	return true;
 }
 
