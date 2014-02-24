@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "AppDelegate.h"
+#include "HudLayer.h"
 
 #define kCCLayerPanZoomMultitouchGesturesDetectionDelay 0.5
 
@@ -32,6 +33,7 @@ class Game : public cocos2d::CCLayer {
 
 private:
 	CCTMXTiledMap *_tileMap;
+	HudLayer *_hud;
     CCSprite *eli;
     CCSize windowSize;
     int mapWidth;

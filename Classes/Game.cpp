@@ -11,6 +11,11 @@ CCScene* Game::scene() {
     Game *g = Game::create();
     sc->addChild(g, 0, TAG_GAME_LAYER);
 
+    HudLayer *hud = new HudLayer();
+    hud->init();
+    sc->addChild(hud);
+    g->_hud = hud;
+
     return sc;
 }
 
