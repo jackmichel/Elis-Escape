@@ -47,6 +47,7 @@ public:
 	void setPosition(CCPoint  position);
 	void setViewPointCenter(CCPoint position);
 	void gameLoop(float dt);
+	void switchMode();
 	void onEnter();
 	void onExit();
 	virtual bool init();

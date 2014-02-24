@@ -75,6 +75,7 @@ bool Game::init() {
 
 void Game::gameLoop(float dt) {
 	if (!_running) { return; }
+	CCLog("Looping");
 }
 
 void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
@@ -189,12 +190,16 @@ void Game::setViewPointCenter(CCPoint position) {
     this->setPosition(viewPoint);
 }
 
-void  Game::onEnter() {
+void Game::switchMode() {
+	_running = !_running;
+}
+
+void Game::onEnter() {
     CCLayer::onEnter();
     CCDirector::sharedDirector()->getScheduler()->scheduleUpdateForTarget(this, 0, false);
 }
 
-void  Game::onExit() {
+void Game::onExit() {
     CCDirector::sharedDirector()->getScheduler()->unscheduleUpdateForTarget(this);
     CCLayer::onExit();
 }

@@ -1,4 +1,5 @@
 #include "HudLayer.h"
+#include "Utils.h"
 
 using namespace cocos2d;
 
@@ -17,5 +18,5 @@ bool HudLayer::init() {
 }
 
 void HudLayer::switchMode() {
-	CCLog("Mode Switched");
+	Utils::gameLayer()->switchMode();
 }
