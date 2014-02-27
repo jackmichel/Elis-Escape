@@ -12,8 +12,7 @@ CCScene* Game::scene() {
     Game *g = Game::create();
     sc->addChild(g, 0, TAG_GAME_LAYER);
 
-    HudLayer *hud = new HudLayer();
-    hud->init();
+    HudLayer *hud = HudLayer::create();
     sc->addChild(hud);
     g->_hud = hud;
 
@@ -33,6 +32,7 @@ bool Game::init() {
     // create a Tiled TMX map
     _tileMap = new CCTMXTiledMap();
     _tileMap->initWithTMXFile("lvl1-1.tmx");
+    _platform = _tileMap->layerNamed("Platform");
     this->addChild(_tileMap, 0);
 
     // Important inits
@@ -76,6 +76,7 @@ bool Game::init() {
 void Game::gameLoop(float dt) {
 	if (!_running) { return; }
 	CCLog("Looping");
+	eli->update(dt);
 }
 
 void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {

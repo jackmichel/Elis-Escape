@@ -2,6 +2,10 @@
 #define __ELI_H__
 
 #define INITIAL_SPEED 8
+#define TERMINAL_VELOCITY 70
+#define AIR_FRICTION 0.9999f
+#define PLAYER_JUMP 42
+#define GRAVITY 1.5
 
 #include "cocos2d.h"
 
@@ -18,7 +22,6 @@ typedef enum
 class Eli : public CCSprite {
 	float _speed;
 	CCSize _screenSize;
-	CCPoint _nextPosition;
 
 public:
 
@@ -28,8 +31,13 @@ public:
 	CC_SYNTHESIZE(EliState, _state, State);
 	CC_SYNTHESIZE(bool, _jumping, Jumping);
 	CC_SYNTHESIZE(bool, _inAir, InAir);
+	CC_SYNTHESIZE(CCPoint, _nextPosition, NextPosition);
+	CC_SYNTHESIZE(float, _width, Width);
+	CC_SYNTHESIZE(float, _height, Height);
+	CC_SYNTHESIZE(CCPoint, _vector, Vector);
 
 	static Eli * create (void);
+	void update (float dt);
 
 };
 
