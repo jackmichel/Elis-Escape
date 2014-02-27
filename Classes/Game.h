@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "AppDelegate.h"
 #include "HudLayer.h"
+#include "Eli.h"
 
 #define kCCLayerPanZoomMultitouchGesturesDetectionDelay 0.5
 
@@ -35,8 +36,10 @@ private:
 	CCTMXTiledMap *_tileMap;
 	CCTMXLayer *_platform;
 	HudLayer *_hud;
-    CCSprite *eli;
+    Eli *eli;
     CCSize windowSize;
+    int mapWidthTiles;
+    int mapHeightTiles;
     int mapWidth;
     int mapHeight;
 
@@ -51,6 +54,8 @@ public:
 	void switchMode();
 	void onEnter();
 	void onExit();
+	CCPoint tileCoordForPosition(CCPoint position);
+	void setEliPosition(CCPoint position);
 	virtual bool init();
 	CREATE_FUNC(Game);
 

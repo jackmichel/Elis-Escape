@@ -57,5 +57,8 @@ void Eli::update (float dt) {
 
     _nextPosition.x = this->getPositionX() + _vector.x;
   	_nextPosition.y = this->getPositionY() + _vector.y;
-  	this->setPosition(ccp(_nextPosition.x,_nextPosition.y));
+}
+
+void Eli::changeDirection() {
+	_speed = -_speed;
 }

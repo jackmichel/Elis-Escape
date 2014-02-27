@@ -36,8 +36,10 @@ bool Game::init() {
     this->addChild(_tileMap, 0);
 
     // Important inits
-    mapHeight = _tileMap->getMapSize().height * _tileMap->getTileSize().height;
-    mapWidth = _tileMap->getMapSize().width * _tileMap->getTileSize().width;
+    mapHeightTiles = _tileMap->getMapSize().height;
+    mapWidthTiles = _tileMap->getMapSize().width;
+    mapHeight = mapHeightTiles * _tileMap->getTileSize().height;
+    mapWidth = mapWidthTiles * _tileMap->getTileSize().width;
     _touches = CCArray::createWithCapacity(10);
     _touches->retain();
     _maxTouchDistanceToClick = 315.0f;
@@ -75,90 +77,93 @@ bool Game::init() {
 
 void Game::gameLoop(float dt) {
 	if (!_running) { return; }
-	CCLog("Looping");
 	eli->update(dt);
+	this->setEliPosition(eli->getNextPosition());
 }
 
 void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
-    CCTouch *pTouch;
-    CCSetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
-    {
-        pTouch = (CCTouch *)(*setIter);
-        _touches->addObject(pTouch);
-    }
+	if (!_running) {
+	    CCTouch *pTouch;
+	    CCSetIterator setIter;
+	    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter) {
+	        pTouch = (CCTouch *)(*setIter);
+	        _touches->addObject(pTouch);
+	    }
 
+	    if (_touches->count() == 1) {
+	        _touchMoveBegan = false;
+	        time_t seconds;
 
-    if (_touches->count() == 1)
-    {
-        _touchMoveBegan = false;
-        time_t seconds;
-
-        seconds = time (NULL);
-        _singleTouchTimestamp = seconds/60;
-    }
-    else
-        _singleTouchTimestamp = INFINITY;
+	        seconds = time (NULL);
+	        _singleTouchTimestamp = seconds/60;
+	    } else {
+	    	 _singleTouchTimestamp = INFINITY;
+	    }
+	}
 }
 
 void Game::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent) {
-    bool multitouch = _touches->count() > 1;
-    if (multitouch) {
-        // Get the two first touches
-        CCTouch *touch1 = (CCTouch*)_touches->objectAtIndex(0);
-        CCTouch *touch2 = (CCTouch*)_touches->objectAtIndex(1);
-        // Get current and previous positions of the touches
-        CCPoint curPosTouch1 = CCDirector::sharedDirector()->convertToGL(touch1->getLocationInView());
-        CCPoint curPosTouch2 = CCDirector::sharedDirector()->convertToGL(touch2->getLocationInView());
+	if (!_running) {
+		bool multitouch = _touches->count() > 1;
+		if (multitouch) {
+			// Get the two first touches
+			CCTouch *touch1 = (CCTouch*)_touches->objectAtIndex(0);
+			CCTouch *touch2 = (CCTouch*)_touches->objectAtIndex(1);
+			// Get current and previous positions of the touches
+			CCPoint curPosTouch1 = CCDirector::sharedDirector()->convertToGL(touch1->getLocationInView());
+			CCPoint curPosTouch2 = CCDirector::sharedDirector()->convertToGL(touch2->getLocationInView());
 
-        CCPoint prevPosTouch1 = CCDirector::sharedDirector()->convertToGL(touch1->getPreviousLocationInView());
-        CCPoint prevPosTouch2 = CCDirector::sharedDirector()->convertToGL(touch2->getPreviousLocationInView());
+			CCPoint prevPosTouch1 = CCDirector::sharedDirector()->convertToGL(touch1->getPreviousLocationInView());
+			CCPoint prevPosTouch2 = CCDirector::sharedDirector()->convertToGL(touch2->getPreviousLocationInView());
 
-        // Calculate current and previous positions of the layer relative the anchor point
-        CCPoint curPosLayer = ccpMidpoint(curPosTouch1, curPosTouch2);
-        CCPoint prevPosLayer = ccpMidpoint(prevPosTouch1, prevPosTouch2);
+			// Calculate current and previous positions of the layer relative the anchor point
+			CCPoint curPosLayer = ccpMidpoint(curPosTouch1, curPosTouch2);
+			CCPoint prevPosLayer = ccpMidpoint(prevPosTouch1, prevPosTouch2);
 
-        // If current and previous position of the multitouch's center aren't equal -> change position of the layer
-        if (!prevPosLayer.equals(curPosLayer))
-        {
-            this->setPosition(ccp(this->getPosition().x + curPosLayer.x - prevPosLayer.x,
-                this->getPosition().y + curPosLayer.y - prevPosLayer.y));
-        }
-        // Don't click with multitouch
-        _touchDistance = INFINITY;
-    } else {
-        // Get the single touch and it's previous & current position.
-        CCTouch *touch = (CCTouch*)_touches->objectAtIndex(0);
-        CCPoint curTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->getLocationInView());
-        CCPoint prevTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->getPreviousLocationInView());
+			// If current and previous position of the multitouch's center aren't equal -> change position of the layer
+			if (!prevPosLayer.equals(curPosLayer))
+			{
+				this->setPosition(ccp(this->getPosition().x + curPosLayer.x - prevPosLayer.x,
+					this->getPosition().y + curPosLayer.y - prevPosLayer.y));
+			}
+			// Don't click with multitouch
+			_touchDistance = INFINITY;
+		} else {
+			// Get the single touch and it's previous & current position.
+			CCTouch *touch = (CCTouch*)_touches->objectAtIndex(0);
+			CCPoint curTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->getLocationInView());
+			CCPoint prevTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->getPreviousLocationInView());
 
-        this->setPosition(ccp(this->getPosition().x + curTouchPosition.x - prevTouchPosition.x,
-            this->getPosition().y + curTouchPosition.y - prevTouchPosition.y));
+			this->setPosition(ccp(this->getPosition().x + curTouchPosition.x - prevTouchPosition.x,
+				this->getPosition().y + curTouchPosition.y - prevTouchPosition.y));
 
-        // Accumulate touch distance for all modes.
-        _touchDistance += ccpDistance(curTouchPosition, prevTouchPosition);
-    }
+			// Accumulate touch distance for all modes.
+			_touchDistance += ccpDistance(curTouchPosition, prevTouchPosition);
+		}
+	}
 }
 
 void Game::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent) {
-    _singleTouchTimestamp = INFINITY;
+	if (!_running) {
+		_singleTouchTimestamp = INFINITY;
 
-    // Process click event in single touch.
-    if (  (_touchDistance < _maxTouchDistanceToClick) && (_touches->count() == 1)) {
-        CCTouch *touch = (CCTouch*)_touches->objectAtIndex(0);
-        CCPoint curPos = CCDirector::sharedDirector()->convertToGL(touch->getLocationInView());
-    }
+		// Process click event in single touch.
+		if (  (_touchDistance < _maxTouchDistanceToClick) && (_touches->count() == 1)) {
+			CCTouch *touch = (CCTouch*)_touches->objectAtIndex(0);
+			CCPoint curPos = CCDirector::sharedDirector()->convertToGL(touch->getLocationInView());
+		}
 
-    CCTouch *pTouch;
-    CCSetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter) {
-        pTouch = (CCTouch *)(*setIter);
-        _touches->removeObject(pTouch);
-    }
+		CCTouch *pTouch;
+		CCSetIterator setIter;
+		for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter) {
+			pTouch = (CCTouch *)(*setIter);
+			_touches->removeObject(pTouch);
+		}
 
-    if (_touches->count() == 0) {
-        _touchDistance = 0.0f;
-    }
+		if (_touches->count() == 0) {
+			_touchDistance = 0.0f;
+		}
+	}
 }
 
 void Game::setPosition(CCPoint  position) {
@@ -189,6 +194,53 @@ void Game::setViewPointCenter(CCPoint position) {
     CCPoint centerOfView = ccp(windowSize.width/2, windowSize.height/2);
     CCPoint viewPoint = ccpSub(centerOfView, actualPosition);
     this->setPosition(viewPoint);
+}
+
+CCPoint Game::tileCoordForPosition(CCPoint position) {
+    int x = position.x / _tileMap->getTileSize().width;
+    int y = ((_tileMap->getMapSize().height * _tileMap->getTileSize().height) - position.y) / _tileMap->getTileSize().height;
+    return ccp(x, y);
+}
+
+void Game::setEliPosition(CCPoint position) {
+    CCPoint top = this->tileCoordForPosition(ccp(position.x, position.y + 45));
+    CCPoint bottom = this->tileCoordForPosition(ccp(position.x, position.y - 45));
+    CCPoint left = this->tileCoordForPosition(ccp(position.x - 10, position.y - 35));
+    CCPoint right = this->tileCoordForPosition(ccp(position.x + 10, position.y - 35));
+
+    int tileTop = _platform->tileGIDAt(top);
+    int tileBottom = _platform->tileGIDAt(bottom);
+    int tileLeft = _platform->tileGIDAt(left);
+    int tileRight = _platform->tileGIDAt(right);
+
+    CCLog("Next Eli Position: %f, %f", position.x, position.y);
+    CCLog("Bottom %f", bottom.y);
+
+    if (tileBottom == 1) {
+    	if (tileRight == 1) {
+    		eli->changeDirection();
+    		CCLog("Bottom & Right");
+    		return;
+    	} else if (tileLeft == 1) {
+    		eli->changeDirection();
+    		CCLog("Bottom & Left");
+    		return;
+    	} else {
+    		eli->setPosition(ccp(position.x, (mapHeightTiles - bottom.y + 1) * 50));
+    		CCLog("Bottom");
+    	}
+    } else if (tileTop == 1) {
+    	if (tileRight == 1) {
+    		return;
+    	} else if (tileLeft == 1) {
+    		return;
+    	} else {
+    		eli->setPosition(ccp(position.x, eli->getPosition().y));
+    	}
+    } else {
+    	eli->setPosition(position);
+    }
+    this->setViewPointCenter(eli->getPosition());
 }
 
 void Game::switchMode() {

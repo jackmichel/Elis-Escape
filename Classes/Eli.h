@@ -2,7 +2,7 @@
 #define __ELI_H__
 
 #define INITIAL_SPEED 8
-#define TERMINAL_VELOCITY 70
+#define TERMINAL_VELOCITY 10
 #define AIR_FRICTION 0.9999f
 #define PLAYER_JUMP 42
 #define GRAVITY 1.5
@@ -38,6 +38,7 @@ public:
 
 	static Eli * create (void);
 	void update (float dt);
+	void changeDirection();
 
 };
 
