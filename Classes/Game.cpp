@@ -102,8 +102,9 @@ void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
 	} else {
 		CCTouch *touch = (CCTouch *)pTouches->anyObject();
 		if (touch) {
-			if (eli->getState() != kPlayerDying) {
+			if (eli->getState() != kPlayerDying && !eli->getInAir()) {
 				eli->setJumping(true);
+				eli->setInAir(true);
 			}
 		}
 	}
@@ -170,8 +171,6 @@ void Game::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent) {
 		if (_touches->count() == 0) {
 			_touchDistance = 0.0f;
 		}
-	} else {
-		eli->setJumping(false);
 	}
 }
 
@@ -213,33 +212,44 @@ CCPoint Game::tileCoordForPosition(CCPoint position) {
 
 void Game::setEliPosition(CCPoint position) {
     CCPoint top = this->tileCoordForPosition(ccp(position.x, position.y + 45));
+    CCPoint topLeft = this->tileCoordForPosition(ccp(position.x - 10, position.y + 25));
+    CCPoint topRight = this->tileCoordForPosition(ccp(position.x + 10, position.y + 25));
     CCPoint bottom = this->tileCoordForPosition(ccp(position.x, position.y - 45));
-    CCPoint left = this->tileCoordForPosition(ccp(position.x - 10, position.y - 35));
-    CCPoint right = this->tileCoordForPosition(ccp(position.x + 10, position.y - 35));
+    CCPoint bottomLeft = this->tileCoordForPosition(ccp(position.x - 10, position.y - 25));
+    CCPoint bottomRight = this->tileCoordForPosition(ccp(position.x + 10, position.y - 25));
+    CCPoint middleLeft = this->tileCoordForPosition(ccp(position.x - 10, position.y));
+    CCPoint middleRight = this->tileCoordForPosition(ccp(position.x + 10, position.y));
 
     int tileTop = _platform->tileGIDAt(top);
+    int tileTopLeft = _platform->tileGIDAt(topLeft);
+    int tileTopRight = _platform->tileGIDAt(topRight);
     int tileBottom = _platform->tileGIDAt(bottom);
-    int tileLeft = _platform->tileGIDAt(left);
-    int tileRight = _platform->tileGIDAt(right);
+    int tileBottomLeft = _platform->tileGIDAt(bottomLeft);
+    int tileBottomRight = _platform->tileGIDAt(bottomRight);
+    int tileMiddleLeft = _platform->tileGIDAt(middleLeft);
+    int tileMiddleRight = _platform->tileGIDAt(middleRight);
 
-    CCLog("Next Eli Position: %f, %f", position.x, position.y);
-    CCLog("Bottom %f", bottom.y);
+    if (eli->getJumping()) {
+    	CCLog("Eli is Jumping");
+    }
 
     if (tileBottom == 1) {
-    	if (tileRight == 1) {
+    	eli->setInAir(false);
+    	if (tileTopRight == 1 || tileMiddleRight == 1 || tileBottomRight == 1) {
     		eli->changeDirection();
     		return;
-    	} else if (tileLeft == 1) {
+    	} else if (tileTopLeft == 1 || tileMiddleLeft == 1 || tileBottomRight == 1) {
     		eli->changeDirection();
     		return;
     	} else {
     		eli->setPosition(ccp(position.x, (mapHeightTiles - bottom.y + 1) * 50));
     	}
     } else if (tileTop == 1) {
-    	if (tileRight == 1) {
+    	eli->setJumping(false);
+    	if (tileTopRight == 1 || tileMiddleRight == 1 || tileBottomRight == 1) {
     		eli->changeDirection();
     		return;
-    	} else if (tileLeft == 1) {
+    	} else if (tileTopLeft == 1 || tileMiddleLeft ==1 || tileBottomRight == 1) {
     		eli->changeDirection();
     		return;
     	} else {

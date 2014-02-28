@@ -45,7 +45,7 @@ void Eli::update (float dt) {
 
     if (_jumping) {
         _state = kPlayerFalling;
-        _vector.y += PLAYER_JUMP * 0.25f;
+        _vector.y += PLAYER_JUMP * 0.5f;
         if (_vector.y > PLAYER_JUMP ) {
         	_jumping = false;
         }

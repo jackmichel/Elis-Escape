@@ -4,7 +4,7 @@
 #define INITIAL_SPEED 8
 #define TERMINAL_VELOCITY 10
 #define AIR_FRICTION 0.9999f
-#define PLAYER_JUMP 14
+#define PLAYER_JUMP 18
 #define GRAVITY 1.5
 
 #include "cocos2d.h"
