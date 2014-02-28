@@ -99,6 +99,13 @@ void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
 	    } else {
 	    	 _singleTouchTimestamp = INFINITY;
 	    }
+	} else {
+		CCTouch *touch = (CCTouch *)pTouches->anyObject();
+		if (touch) {
+			if (eli->getState() != kPlayerDying) {
+				eli->setJumping(true);
+			}
+		}
 	}
 }
 
@@ -163,6 +170,8 @@ void Game::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent) {
 		if (_touches->count() == 0) {
 			_touchDistance = 0.0f;
 		}
+	} else {
+		eli->setJumping(false);
 	}
 }
 
@@ -219,23 +228,22 @@ void Game::setEliPosition(CCPoint position) {
     if (tileBottom == 1) {
     	if (tileRight == 1) {
     		eli->changeDirection();
-    		CCLog("Bottom & Right");
     		return;
     	} else if (tileLeft == 1) {
     		eli->changeDirection();
-    		CCLog("Bottom & Left");
     		return;
     	} else {
     		eli->setPosition(ccp(position.x, (mapHeightTiles - bottom.y + 1) * 50));
-    		CCLog("Bottom");
     	}
     } else if (tileTop == 1) {
     	if (tileRight == 1) {
+    		eli->changeDirection();
     		return;
     	} else if (tileLeft == 1) {
+    		eli->changeDirection();
     		return;
     	} else {
-    		eli->setPosition(ccp(position.x, eli->getPosition().y));
+    		eli->setPosition(ccp(position.x, (mapHeightTiles - top.y - 2) * 50));
     	}
     } else {
     	eli->setPosition(position);
