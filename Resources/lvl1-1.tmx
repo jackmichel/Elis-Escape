@@ -5,7 +5,7 @@
  </tileset>
  <layer name="Platform" width="42" height="22">
   <data encoding="base64" compression="zlib">
-   eJztldsJADAIxHT/pTuDR+oLA34qodTTzcyHVHfOk+U8Wc6TZZonlbFET8YtiPRU3qMtnqpD5Xsqc+l52Z70Lqr/b3p+VpO9/yq/84ru3+bZqR6XOgEZ
+   eJztltsNACAIxHD/pZ0B7PEwNOFTUyMeHjM7Q6o768mynizryTLNk8rYl1zOnAWeNZXz6AdP4p4o1Oen98v2VP7RPH0wPT+ryX7/UdR5FV2v6OmOnp3qAom+ARs=
   </data>
  </layer>
  <objectgroup name="Objects" width="42" height="22">

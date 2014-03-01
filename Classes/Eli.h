@@ -1,7 +1,7 @@
 #ifndef __ELI_H__
 #define __ELI_H__
 
-#define INITIAL_SPEED 8
+#define INITIAL_SPEED 5
 #define TERMINAL_VELOCITY 10
 #define AIR_FRICTION 0.9999f
 #define PLAYER_JUMP 18

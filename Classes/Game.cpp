@@ -256,6 +256,7 @@ void Game::setEliPosition(CCPoint position) {
 			}
 			if (currentY <= bottom - eliHeight && position.y > bottom - eliHeight) {
 				newY = bottom - eliHeight;
+				eli->setJumping(false);
 				break;
 			}
 		}
