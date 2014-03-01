@@ -60,6 +60,7 @@ public:
 	CREATE_FUNC(Game);
 
 	CC_SYNTHESIZE(CCArray*, _touches, touches);
+	CC_SYNTHESIZE(CCArray*, _tiles, tiles);
 	CC_SYNTHESIZE(float, _touchDistance, touchDistance);
 	CC_SYNTHESIZE(float, _maxTouchDistanceToClick, maxTouchDistanceToClick);
 	double _singleTouchTimestamp;

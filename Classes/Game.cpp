@@ -44,6 +44,22 @@ bool Game::init() {
     _touches->retain();
     _maxTouchDistanceToClick = 315.0f;
 
+    //Create array of all tiles in map
+    _tiles = CCArray::createWithCapacity(mapHeightTiles * mapWidthTiles);
+    _tiles->retain();
+    //Loop through tilemap rows
+    for (int i = 0; i < mapHeightTiles; i++) {
+    	//Loop through tilemap columns
+    	for (int j = 0; j < mapWidthTiles; j++) {
+    		//Check if this is a platform at this coordinate
+    		if (_platform->tileGIDAt(ccp(j,i)) == 1) {
+    			//It is a platform so add it to the array
+    			CCSprite *tile = _platform->tileAt(ccp(j,i));
+    			_tiles->addObject(tile);
+    		}
+    	}
+    }
+
     // Listen for touches
     this->setTouchEnabled(true);
 
