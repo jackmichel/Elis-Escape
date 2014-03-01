@@ -251,6 +251,7 @@ void Game::setEliPosition(CCPoint position) {
 		if (position.x > left && position.x < right) {
 			if (currentY >= top + eliHeight && position.y < top + eliHeight) {
 				newY = top + eliHeight;
+				eli->setInAir(false);
 				break;
 			}
 			if (currentY <= bottom - eliHeight && position.y > bottom - eliHeight) {
@@ -268,7 +269,7 @@ void Game::setEliPosition(CCPoint position) {
 		int right = location.x + tileWidth;
 		int bottom = location.y;
 		int top = location.y + tileHeight;
-		int offset = 40; // magic number, used to check collision with walls in both his top and bottom half
+		int offset = eliHeight / 2; // used to check collision with walls in both his top and bottom half
 
 		// Because Eli is essentially the size of two tiles we need to check for collision in both his top and bottom half
 		// Check for collision in lower half
@@ -302,59 +303,6 @@ void Game::setEliPosition(CCPoint position) {
 	eli->setPosition(ccp(newX, newY));
 	this->setViewPointCenter(ccp(newX, newY));
 }
-
-/*
-void Game::setEliPosition(CCPoint position) {
-    CCPoint top = this->tileCoordForPosition(ccp(position.x, position.y + 45));
-    CCPoint topLeft = this->tileCoordForPosition(ccp(position.x - 10, position.y + 25));
-    CCPoint topRight = this->tileCoordForPosition(ccp(position.x + 10, position.y + 25));
-    CCPoint bottom = this->tileCoordForPosition(ccp(position.x, position.y - 45));
-    CCPoint bottomLeft = this->tileCoordForPosition(ccp(position.x - 10, position.y - 25));
-    CCPoint bottomRight = this->tileCoordForPosition(ccp(position.x + 10, position.y - 25));
-    CCPoint middleLeft = this->tileCoordForPosition(ccp(position.x - 10, position.y));
-    CCPoint middleRight = this->tileCoordForPosition(ccp(position.x + 10, position.y));
-
-    int tileTop = _platform->tileGIDAt(top);
-    int tileTopLeft = _platform->tileGIDAt(topLeft);
-    int tileTopRight = _platform->tileGIDAt(topRight);
-    int tileBottom = _platform->tileGIDAt(bottom);
-    int tileBottomLeft = _platform->tileGIDAt(bottomLeft);
-    int tileBottomRight = _platform->tileGIDAt(bottomRight);
-    int tileMiddleLeft = _platform->tileGIDAt(middleLeft);
-    int tileMiddleRight = _platform->tileGIDAt(middleRight);
-
-    if (eli->getJumping()) {
-    	CCLog("Eli is Jumping");
-    }
-
-    if (tileBottom == 1) {
-    	eli->setInAir(false);
-    	if (tileTopRight == 1 || tileMiddleRight == 1 || tileBottomRight == 1) {
-    		eli->changeDirection();
-    		return;
-    	} else if (tileTopLeft == 1 || tileMiddleLeft == 1 || tileBottomRight == 1) {
-    		eli->changeDirection();
-    		return;
-    	} else {
-    		eli->setPosition(ccp(position.x, (mapHeightTiles - bottom.y + 1) * 50));
-    	}
-    } else if (tileTop == 1) {
-    	eli->setJumping(false);
-    	if (tileTopRight == 1 || tileMiddleRight == 1 || tileBottomRight == 1) {
-    		eli->changeDirection();
-    		return;
-    	} else if (tileTopLeft == 1 || tileMiddleLeft ==1 || tileBottomRight == 1) {
-    		eli->changeDirection();
-    		return;
-    	} else {
-    		eli->setPosition(ccp(position.x, (mapHeightTiles - top.y - 2) * 50));
-    	}
-    } else {
-    	eli->setPosition(position);
-    }
-    this->setViewPointCenter(eli->getPosition());
-}
-*/
 
 void Game::switchMode() {
 	_running = !_running;
