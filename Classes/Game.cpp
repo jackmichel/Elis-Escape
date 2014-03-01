@@ -36,10 +36,13 @@ bool Game::init() {
     this->addChild(_tileMap, 0);
 
     // Important inits
+	eliHeight = 50;
+    tileHeight = _tileMap->getTileSize().height;
+    tileWidth = _tileMap->getTileSize().width;
     mapHeightTiles = _tileMap->getMapSize().height;
     mapWidthTiles = _tileMap->getMapSize().width;
-    mapHeight = mapHeightTiles * _tileMap->getTileSize().height;
-    mapWidth = mapWidthTiles * _tileMap->getTileSize().width;
+    mapHeight = mapHeightTiles * tileHeight;
+    mapWidth = mapWidthTiles * tileWidth;
     _touches = CCArray::createWithCapacity(10);
     _touches->retain();
     _maxTouchDistanceToClick = 315.0f;
@@ -47,9 +50,9 @@ bool Game::init() {
     //Create array of all tiles in map
     _tiles = CCArray::createWithCapacity(mapHeightTiles * mapWidthTiles);
     _tiles->retain();
-    //Loop through tilemap rows
+    //Loop through map rows
     for (int i = 0; i < mapHeightTiles; i++) {
-    	//Loop through tilemap columns
+    	//Loop through map columns
     	for (int j = 0; j < mapWidthTiles; j++) {
     		//Check if this is a platform at this coordinate
     		if (_platform->tileGIDAt(ccp(j,i)) == 1) {
@@ -227,6 +230,81 @@ CCPoint Game::tileCoordForPosition(CCPoint position) {
 }
 
 void Game::setEliPosition(CCPoint position) {
+	// Eli's current x and y
+	int currentX = eli->getPosition().x;
+	int currentY = eli->getPosition().y;
+
+	// Desired x and y
+	int newX = position.x;
+	int newY = position.y;
+
+	for (int i = 0; i < _tiles->count(); i++) {
+		// Get the current tile and compute its bounds
+		CCSprite *tile = (CCSprite *) _tiles->objectAtIndex(i);
+		CCPoint location = tile->getPosition();
+		int left = location.x - 1; // subtract and add 1 to left and right so that there is absolutely no void between tiles
+		int right = location.x + tileWidth + 1;
+		int bottom = location.y;
+		int top = location.y + tileHeight;
+
+		// maybe switch currentX here for position.x
+		if (position.x > left && position.x < right) {
+			if (currentY >= top + eliHeight && position.y < top + eliHeight) {
+				newY = top + eliHeight;
+				break;
+			}
+			if (currentY <= bottom - eliHeight && position.y > bottom - eliHeight) {
+				newY = bottom - eliHeight;
+				break;
+			}
+		}
+	}
+
+	for (int i = 0; i < _tiles->count(); i++) {
+		// Get the current tile and compute its bounds
+		CCSprite *tile = (CCSprite *) _tiles->objectAtIndex(i);
+		CCPoint location = tile->getPosition();
+		int left = location.x;
+		int right = location.x + tileWidth;
+		int bottom = location.y;
+		int top = location.y + tileHeight;
+		int offset = 40; // magic number, used to check collision with walls in both his top and bottom half
+
+		// Because Eli is essentially the size of two tiles we need to check for collision in both his top and bottom half
+		// Check for collision in lower half
+		if (position.y - offset < top && position.y - offset > bottom) {
+			if (currentX >= right && position.x <= right) {
+				newX = right;
+				eli->changeDirection();
+				break;
+			}
+			if (currentX <= left && position.x >= left) {
+				newX = left;
+				eli->changeDirection();
+				break;
+			}
+		}
+		// Check for collision in upper half
+		if (position.y + offset < top && position.y + offset > bottom) {
+			if (currentX >= right && position.x <= right) {
+				newX = right;
+				eli->changeDirection();
+				break;
+			}
+			if (currentX <= left && position.x >= left) {
+				newX = left;
+				eli->changeDirection();
+				break;
+			}
+		}
+	}
+
+	eli->setPosition(ccp(newX, newY));
+	this->setViewPointCenter(ccp(newX, newY));
+}
+
+/*
+void Game::setEliPosition(CCPoint position) {
     CCPoint top = this->tileCoordForPosition(ccp(position.x, position.y + 45));
     CCPoint topLeft = this->tileCoordForPosition(ccp(position.x - 10, position.y + 25));
     CCPoint topRight = this->tileCoordForPosition(ccp(position.x + 10, position.y + 25));
@@ -276,6 +354,7 @@ void Game::setEliPosition(CCPoint position) {
     }
     this->setViewPointCenter(eli->getPosition());
 }
+*/
 
 void Game::switchMode() {
 	_running = !_running;

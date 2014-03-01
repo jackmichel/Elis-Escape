@@ -38,6 +38,9 @@ private:
 	HudLayer *_hud;
     Eli *eli;
     CCSize windowSize;
+    int eliHeight;
+    int tileHeight;
+    int tileWidth;
     int mapWidthTiles;
     int mapHeightTiles;
     int mapWidth;
