@@ -36,7 +36,7 @@ bool Game::init() {
     this->addChild(_tileMap, 0);
 
     // Important inits
-	eliHeight = 50;
+	eliHeight = 46;
     tileHeight = _tileMap->getTileSize().height;
     tileWidth = _tileMap->getTileSize().width;
     mapHeightTiles = _tileMap->getMapSize().height;
@@ -122,6 +122,7 @@ void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
 		CCTouch *touch = (CCTouch *)pTouches->anyObject();
 		if (touch) {
 			if (eli->getState() != kPlayerDying && !eli->getInAir()) {
+				eli->jumpAnimation();
 				eli->setJumping(true);
 				eli->setInAir(true);
 			}
@@ -251,6 +252,9 @@ void Game::setEliPosition(CCPoint position) {
 		if (position.x > left && position.x < right) {
 			if (currentY >= top + eliHeight && position.y < top + eliHeight) {
 				newY = top + eliHeight;
+				if (eli->numberOfRunningActions() == 0) {
+					eli->startRunAnimation();
+				}
 				eli->setInAir(false);
 				break;
 			}
@@ -306,6 +310,9 @@ void Game::setEliPosition(CCPoint position) {
 }
 
 void Game::switchMode() {
+	if (!_running) {
+		eli->startRunAnimation();
+	}
 	_running = !_running;
 }
 

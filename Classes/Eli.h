@@ -22,6 +22,8 @@ typedef enum
 class Eli : public CCSprite {
 	float _speed;
 	CCSize _screenSize;
+	CCAction * _run;
+	CCAction * _jump;
 
 public:
 
@@ -38,6 +40,9 @@ public:
 
 	static Eli * create (void);
 	void update (float dt);
+	void createAnimations();
+	void startRunAnimation();
+	void jumpAnimation();
 	void changeDirection();
 
 };

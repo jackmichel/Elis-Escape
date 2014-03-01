@@ -15,6 +15,7 @@ Eli::Eli() {
 Eli * Eli::create() {
 	Eli * eli = new Eli();
 	if (eli && eli->initWithFile("eli.png")) {
+		eli->createAnimations();
 		eli->autorelease();
 		return eli;
 	}
@@ -59,6 +60,46 @@ void Eli::update (float dt) {
   	_nextPosition.y = this->getPositionY() + _vector.y;
 }
 
+void Eli::createAnimations() {
+	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("eli_running.plist");
+
+	CCAnimation* animation;
+	CCSpriteFrame * frame;
+
+	animation = CCAnimation::create();
+	CCString * name;
+	for (int i = 1; i <= 5; i++) {
+		name = CCString::createWithFormat("e%04d.png", i);
+		frame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(name->getCString());
+		animation->addSpriteFrame(frame);
+	}
+	animation->setDelayPerUnit(0.08f);
+	animation->setLoops(-1);
+	_run = CCSequence::create(CCAnimate::create(animation), NULL);
+	_run->retain();
+
+	animation = CCAnimation::create();
+	for (int i = 1; i <= 2; i++) {
+		name = CCString::createWithFormat("j%04d.png", i);
+		frame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(name->getCString());
+		animation->addSpriteFrame(frame);
+	}
+	animation->setDelayPerUnit(0.15f);
+	_jump = CCSequence::create(CCAnimate::create(animation), NULL);
+	_jump->retain();
+}
+
+void Eli::startRunAnimation() {
+	this->stopAllActions();
+	this->runAction(_run);
+}
+
+void Eli::jumpAnimation() {
+	this->stopAllActions();
+	this->runAction(_jump);
+}
+
 void Eli::changeDirection() {
 	_speed = -_speed;
+	this->setScaleX(-this->getScaleX());
 }
