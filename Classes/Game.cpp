@@ -74,12 +74,6 @@ bool Game::init() {
 
     // Reference to the objects in tilemap
     CCTMXObjectGroup *objectGroup = _tileMap->objectGroupNamed("Objects");
-
-    if(objectGroup == NULL){
-        CCLog("tile map has no objects object layer");
-        return false;
-    }
-
     CCDictionary *spawnPoint = objectGroup->objectNamed("SpawnPoint");
 
     int x = ((CCString)*spawnPoint->valueForKey("x")).intValue();
@@ -312,8 +306,19 @@ void Game::setEliPosition(CCPoint position) {
 void Game::switchMode() {
 	if (!_running) {
 		eli->startRunAnimation();
+	} else {
+		this->resetEli();
 	}
 	_running = !_running;
+}
+
+void Game::resetEli() {
+	CCTMXObjectGroup *objectGroup = _tileMap->objectGroupNamed("Objects");
+    CCDictionary *spawnPoint = objectGroup->objectNamed("SpawnPoint");
+    int x = ((CCString)*spawnPoint->valueForKey("x")).intValue();
+    int y = ((CCString)*spawnPoint->valueForKey("y")).intValue();
+    eli->setPosition(ccp(x,y));
+    eli->reset();
 }
 
 void Game::onEnter() {

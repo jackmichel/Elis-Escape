@@ -103,3 +103,9 @@ void Eli::changeDirection() {
 	_speed = -_speed;
 	this->setScaleX(-this->getScaleX());
 }
+
+void Eli::reset() {
+	_speed = INITIAL_SPEED;
+	this->stopAllActions();
+	this->setScaleX(1.0f);
+}

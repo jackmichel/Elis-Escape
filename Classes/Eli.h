@@ -43,6 +43,7 @@ public:
 	void createAnimations();
 	void startRunAnimation();
 	void jumpAnimation();
+	void reset();
 	void changeDirection();
 
 };

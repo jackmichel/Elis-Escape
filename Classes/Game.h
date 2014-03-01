@@ -55,6 +55,7 @@ public:
 	void setViewPointCenter(CCPoint position);
 	void gameLoop(float dt);
 	void switchMode();
+	void resetEli();
 	void onEnter();
 	void onExit();
 	CCPoint tileCoordForPosition(CCPoint position);
