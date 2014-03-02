@@ -18,7 +18,7 @@ bool HudLayer::init() {
         CCMenuItemImage *runMode = CCMenuItemImage::create("play_button.png", "play_button_selected.png", this, menu_selector(HudLayer::switchMode));
         this->_runMode = runMode;
 
-        CCMenuItemImage *editMode = CCMenuItemImage::create("play_button.png", "play_button_selected.png", this, menu_selector(HudLayer::switchMode));
+        CCMenuItemImage *editMode = CCMenuItemImage::create("main_menu_button.png", "main_menu_selected.png", this, menu_selector(HudLayer::switchMode));
         editMode->setPosition(ccp((windowSize.width / 5), 0));
         this->_editMode = editMode;
 
