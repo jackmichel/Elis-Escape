@@ -38,7 +38,7 @@
         <key>dataFormat</key>
         <string>cocos2d</string>
         <key>textureFileName</key>
-        <filename>sprite_sheet.png</filename>
+        <filename>eli_running</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -131,7 +131,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>sprite_sheet.plist</filename>
+                <filename>eli_running.plist</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -175,6 +175,8 @@
             <filename>../../../../../Downloads/documents-export-2014-02-26/e0003.png</filename>
             <filename>../../../../../Downloads/documents-export-2014-02-26/e0004.png</filename>
             <filename>../../../../../Downloads/documents-export-2014-02-26/e0005.png</filename>
+            <filename>../../../../../Downloads/j0002.png</filename>
+            <filename>../../../../../Downloads/j0001.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

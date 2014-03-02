@@ -63,13 +63,13 @@ public:
 	virtual bool init();
 	CREATE_FUNC(Game);
 
+	CC_SYNTHESIZE(bool, _running, Running);
 	CC_SYNTHESIZE(CCArray*, _touches, touches);
 	CC_SYNTHESIZE(CCArray*, _tiles, tiles);
 	CC_SYNTHESIZE(float, _touchDistance, touchDistance);
 	CC_SYNTHESIZE(float, _maxTouchDistanceToClick, maxTouchDistanceToClick);
 	double _singleTouchTimestamp;
 	bool _touchMoveBegan;
-	bool _running;
 };
 
 #endif

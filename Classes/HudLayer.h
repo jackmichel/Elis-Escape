@@ -8,7 +8,11 @@ using namespace cocos2d;
 class HudLayer : public cocos2d::CCLayer
 {
 private:
-    CCLabelTTF *_label;
+	CCSize windowSize;
+	CCMenuItemImage *_runMode;
+	CCMenuItemImage *_editMode;
+    CCSprite *_toolbarBG;
+    CCMenu *_modeMenu;
 
 public:
     virtual bool init();

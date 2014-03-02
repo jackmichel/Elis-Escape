@@ -198,11 +198,11 @@ void Game::setPosition(CCPoint  position) {
 	if (this->getPosition().y > 0) {
 		CCNode::setPosition(ccp(this->getPosition().x, 0));
 	}
-	if (this->getPosition().x < -mapWidth + windowSize.width) {
-		CCNode::setPosition(ccp(-mapWidth + windowSize.width, this->getPosition().y));
+	if (this->getPosition().x < windowSize.width - mapWidth - (windowSize.width / 5)) {
+		CCNode::setPosition(ccp(windowSize.width - mapWidth - (windowSize.width / 5), this->getPosition().y));
 	}
-	if (this->getPosition().y < -mapHeight + windowSize.height) {
-		CCNode::setPosition(ccp(this->getPosition().x, -mapHeight + windowSize.height));
+	if (this->getPosition().y < windowSize.height - mapHeight) {
+		CCNode::setPosition(ccp(this->getPosition().x, windowSize.height - mapHeight));
 	}
 }
 
@@ -237,8 +237,8 @@ void Game::setEliPosition(CCPoint position) {
 		// Get the current tile and compute its bounds
 		CCSprite *tile = (CCSprite *) _tiles->objectAtIndex(i);
 		CCPoint location = tile->getPosition();
-		int left = location.x - 1; // subtract and add 1 to left and right so that there is absolutely no void between tiles
-		int right = location.x + tileWidth + 1;
+		int left = location.x - 2; // subtract and add a few pixels to left and right so that there is absolutely no void between tiles
+		int right = location.x + tileWidth + 2;
 		int bottom = location.y;
 		int top = location.y + tileHeight;
 
