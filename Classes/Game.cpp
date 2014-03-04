@@ -124,7 +124,7 @@ void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
 	} else {
 		CCTouch *touch = (CCTouch *)pTouches->anyObject();
 		if (touch) {
-			if (eli->getState() != kPlayerDying && !eli->getInAir()) {
+			if (eli->getState() != (kPlayerDying || kPlayerFalling) && !eli->getInAir()) {
 				eli->jumpAnimation();
 				eli->setJumping(true);
 				eli->setInAir(true);
@@ -259,6 +259,7 @@ void Game::setEliPosition(CCPoint position) {
 					eli->startRunAnimation();
 				}
 				eli->setInAir(false);
+				eli->setState(kPlayerMoving);
 				break;
 			}
 			if (currentY <= bottom - eliHeight && position.y > bottom - eliHeight) {
