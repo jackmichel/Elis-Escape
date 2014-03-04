@@ -38,7 +38,7 @@ bool HudLayer::init() {
         _editMode->setVisible(false);
         this->addChild(_modeMenu);
         this->addChild(_toolbarBG);
-        this->addChild(returnMenu);
+        this->addChild(_returnMenu);
     }
 
     return true;

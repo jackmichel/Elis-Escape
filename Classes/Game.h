@@ -45,6 +45,8 @@ private:
     int mapHeightTiles;
     int mapWidth;
     int mapHeight;
+    int exitX;
+    int exitY;
 
 public:
 	static cocos2d::CCScene* scene();
@@ -55,6 +57,7 @@ public:
 	void setViewPointCenter(CCPoint position);
 	void gameLoop(float dt);
 	void switchMode();
+	void checkExit();
 	void resetEli();
 	void onEnter();
 	void onExit();

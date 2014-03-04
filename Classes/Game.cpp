@@ -75,6 +75,7 @@ bool Game::init() {
     // Reference to the objects in tilemap
     CCTMXObjectGroup *objectGroup = _tileMap->objectGroupNamed("Objects");
     CCDictionary *spawnPoint = objectGroup->objectNamed("SpawnPoint");
+    CCDictionary *exitPoint = objectGroup->objectNamed("Exit");
 
     int x = ((CCString)*spawnPoint->valueForKey("x")).intValue();
     int y = ((CCString)*spawnPoint->valueForKey("y")).intValue();
@@ -82,6 +83,13 @@ bool Game::init() {
     eli = Eli::create();
     eli->setPosition(ccp(x,y));
 
+    // Create and position exit
+    CCSprite *exit = CCSprite::create("exit.png");
+    exitX = ((CCString)*exitPoint->valueForKey("x")).intValue();
+    exitY = ((CCString)*exitPoint->valueForKey("y")).intValue();
+    exit->setPosition(ccp(exitX,exitY));
+
+    this->addChild(exit);
     this->addChild(eli);
     this->setViewPointCenter(eli->getPosition());
 
@@ -92,6 +100,7 @@ void Game::gameLoop(float dt) {
 	if (!_running) { return; }
 	eli->update(dt);
 	this->setEliPosition(eli->getNextPosition());
+	this->checkExit();
 }
 
 void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
@@ -310,6 +319,13 @@ void Game::switchMode() {
 		this->resetEli();
 	}
 	_running = !_running;
+}
+
+void Game::checkExit() {
+	CCRect box = eli->boundingBox();
+	if (box.containsPoint(ccp(exitX,exitY))) {
+		CCLog("Hit Exit");
+	}
 }
 
 void Game::resetEli() {
