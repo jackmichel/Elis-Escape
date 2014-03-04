@@ -198,8 +198,8 @@ void Game::setPosition(CCPoint  position) {
 	if (this->getPosition().y > 0) {
 		CCNode::setPosition(ccp(this->getPosition().x, 0));
 	}
-	if (this->getPosition().x < windowSize.width - mapWidth - (windowSize.width / 5)) {
-		CCNode::setPosition(ccp(windowSize.width - mapWidth - (windowSize.width / 5), this->getPosition().y));
+	if (this->getPosition().x < windowSize.width - mapWidth - (windowSize.width / 6)) {
+		CCNode::setPosition(ccp(windowSize.width - mapWidth - (windowSize.width / 6), this->getPosition().y));
 	}
 	if (this->getPosition().y < windowSize.height - mapHeight) {
 		CCNode::setPosition(ccp(this->getPosition().x, windowSize.height - mapHeight));

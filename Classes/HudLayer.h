@@ -13,11 +13,13 @@ private:
 	CCMenuItemImage *_editMode;
     CCSprite *_toolbarBG;
     CCMenu *_modeMenu;
+    CCMenu *_returnMenu;
 
 public:
     virtual bool init();
     static CCScene* scene();
     void switchMode();
+    void mainMenu();
     CREATE_FUNC(HudLayer);
 };
 
