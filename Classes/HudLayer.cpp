@@ -15,6 +15,14 @@ bool HudLayer::init() {
         toolbarBG->setColor(ccc3(206,171,60));
         this->_toolbarBG = toolbarBG;
 
+        //level complete modal
+    	CCSprite * modal = CCSprite::create("blank.png");
+        modal->setTextureRect(CCRectMake(0, 0, windowSize.width / 2, windowSize.height / 2));
+        modal->setPosition(ccp(windowSize.width / 2, windowSize.height / 2));
+        modal->setColor(ccc3(206,171,60));
+        this->_modal = modal;
+        _modal->setVisible(false);
+
         // Create button to switch to run mode
         CCMenuItemImage *runMode = CCMenuItemImage::create("run_mode.png", "run_mode.png", this, menu_selector(HudLayer::switchMode));
         this->_runMode = runMode;
@@ -23,6 +31,7 @@ bool HudLayer::init() {
         CCMenuItemImage *editMode = CCMenuItemImage::create("edit_mode.png", "edit_mode.png", this, menu_selector(HudLayer::switchMode));
         editMode->setPosition(ccp((windowSize.width / 6), 0));
         this->_editMode = editMode;
+        _editMode->setVisible(false);
 
         // Create menu for mode switching
         CCMenu *modeMenu = CCMenu::create(_runMode, _editMode, NULL);
@@ -35,28 +44,33 @@ bool HudLayer::init() {
         returnMenu->setPosition(ccp(windowSize.width - (windowSize.width / 12), windowSize.height * .08));
         this->_returnMenu = returnMenu;
 
-        _editMode->setVisible(false);
         this->addChild(_modeMenu);
         this->addChild(_toolbarBG);
         this->addChild(_returnMenu);
+        this->addChild(_modal);
     }
 
     return true;
 }
 
 void HudLayer::switchMode() {
-	if (Utils::gameLayer()->getRunning()) {
+	if (Utils::gameLayer()->getState() == kRunMode) {
 		_toolbarBG->setVisible(true);
 		_runMode->setVisible(true);
 		_editMode->setVisible(false);
 		_returnMenu->setVisible(true);
-	} else {
+	} else if (Utils::gameLayer()->getState() == kEditMode) {
 		_toolbarBG->setVisible(false);
 		_runMode->setVisible(false);
 		_editMode->setVisible(true);
 		_returnMenu->setVisible(false);
 	}
 	Utils::gameLayer()->switchMode();
+}
+
+void HudLayer::levelComplete() {
+	_modal->setVisible(true);
+	_editMode->setVisible(false);
 }
 
 void HudLayer::mainMenu() {

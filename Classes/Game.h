@@ -30,6 +30,14 @@ static union MSVC_EVIL_FLOAT_HACK INFINITY_HACK = {{0x00, 0x00, 0x80, 0x7F}};
 
 using namespace cocos2d;
 
+typedef enum
+{
+    kRunMode,
+    kEditMode,
+    kLevelComplete
+
+} GameState;
+
 class Game : public cocos2d::CCLayer {
 
 private:
@@ -66,7 +74,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(Game);
 
-	CC_SYNTHESIZE(bool, _running, Running);
+	CC_SYNTHESIZE(GameState, _state, State);
 	CC_SYNTHESIZE(CCArray*, _touches, touches);
 	CC_SYNTHESIZE(CCArray*, _tiles, tiles);
 	CC_SYNTHESIZE(float, _touchDistance, touchDistance);

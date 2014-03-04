@@ -67,7 +67,7 @@ bool Game::init() {
     this->setTouchEnabled(true);
 
     // This variable is a flag for whether or not the main game loop should fire
-    _running = false;
+    _state = kEditMode;
 
     // Initialize game loop
     this->schedule(schedule_selector(Game::gameLoop));
@@ -97,14 +97,14 @@ bool Game::init() {
 }
 
 void Game::gameLoop(float dt) {
-	if (!_running) { return; }
+	if (_state != kRunMode) { return; }
 	eli->update(dt);
 	this->setEliPosition(eli->getNextPosition());
 	this->checkExit();
 }
 
 void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
-	if (!_running) {
+	if (_state == kEditMode) {
 	    CCTouch *pTouch;
 	    CCSetIterator setIter;
 	    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter) {
@@ -134,7 +134,7 @@ void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
 }
 
 void Game::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent) {
-	if (!_running) {
+	if (_state == kEditMode) {
 		bool multitouch = _touches->count() > 1;
 		if (multitouch) {
 			// Get the two first touches
@@ -175,7 +175,7 @@ void Game::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent) {
 }
 
 void Game::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent) {
-	if (!_running) {
+	if (_state == kEditMode) {
 		_singleTouchTimestamp = INFINITY;
 
 		// Process click event in single touch.
@@ -314,18 +314,22 @@ void Game::setEliPosition(CCPoint position) {
 }
 
 void Game::switchMode() {
-	if (!_running) {
+	if (_state == kEditMode) {
+		_state = kRunMode;
 		eli->startRunAnimation();
-	} else {
+	} else if (_state == kRunMode) {
+		_state = kEditMode;
 		this->resetEli();
 	}
-	_running = !_running;
 }
 
 void Game::checkExit() {
 	CCRect box = eli->boundingBox();
 	if (box.containsPoint(ccp(exitX,exitY))) {
-		CCLog("Hit Exit");
+		_state = kLevelComplete;
+		eli->stopAllActions();
+		eli->setVisible(false);
+		_hud->levelComplete();
 	}
 }
 

@@ -12,6 +12,7 @@ private:
 	CCMenuItemImage *_runMode;
 	CCMenuItemImage *_editMode;
     CCSprite *_toolbarBG;
+    CCSprite *_modal;
     CCMenu *_modeMenu;
     CCMenu *_returnMenu;
 
@@ -19,6 +20,7 @@ public:
     virtual bool init();
     static CCScene* scene();
     void switchMode();
+    void levelComplete();
     void mainMenu();
     CREATE_FUNC(HudLayer);
 };
