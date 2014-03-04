@@ -15,6 +15,8 @@ private:
     CCSprite *_modal;
     CCMenu *_modeMenu;
     CCMenu *_returnMenu;
+    CCMenu *_modalMenu;
+    CCLabelTTF *_niceJob;
 
 public:
     virtual bool init();
