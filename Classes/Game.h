@@ -46,6 +46,7 @@ private:
 	HudLayer *_hud;
     Eli *eli;
     CCSize windowSize;
+    int eliWidth;
     int eliHeight;
     int tileHeight;
     int tileWidth;

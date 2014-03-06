@@ -36,6 +36,7 @@ bool Game::init() {
     this->addChild(_tileMap, 0);
 
     // Important inits
+    eliWidth = 10;
 	eliHeight = 46;
     tileHeight = _tileMap->getTileSize().height;
     tileWidth = _tileMap->getTileSize().width;
@@ -251,8 +252,7 @@ void Game::setEliPosition(CCPoint position) {
 		int bottom = location.y;
 		int top = location.y + tileHeight;
 
-		// maybe switch currentX here for position.x
-		if (position.x > left && position.x < right) {
+		if (position.x + eliWidth > left && position.x - eliWidth < right) {
 			if (currentY >= top + eliHeight && position.y < top + eliHeight) {
 				newY = top + eliHeight;
 				if (eli->numberOfRunningActions() == 0) {
