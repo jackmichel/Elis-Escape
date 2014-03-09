@@ -13,6 +13,7 @@ public:
 	static CCScene* scene();
 	virtual void mainMenu();
 	virtual void level1();
+	virtual void level2();
 	virtual bool init();
 	CREATE_FUNC(LevelSelect);
 };

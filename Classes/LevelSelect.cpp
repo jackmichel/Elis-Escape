@@ -38,7 +38,9 @@ bool LevelSelect::init() {
 
     //Create level Buttons
     CCMenuItemImage *levelOne = CCMenuItemImage::create("level1_button.png", "level1_button_selected.png", this, menu_selector(LevelSelect::level1));
-    CCMenu *levels = CCMenu::create(levelOne, NULL);
+    CCMenuItemImage *levelTwo = CCMenuItemImage::create("level1_button.png", "level1_button_selected.png", this, menu_selector(LevelSelect::level2));
+    levelTwo->setPosition(200, 0);
+    CCMenu *levels = CCMenu::create(levelOne, levelTwo, NULL);
     levels->setPosition(ccp(0 + (windowSize.width / 10), windowSize.height/2 + 80));
     this->addChild(levels,2);
 
@@ -51,5 +53,10 @@ void LevelSelect::mainMenu() {
 
 void LevelSelect::level1() {
 	const char *level = "lvl1-1.tmx";
+    CCDirector::sharedDirector()->replaceScene(Game::scene(level));
+}
+
+void LevelSelect::level2() {
+	const char *level = "lvl1-2.tmx";
     CCDirector::sharedDirector()->replaceScene(Game::scene(level));
 }
