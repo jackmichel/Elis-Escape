@@ -46,6 +46,7 @@ private:
 	HudLayer *_hud;
     Eli *eli;
     CCSize windowSize;
+    const char * _level;
     int eliWidth;
     int eliHeight;
     int tileHeight;
@@ -58,7 +59,7 @@ private:
     int exitY;
 
 public:
-	static cocos2d::CCScene* scene();
+	static cocos2d::CCScene* scene(const char * level);
 	void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
 	void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
 	void ccTouchesEnded(CCSet *pTouches, CCEvent *event);

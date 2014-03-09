@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="42" height="22" tilewidth="50" tileheight="50">
+ <tileset firstgid="1" name="platform" tilewidth="50" tileheight="50">
+  <image source="Tiled/platform.png" width="50" height="50"/>
+ </tileset>
+ <layer name="Platform" width="42" height="22">
+  <data encoding="base64" compression="zlib">
+   eJztlkEKACAIBPX/n+7aqaKsZmEHPIZDsGpGRIoUHXvWYs9a7FmLmidhxlJ3AcFhBarnSW+1HNGZeVJuN7X/JOS/h5T/Ebfn1e771zvolyepGuv/AQM=
+  </data>
+ </layer>
+ <objectgroup name="Objects" width="42" height="22">
+  <object name="SpawnPoint" x="100" y="380" width="50" height="20"/>
+  <object name="Exit" x="1904" y="361" width="42" height="13"/>
+ </objectgroup>
+</map>

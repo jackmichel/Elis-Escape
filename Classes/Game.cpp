@@ -6,10 +6,12 @@
 
 using namespace cocos2d;
 
-CCScene* Game::scene() {
+CCScene* Game::scene(const char * level) {
     CCScene *sc = CCScene::create();
     sc->setTag(TAG_GAME_SCENE);
-    Game *g = Game::create();
+    Game *g = new Game();
+    g->_level = level;
+    g->init();
     sc->addChild(g, 0, TAG_GAME_LAYER);
 
     HudLayer *hud = HudLayer::create();
@@ -31,7 +33,7 @@ bool Game::init() {
 
     // create a Tiled TMX map
     _tileMap = new CCTMXTiledMap();
-    _tileMap->initWithTMXFile("lvl1-1.tmx");
+    _tileMap->initWithTMXFile(_level);
     _platform = _tileMap->layerNamed("Platform");
     this->addChild(_tileMap, 0);
 
