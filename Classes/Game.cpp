@@ -58,7 +58,7 @@ bool Game::init() {
     	//Loop through map columns
     	for (int j = 0; j < mapWidthTiles; j++) {
     		//Check if this is a platform at this coordinate
-    		if (_platform->tileGIDAt(ccp(j,i)) == 1) {
+    		if (_platform->tileGIDAt(ccp(j,i)) > 0) {
     			//It is a platform so add it to the array
     			CCSprite *tile = _platform->tileAt(ccp(j,i));
     			_tiles->addObject(tile);
