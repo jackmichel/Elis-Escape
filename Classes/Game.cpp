@@ -6,6 +6,7 @@
 
 using namespace cocos2d;
 
+//Create an area for the Game and Hud to exist, loads corresponding level user selected
 CCScene* Game::scene(const char * level) {
     CCScene *sc = CCScene::create();
     sc->setTag(TAG_GAME_SCENE);
@@ -26,8 +27,8 @@ bool Game::init() {
 		return false;
 	}
 
+	//Sets the visible area
 	windowSize = CCDirector::sharedDirector()->getWinSize();
-
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
@@ -143,6 +144,7 @@ void Game::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent) {
 			// Get the two first touches
 			CCTouch *touch1 = (CCTouch*)_touches->objectAtIndex(0);
 			CCTouch *touch2 = (CCTouch*)_touches->objectAtIndex(1);
+
 			// Get current and previous positions of the touches
 			CCPoint curPosTouch1 = CCDirector::sharedDirector()->convertToGL(touch1->getLocationInView());
 			CCPoint curPosTouch2 = CCDirector::sharedDirector()->convertToGL(touch2->getLocationInView());
