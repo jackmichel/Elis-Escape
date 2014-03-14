@@ -1,4 +1,7 @@
 #include "Eli.h"
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
 
 Eli::~Eli() {
 
@@ -47,6 +50,7 @@ void Eli::update (float dt) {
     if (_jumping) {
         _state = kPlayerFalling;
         _vector.y += PLAYER_JUMP * 0.5f;
+        SimpleAudioEngine::sharedEngine()->playEffect("Audio/Sound Effects/Jump1.wav", false);
         if (_vector.y > PLAYER_JUMP ) {
         	_jumping = false;
         }
