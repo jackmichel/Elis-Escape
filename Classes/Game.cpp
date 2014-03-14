@@ -3,8 +3,10 @@
 #include "Constants.h"
 #include "Utils.h"
 #include "Eli.h"
+#include "SimpleAudioEngine.h"
 
 using namespace cocos2d;
+using namespace CocosDenshion;
 
 //Create an area for the Game and Hud to exist, loads corresponding level user selected
 CCScene* Game::scene(const char * level) {
@@ -31,6 +33,9 @@ bool Game::init() {
 	windowSize = CCDirector::sharedDirector()->getWinSize();
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
+
+    //Play Background Music
+    SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Audio/Music/Lower Brinstar.mp3", true);
 
     // create a Tiled TMX map
     _tileMap = new CCTMXTiledMap();

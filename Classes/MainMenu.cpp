@@ -5,8 +5,10 @@
 #include "LevelSelect.h"
 #include "About.h"
 #include "Utils.h"
+#include "SimpleAudioEngine.h"
 
 using namespace cocos2d;
+using namespace CocosDenshion;
 
 //Create an area for the Main Menu to exist
 CCScene* MainMenu::scene() {
@@ -25,6 +27,9 @@ bool MainMenu::init() {
 	windowSize = CCDirector::sharedDirector()->getWinSize();
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
+
+    //Play Background Music
+    SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Audio/Music/Voyager.mp3", true);
 
     //Create background image and ------ASK JACK HOW "Utils::scaleSprite(bg);" WORKS
     CCSprite* bg = CCSprite::create("Start_Screen.png");
