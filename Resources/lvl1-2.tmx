@@ -3,13 +3,21 @@
  <tileset firstgid="1" name="eli_tileset" tilewidth="50" tileheight="50">
   <image source="Tiled/eli_tileset.png" width="200" height="200"/>
  </tileset>
+ <tileset firstgid="17" name="spikes" tilewidth="50" tileheight="50" spacing="1" margin="1">
+  <image source="E:/ElisEscape-Levels/Tiled/examples/spikes-test.png" width="53" height="54"/>
+ </tileset>
  <layer name="Platform" width="42" height="22">
   <data encoding="base64" compression="zlib">
-   eJztlckKgDAMRONetC7//7W2B6GINEmtMUoH3jE4vGBqAGBUzuYYQH86KD1zpvTMm9Izb77Us3XUCI1AlyryfeswgL8Hk0Av36WP8Nbe/S4pjqTfzdmxBnD29KX/6A89z7t6miWxp5Zc3U+JW4mFcrM0+PX+YrfUc/hN8Rp64Mxzb/5dr6EHzjzFH+aVg02cp/jbAZavB2Y=
+   eJztld0KgCAMhde/lP28/9OmF4IM0U0XWXjgu2vzeBZTAcBaOZdhgfo1QfMpqeZTVs2nrL7kczT0CYZIj475PaePQxsUpN+DLdLf3nVGUGaEfelAH27PmHJ92jpKRlLvJtXnbjg9UnPCZ7yVJ/eMP/jEs3qaI9NnLQrtz5zdJy3Kzqoh39A/j3H5lr4pnHruzi/N1c+BU0/JL5UrB51ZT8nvBmKiCCY=
   </data>
  </layer>
  <objectgroup name="Objects" width="42" height="22">
   <object name="SpawnPoint" x="100" y="380" width="50" height="20"/>
   <object name="Exit" x="1904" y="361" width="42" height="13"/>
  </objectgroup>
+ <layer name="Spikes" width="42" height="22">
+  <data encoding="base64" compression="zlib">
+   eJzt0cEJACEMRNG0YAcpbUvZUlKq2ZvIEhRGjTAPPAnDR0WIiIjmFRE73TAi6vS7Z19JrO8s3ckC9e++o4idYN9AO4rYCfYNtKOIndUyd3rb2xw93fMna9eH74dzS+eoCjoNCfs=
+  </data>
+ </layer>
 </map>

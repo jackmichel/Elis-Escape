@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="42" height="22" tilewidth="50" tileheight="50">
- <tileset firstgid="1" name="platform" tilewidth="50" tileheight="50">
-  <image source="Tiled/platform.png" width="50" height="50"/>
+ <tileset firstgid="1" name="eli_tileset" tilewidth="50" tileheight="50">
+  <image source="Tiled/eli_tileset.png" width="200" height="200"/>
  </tileset>
  <layer name="Platform" width="42" height="22">
   <data encoding="base64" compression="zlib">
-   eJztltsNACAIxHD/pZ0B7PEwNOFTUyMeHjM7Q6o768mynizryTLNk8rYl1zOnAWeNZXz6AdP4p4o1Oen98v2VP7RPH0wPT+ryX7/UdR5FV2v6OmOnp3qAom+ARs=
+   eJztlWEOgjAMRouiEJnK/U/D0ewiTZZlbG3twlSavPCHNl9eYRsB4NY4MzJA+3WBI6dlHTlt619zdsgJORvO9GWd08+7Gs+kuT28HeTg+qGc+FykWWgXKRwyQvk+mIQ5OT7jXG7t3WKvvft3OY5q3Ju5nHfkGSDd07f8R7+QM95VbR7KnK1U6vy0vks0xTmzWvBL33kO8qvxGnqQ9EvP/E+9hh4k/Rx/Ja8SnLKf4+8FSr0IqA==
   </data>
  </layer>
  <objectgroup name="Objects" width="42" height="22">
