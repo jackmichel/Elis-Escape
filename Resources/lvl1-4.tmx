@@ -8,7 +8,7 @@
  </tileset>
  <layer name="Platform" width="42" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlm0OgjAMhl/BDxSMHnFH21E4ml2IsdatstERftDkDSFZ24e2G+sA3DauJ+mC7dsJO6el7Zy2tnPamsZ5BXxDT65WiRVbL316YKScPqVU/D+cIc/IRXG8wvmzXvqEfN30dDGl4q/d99J8we+IeX21sCWcZ6batbXi5LUNorl3Kd/cfbaUk9h86p7SK765+2wpZ61eH/B7RtH9zG+Nk89UOIvm9EiLZcnJazjgw1fCxs2as9b5Ic/PZort3tL2b2z+Bnz3WtaxFTFj77F/LzE6/v1SWj1k7eb43kmPQq3JWWrNyvWsxSlnN2dmNN9chVwvkSwjFQ==
+   eJztlm0OwyAIhpndR7d22Y7o0TxKjzZMs4xRZWqx80dJ3pgmAk8BjT0A3BrXE3WB9u0EO6em7Zy6tnPqmsR5BXAGV6pOiBXaz30GgAlzuphi8X9w+jwTFcZxAudiP/fx+fp5tSHF4m/d99J83u8IaX3VsDWcZ6LatdXipLX1wrm3Md/cc7aWE9lc7J0yCL6552wtZ61eH2B5R+H7zLXGSWfK30UpPZJiaXLSGo7w4Stho6bNWev+4PenmWPbt6TzG5q/Eb57Hapjx+KGvnlcZLT0/7mkevDapfreUY8Cbc1ZYuYP9azByWc3Z2Yk31z5XC9l/CME
   </data>
  </layer>
  <objectgroup name="Objects" width="42" height="24">
