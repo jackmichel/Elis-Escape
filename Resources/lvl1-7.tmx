@@ -8,7 +8,7 @@
  </tileset>
  <layer name="Platform" width="38" height="28">
   <data encoding="base64" compression="zlib">
-   eJztlw0KgzAMhTPd5s/c3BE9mkfxaEspkxJqSOrMKvTBQ2ws/aztw7YA0Av8Rt8N3YBMt5NxtSCbb40HgEnDFWN4CPtr5Mba4rqgq8AD86wlVwc2cyPleqJH4pcRD8eVg3LnwrWzcK5JP7yfaNveerjPYnssNn+0rfasMzOuuk7zMYXrCFEumpXce1py5bLuC5dOhUunM3O5POayPrVW+esqmvECrmUrz1Jr2Da78a4Myz++45fr1//3e6U9txSuwnUkV7hvYw6leabxZ9PVXCbE/AHi7iJ7
+   eJztlw0OgyAMhTt1023u54gezaN4tJURDWmka3HrMOElL0YK6SdCAx0AXAR+ok+GbkGm4864OpDNt8Y9wKDhWmO4Csdr5HLFuA7oKnDP9LXkOoPN3Ei5bugH8d2Ih+PKQTlzNfBeOxPnmozD94G2bY2H+8ztsZQaV3vWkcmrjn+q21Y1iopyUQ7uOy25cln3hUunwqXTnrlcPeZqfWqs8s9FXI2PcE2xepYaw7bR5WsYln/8x5nr2+f7rdLeWwpX4folV7hv1xxK06f1d9PF0jPo7BfWciLe
   </data>
  </layer>
  <objectgroup name="Objects" width="38" height="28">
@@ -17,7 +17,7 @@
  </objectgroup>
  <layer name="Spikes" width="38" height="28">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRQE3AQoFeQQaGBVjEEoiVxwfYiMCDwV3A8FvABaSRMTcxBo2CAQfY0sFgAKPuIg0MtLuILTvoDQaLuwSheBSMglGACWhdfpFbDgxWdxEwk2B5Q4waUgEAXYMMJA==
+   eJzt1LEJACAMRNGskA0dzVFt7AwkEcQr/oM0KnJFODMAgAo3m8HZqN6/opoLWqI9UECunt+5VLtDJZfvAXB63V+3PaCaK/kz7ZvKm64Fl9MK+w==
   </data>
  </layer>
 </map>

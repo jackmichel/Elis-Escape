@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="36" height="30" tilewidth="50" tileheight="50">
+ <tileset firstgid="1" name="eli_tileset" tilewidth="50" tileheight="50">
+  <image source="Tiled/eli_tileset.png" width="200" height="200"/>
+ </tileset>
+ <tileset firstgid="17" name="spikes" tilewidth="50" tileheight="50" spacing="1" margin="1">
+  <image source="E:/ElisEscape-Levels/Tiled/examples/spikes-test.png" width="53" height="54"/>
+ </tileset>
+ <layer name="Platform" width="36" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1jEKgDAUg+FXURRB9Ig9mkfp0UzRwUGCk0bMD6G6fUOHDhEximzB+tCpC3tYah5Yyl89Ezafhv/ypudOah61+2wPT+3+2MOzh2cPzx6ePbwveBLWHMP3KuDJsJS6dPGmfNrzZvbwqqfdz6wwWPIGXt4l0g==
+  </data>
+ </layer>
+ <objectgroup name="Objects" width="36" height="30">
+  <object name="Exit" x="1400" y="229" width="49" height="19"/>
+  <object name="SpawnPoint" x="251" y="1119" width="48" height="27"/>
+ </objectgroup>
+ <layer name="Spikes" width="36" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzN0MEJwEAMA8FrIR2qtC0lpeUREOpgz2C8z8Hn3DfPOe8Fm/HgfaOGTONJasg0nqSGTONJasg0nqSGTONJasg0nqSGTONJasg0nqSGTONJasg0nqSGTONJasg0nqSGTONJasg0nqSGTONJasg0nqSGTONJasg0nqSGTONJasg0nqSGTONJasg0nqSGTONJasg0nqSGTONJasg0z3/VvXE+8Q07uQ==
+  </data>
+ </layer>
+</map>
