@@ -3,9 +3,6 @@
  <tileset firstgid="1" name="eli_tileset" tilewidth="50" tileheight="50">
   <image source="Tiled/eli_tileset.png" width="200" height="200"/>
  </tileset>
- <tileset firstgid="17" name="spikes" tilewidth="50" tileheight="50" spacing="1" margin="1">
-  <image source="E:/ElisEscape-Levels/Tiled/examples/spikes-test.png" width="53" height="54"/>
- </tileset>
  <layer name="Platform" width="36" height="28">
   <data encoding="base64" compression="zlib">
    eJzt1t0KgCAMBtD1b+VFj+j7P0UT6SaYI22mscF3uXEUbBkA2CrJgVmgnppAPbH6g6fD9EyGgh7fMzPhZlJnsh95YjPG0O/uoe5c2vN0pnra8qwQ9gzVZzB7QY8vfK+O2omcRcKTW+p53+O/k9yeSt1fKZ6cSLx39ahHPepp0UP9A1+xkd4TKuoTTw==

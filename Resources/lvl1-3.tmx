@@ -3,8 +3,8 @@
  <tileset firstgid="1" name="eli_tileset" tilewidth="50" tileheight="50">
   <image source="Tiled/eli_tileset.png" width="200" height="200"/>
  </tileset>
- <tileset firstgid="17" name="spikes" tilewidth="50" tileheight="50" spacing="1" margin="1">
-  <image source="E:/ElisEscape-Levels/Tiled/examples/spikes-test.png" width="53" height="54"/>
+ <tileset firstgid="17" name="spikes-working" tilewidth="50" tileheight="50" spacing="1" margin="1">
+  <image source="Tiled/spikes-test.png" width="53" height="54"/>
  </tileset>
  <layer name="Platform" width="30" height="62">
   <data encoding="base64" compression="zlib">
