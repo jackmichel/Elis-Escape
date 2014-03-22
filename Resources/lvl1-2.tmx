@@ -8,7 +8,7 @@
  </tileset>
  <layer name="Platform" width="42" height="22">
   <data encoding="base64" compression="zlib">
-   eJztld0KgCAMhde/lP28/9OmF4IM0U0XWXjgu2vzeBZTAcBaOZdhgfo1QfMpqeZTVs2nrL7kczT0CYZIj475PaePQxsUpN+DLdLf3nVGUGaEfelAH27PmHJ92jpKRlLvJtXnbjg9UnPCZ7yVJ/eMP/jEs3qaI9NnLQrtz5zdJy3Kzqoh39A/j3H5lr4pnHruzi/N1c+BU0/JL5UrB51ZT8nvBmKiCCY=
+   eJztld0KgDAIhe0/av28/9O2XQQhNnUJrdiB7y7d6TjcCABT5uyeAfJXB8WnpYpPWxWftvqSz9ZTMzSRHpXye02fE+cZgX8P5kj/8K89QjIj7MsRfbQ9Y0r1GeokGVm9m1Kfi2e7wM0Jn/FWntoz/uATz4ri7k5xdRRros9cRO3PlN1nLcnOyiFf6s5jznyfvimaeu3Of5rrNQdNvSQ/LlcNLrFekt8B4W8ICA==
   </data>
  </layer>
  <objectgroup name="Objects" width="42" height="22">
@@ -17,7 +17,7 @@
  </objectgroup>
  <layer name="Spikes" width="42" height="22">
   <data encoding="base64" compression="zlib">
-   eJztwTEBAAAAwqD1T20JT6AAAADgbw5wAAE=
+   eJzt0MEJADAIQ1FXcENHc9T27EEsTalCHnj9BEWIiIjOqYj/3lAxdaeG6wL1z90xRCfpO6hjiE7Sd1DHEJ3XuPNO111R151dd0VTdlYtRSYIZA==
   </data>
  </layer>
 </map>

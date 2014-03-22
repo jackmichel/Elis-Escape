@@ -14,6 +14,14 @@ public:
 	virtual void mainMenu();
 	virtual void level1();
 	virtual void level2();
+	virtual void level3();
+	virtual void level4();
+	virtual void level5();
+	virtual void level6();
+	virtual void level7();
+	virtual void level8();
+	virtual void level9();
+	virtual void level10();
 	virtual bool init();
 	CREATE_FUNC(LevelSelect);
 };
