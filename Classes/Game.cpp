@@ -123,6 +123,7 @@ void Game::gameLoop(float dt) {
 	if (_state != kRunMode) { return; }
 	eli->update(dt);
 	this->setEliPosition(eli->getNextPosition());
+	this->checkSpikes();
 	this->checkExit();
 }
 
@@ -353,6 +354,17 @@ void Game::checkExit() {
 		eli->stopAllActions();
 		eli->setVisible(false);
 		_hud->levelComplete();
+	}
+}
+
+void Game::checkSpikes() {
+	CCRect box = eli->boundingBox();
+	for (int i = 0; i < _spiketiles->count(); i++) {
+		CCSprite *tile = (CCSprite *) _spiketiles->objectAtIndex(i);
+		CCPoint location = tile->getPosition();
+		if (box.containsPoint(ccp(location.x + (tileWidth / 2), location.y + (tileHeight / 2)))) {
+			this->resetEli();
+		}
 	}
 }
 

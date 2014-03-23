@@ -69,6 +69,7 @@ public:
 	void gameLoop(float dt);
 	void switchMode();
 	void checkExit();
+	void checkSpikes();
 	void resetEli();
 	void onEnter();
 	void onExit();
