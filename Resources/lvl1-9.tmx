@@ -8,7 +8,7 @@
  </tileset>
  <layer name="Platform" width="36" height="30">
   <data encoding="base64" compression="zlib">
-   eJztl1EOgyAMhivodBsPO+KOxlE42krcA2u6Uowi05H8MdEon23/WicAuDWiB2qEdtYAfx5pHYXHAjyx/sLawnr2Ez57FGR5nrCVvy4Z1czn8IM8/cwk5q8mT814HYGH5q/Ql+I9b7/H5/u1hXv7Je/fmn/OxNOhTCK3M0/r/o3ewTiFb3Kzz6rxGMZz6TIKHsv0Eu4crRVaLzE298xeSp5Aewl3LlcrmjxoeLTrCvz8EuMSZxsuNnSuc0ruEiY6Y0k5wut+z36o4YnzalqDW843Gh6qnCfPztPDZw/h8tcJ10r+hTTfsxxf2ufw6KUeuEQvhIBRJQ==
+   eJztV8sOgCAMmw98cvD/v1Y4mBhS2SSAiJL0Akbrus46EdFSCDaDkcpZin4+vlULn8agTQBt0DPXdIDPTOn8NTDIqad6IR9XT6RfTj4561UDH86PPl25OWH9PlEa766B71+af77Ex+0X/TCf0v3LeSd1PnT5cM+S5A3bA+4sudpD8+RcGzQD7vKZwX3QHtcrEh1i5kPLEeWXo2dQbZD/YvYPymk+jVBNn8zPiE/OfCPh8+XvRwgfiX6N4Ez6fxMjf2nBWSh2EJ0K8w==
   </data>
  </layer>
  <objectgroup name="Objects" width="36" height="30">

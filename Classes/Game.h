@@ -43,6 +43,7 @@ class Game : public cocos2d::CCLayer {
 private:
 	CCTMXTiledMap *_tileMap;
 	CCTMXLayer *_platform;
+	CCTMXLayer *_spikes;
 	HudLayer *_hud;
     Eli *eli;
     CCSize windowSize;

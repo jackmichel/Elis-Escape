@@ -8,7 +8,7 @@
  </tileset>
  <layer name="Platform" width="36" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt1jEKgDAUg+FXURRB9Ig9mkfp0UzRwUGCk0bMD6G6fUOHDhEximzB+tCpC3tYah5Yyl89Ezafhv/ypudOah61+2wPT+3+2MOzh2cPzx6ePbwveBLWHMP3KuDJsJS6dPGmfNrzZvbwqqfdz6wwWPIGXt4l0g==
+   eJzt1zkKwDAMRNHJRpw99z9tZAjYhRlSRSrmw/SvUKMEYA2y2zYjThPkYcnD+9Nz2K5qp7PnS/Lw5OHJw5OHJw9PHp48PHl4LU9n698NATwLyn+2BfB4Jg8ve0aU+/XebnsAGrkDiQ==
   </data>
  </layer>
  <objectgroup name="Objects" width="36" height="30">

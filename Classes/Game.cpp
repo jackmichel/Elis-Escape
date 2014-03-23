@@ -41,6 +41,7 @@ bool Game::init() {
     _tileMap = new CCTMXTiledMap();
     _tileMap->initWithTMXFile(_level);
     _platform = _tileMap->layerNamed("Platform");
+    _spikes = _tileMap->layerNamed("Spikes");
     this->addChild(_tileMap, 0);
 
     // Important inits

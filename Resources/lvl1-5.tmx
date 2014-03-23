@@ -5,11 +5,11 @@
  </tileset>
  <layer name="Platform" width="36" height="28">
   <data encoding="base64" compression="zlib">
-   eJzt1t0KgCAMBtD1b+VFj+j7P0UT6SaYI22mscF3uXEUbBkA2CrJgVmgnppAPbH6g6fD9EyGgh7fMzPhZlJnsh95YjPG0O/uoe5c2vN0pnra8qwQ9gzVZzB7QY8vfK+O2omcRcKTW+p53+O/k9yeSt1fKZ6cSLx39ahHPepp0UP9A1+xkd4TKuoTTw==
+   eJzt1UsOgCAMBND6R2Xh/U8rxrhsq2IRyDSZZZsHCdQR0ZJJtpCJ8qmB4JGqBk8T0irpEnqOnlGJNpM7k//JI83oGSt359aepzPhKcsz07lnuD4Xsib0XCZuJ2oWC09swfO9h/sn70TbX288MbF47/DAAw88JXq0v90LvTvQTA47
   </data>
  </layer>
  <objectgroup name="Objects" width="36" height="28">
   <object name="SpawnPoint" x="98" y="328" width="48" height="18"/>
-  <object name="Exit" x="1652" y="229" width="46" height="19"/>
+  <object name="Exit" x="1652" y="200" width="46" height="19"/>
  </objectgroup>
 </map>
