@@ -80,6 +80,7 @@ public:
 	CC_SYNTHESIZE(GameState, _state, State);
 	CC_SYNTHESIZE(CCArray*, _touches, touches);
 	CC_SYNTHESIZE(CCArray*, _tiles, tiles);
+	CC_SYNTHESIZE(CCArray*, _spiketiles, spiketiles);
 	CC_SYNTHESIZE(float, _touchDistance, touchDistance);
 	CC_SYNTHESIZE(float, _maxTouchDistanceToClick, maxTouchDistanceToClick);
 	double _singleTouchTimestamp;

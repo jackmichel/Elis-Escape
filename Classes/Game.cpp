@@ -57,7 +57,7 @@ bool Game::init() {
     _touches->retain();
     _maxTouchDistanceToClick = 315.0f;
 
-    //Create array of all tiles in map
+    //Create array of all platform tiles in map
     _tiles = CCArray::createWithCapacity(mapHeightTiles * mapWidthTiles);
     _tiles->retain();
     //Loop through map rows
@@ -72,6 +72,19 @@ bool Game::init() {
     		}
     	}
     }
+
+    //Create array of all spike tiles in map
+    _spiketiles = CCArray::createWithCapacity(mapHeightTiles * mapWidthTiles);
+    _spiketiles->retain();
+    for (int i = 0; i < mapHeightTiles; i++) {
+    	for (int j = 0; j < mapWidthTiles; j++) {
+    		if (_spikes->tileGIDAt(ccp(j,i)) > 0) {
+    			CCSprite *tile = _spikes->tileAt(ccp(j,i));
+    			_spiketiles->addObject(tile);
+    		}
+    	}
+    }
+
 
     // Listen for touches
     this->setTouchEnabled(true);
