@@ -67,56 +67,56 @@ bool LevelSelect::init() {
 
 //Allows for the return to the Main Menu when it's button is tapped
 void LevelSelect::mainMenu() {
-    CCDirector::sharedDirector()->replaceScene(MainMenu::scene());
+    CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInL::create(0.2,MainMenu::scene()));
 }
 
 //The following void functions allow for swithcing between different levels in the game
 void LevelSelect::level1() {
 	const char *level = "lvl1-1.tmx";
-    CCDirector::sharedDirector()->replaceScene(Game::scene(level));
+    CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level)));
 }
 
 void LevelSelect::level2() {
 	const char *level = "lvl1-2.tmx";
-    CCDirector::sharedDirector()->replaceScene(Game::scene(level));
+    CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level)));
 }
 
 void LevelSelect::level3() {
 	const char *level = "lvl1-3.tmx";
-    CCDirector::sharedDirector()->replaceScene(Game::scene(level));
+    CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level)));
 }
 
 void LevelSelect::level4() {
 	const char *level = "lvl1-4.tmx";
-    CCDirector::sharedDirector()->replaceScene(Game::scene(level));
+    CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level)));
 }
 
 void LevelSelect::level5() {
 	const char *level = "lvl1-5.tmx";
-    CCDirector::sharedDirector()->replaceScene(Game::scene(level));
+    CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level)));
 }
 
 void LevelSelect::level6() {
 	const char *level = "lvl1-6.tmx";
-    CCDirector::sharedDirector()->replaceScene(Game::scene(level));
+    CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level)));
 }
 
 void LevelSelect::level7() {
 	const char *level = "lvl1-7.tmx";
-    CCDirector::sharedDirector()->replaceScene(Game::scene(level));
+    CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level)));
 }
 
 void LevelSelect::level8() {
 	const char *level = "lvl1-8.tmx";
-    CCDirector::sharedDirector()->replaceScene(Game::scene(level));
+    CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level)));
 }
 
 void LevelSelect::level9() {
 	const char *level = "lvl1-9.tmx";
-    CCDirector::sharedDirector()->replaceScene(Game::scene(level));
+    CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level)));
 }
 
 void LevelSelect::level10() {
 	const char *level = "lvl1-10.tmx";
-    CCDirector::sharedDirector()->replaceScene(Game::scene(level));
+    CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level)));
 }

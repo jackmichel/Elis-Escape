@@ -95,5 +95,5 @@ void HudLayer::levelComplete() {
 }
 
 void HudLayer::mainMenu() {
-    CCDirector::sharedDirector()->replaceScene(MainMenu::scene());
+    CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5,MainMenu::scene()));
 }

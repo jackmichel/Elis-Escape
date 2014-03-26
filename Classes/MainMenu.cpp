@@ -54,19 +54,19 @@ bool MainMenu::init() {
 //The next four void functions allow for switching between menu screens when buttons are tapped
 void MainMenu::levelSelect()
 {
-    CCDirector::sharedDirector()->replaceScene(LevelSelect::scene());
+    CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInR::create(0.2,LevelSelect::scene()));
 }
 
 void MainMenu::options()
 {
-    CCDirector::sharedDirector()->replaceScene(Options::scene());
+    CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInB::create(0.2,Options::scene()));
 }
 
 void MainMenu::about()
 {
-    CCDirector::sharedDirector()->replaceScene(About::scene());
+    CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.2,About::scene()));
 }
 
 void MainMenu::mainMenu() {
-    CCDirector::sharedDirector()->replaceScene(MainMenu::scene());
+    CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.2,MainMenu::scene()));
 }

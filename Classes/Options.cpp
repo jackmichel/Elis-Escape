@@ -41,5 +41,5 @@ bool Options::init() {
 
 //Allows for the return to the Main Menu when it's button is tapped
 void Options::mainMenu() {
-    CCDirector::sharedDirector()->replaceScene(MainMenu::scene());
+    CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.2,MainMenu::scene()));
 }
