@@ -3,8 +3,8 @@
  <tileset firstgid="1" name="eli_tileset" tilewidth="50" tileheight="50">
   <image source="Tiled/eli_tileset.png" width="200" height="200"/>
  </tileset>
- <tileset firstgid="17" name="spikes-working" tilewidth="50" tileheight="50" spacing="1" margin="1">
-  <image source="Tiled/spikes-test.png" width="53" height="54"/>
+ <tileset firstgid="17" name="spikes" tilewidth="50" tileheight="50">
+  <image source="Tiled/spikes.png" width="100" height="100"/>
  </tileset>
  <layer name="Platform" width="42" height="22">
   <data encoding="base64" compression="zlib">
@@ -17,7 +17,7 @@
  </objectgroup>
  <layer name="Spikes" width="42" height="22">
   <data encoding="base64" compression="zlib">
-   eJzt0MEJADAIQ1FXcENHc9T27EEsTalCHnj9BEWIiIjOqYj/3lAxdaeG6wL1z90xRCfpO6hjiE7Sd1DHEJ3XuPNO111R151dd0VTdlYtRSYIZA==
+   eJzt0LEJADAMA0GvEJL9Z03vSq4swR+of1QFAMDc3Q4QpXa+Nhepf7pK6YSHsx0gcu107epSOlUfkEMBBw==
   </data>
  </layer>
 </map>

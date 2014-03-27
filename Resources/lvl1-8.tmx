@@ -3,8 +3,8 @@
  <tileset firstgid="1" name="eli_tileset" tilewidth="50" tileheight="50">
   <image source="Tiled/eli_tileset.png" width="200" height="200"/>
  </tileset>
- <tileset firstgid="17" name="spikes-working" tilewidth="50" tileheight="50" spacing="1" margin="1">
-  <image source="Tiled/spikes-test.png" width="53" height="54"/>
+ <tileset firstgid="17" name="spikes" tilewidth="50" tileheight="50">
+  <image source="Tiled/spikes.png" width="100" height="100"/>
  </tileset>
  <layer name="Platform" width="34" height="46">
   <data encoding="base64" compression="zlib">
@@ -17,7 +17,7 @@
  </objectgroup>
  <layer name="Spikes" width="34" height="46">
   <data encoding="base64" compression="zlib">
-   eJzt1rENgDAMRFGvwIaMxigZjYYiJXHO4tv4JDpsnnREihknh9n14bfPduw75rl26JPdQeklm+PtznZoZiIdK4nsheKofG4pDkov2RzeGYpDvTP6/kH5Pzz7KjsovWRzeFPVQenlL+eW4qD0ks3hnaE41Dv7/lHL8bw/dh6VQxmig5AbyZpXVQ==
+   eJzt1kEKgDAMRNFeoXr/u4o7d2qc4J80A4KLNj4YCx2Dk/3Hb8/Lezvijnm/ZCmHOu4OSi9ujqcz26HZk+l4k8xeKI7K55bioPTi5ojuoTjUM7PvH5T/IzKvsoPSi5sjmqoOSi+rnFuKg9KLmyO6h+JQz+z7Ry3Hme3jo3IoQ3QQcgAq/gpl
   </data>
  </layer>
 </map>
