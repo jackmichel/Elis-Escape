@@ -4,6 +4,9 @@
 #include "Utils.h"
 #include "Bridge.h"
 #include "Spring.h"
+#include "Pole.h"
+#include "Catapult.h"
+#include "Fan.h"
 #include "Game.h"
 
 using namespace cocos2d;
@@ -81,60 +84,158 @@ void LevelSelect::level1() {
 
 void LevelSelect::level2() {
 	const char *level = "lvl1-2.tmx";
-	CCArray * tools = CCArray::createWithCapacity(3);
+	CCArray * tools = CCArray::createWithCapacity(2);
 	Bridge * t1 = Bridge::create();
 	Bridge * t2 = Bridge::create();
-	Spring * t3 = Spring::create();
 	tools->addObject(t1);
 	tools->addObject(t2);
-	tools->addObject(t3);
     CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level, tools)));
 }
 
 void LevelSelect::level3() {
 	const char *level = "lvl1-3.tmx";
-	CCArray * tools = CCArray::createWithCapacity(0);
+	CCArray * tools = CCArray::createWithCapacity(5);
+	Bridge * t1 = Bridge::create();
+	Bridge * t2 = Bridge::create();
+	Bridge * t3 = Bridge::create();
+	Bridge * t4 = Bridge::create();
+	Bridge * t5 = Bridge::create();
+	tools->addObject(t1);
+	tools->addObject(t2);
+	tools->addObject(t3);
+	tools->addObject(t4);
+	tools->addObject(t5);
     CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level, tools)));
 }
 
 void LevelSelect::level4() {
 	const char *level = "lvl1-4.tmx";
-	CCArray * tools = CCArray::createWithCapacity(0);
+	CCArray * tools = CCArray::createWithCapacity(5);
+	Bridge * t1 = Bridge::create();
+	Bridge * t2 = Bridge::create();
+	Bridge * t3 = Bridge::create();
+	Bridge * t4 = Bridge::create();
+	Bridge * t5 = Bridge::create();
+	tools->addObject(t1);
+	tools->addObject(t2);
+	tools->addObject(t3);
+	tools->addObject(t4);
+	tools->addObject(t5);
     CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level, tools)));
 }
 
 void LevelSelect::level5() {
 	const char *level = "lvl1-5.tmx";
-	CCArray * tools = CCArray::createWithCapacity(0);
+	CCArray * tools = CCArray::createWithCapacity(2);
+	Spring * t1 = Spring::create();
+	Spring * t2 = Spring::create();
+	tools->addObject(t1);
+	tools->addObject(t2);
     CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level, tools)));
 }
 
 void LevelSelect::level6() {
 	const char *level = "lvl1-6.tmx";
-	CCArray * tools = CCArray::createWithCapacity(0);
+	CCArray * tools = CCArray::createWithCapacity(6);
+	Bridge * t1 = Bridge::create();
+	Bridge * t2 = Bridge::create();
+	Spring * t3 = Spring::create();
+	Spring * t4 = Spring::create();
+	Spring * t5 = Spring::create();
+	Spring * t6 = Spring::create();
+	tools->addObject(t1);
+	tools->addObject(t2);
+	tools->addObject(t3);
+	tools->addObject(t4);
+	tools->addObject(t5);
+	tools->addObject(t6);
     CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level, tools)));
 }
 
 void LevelSelect::level7() {
 	const char *level = "lvl1-7.tmx";
-	CCArray * tools = CCArray::createWithCapacity(0);
+	CCArray * tools = CCArray::createWithCapacity(4);
+	Bridge * t1 = Bridge::create();
+	Bridge * t2 = Bridge::create();
+	Spring * t3 = Spring::create();
+	Spring * t4 = Spring::create();
+	tools->addObject(t1);
+	tools->addObject(t2);
+	tools->addObject(t3);
+	tools->addObject(t4);
     CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level, tools)));
 }
 
 void LevelSelect::level8() {
 	const char *level = "lvl1-8.tmx";
-	CCArray * tools = CCArray::createWithCapacity(0);
+	CCArray * tools = CCArray::createWithCapacity(14);
+	Pole * t1 = Pole::create();
+	Pole * t2 = Pole::create();
+	Pole * t3 = Pole::create();
+	Pole * t4 = Pole::create();
+	Pole * t5 = Pole::create();
+	Pole * t6 = Pole::create();
+	Pole * t7 = Pole::create();
+	Pole * t8 = Pole::create();
+	Pole * t9 = Pole::create();
+	Pole * t10 = Pole::create();
+	Pole * t11 = Pole::create();
+	Pole * t12 = Pole::create();
+	Pole * t13 = Pole::create();
+	Pole * t14 = Pole::create();
+	tools->addObject(t1);
+	tools->addObject(t2);
+	tools->addObject(t3);
+	tools->addObject(t4);
+	tools->addObject(t5);
+	tools->addObject(t6);
+	tools->addObject(t7);
+	tools->addObject(t8);
+	tools->addObject(t9);
+	tools->addObject(t10);
+	tools->addObject(t11);
+	tools->addObject(t12);
+	tools->addObject(t13);
+	tools->addObject(t14);
     CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level, tools)));
 }
 
 void LevelSelect::level9() {
 	const char *level = "lvl1-9.tmx";
-	CCArray * tools = CCArray::createWithCapacity(0);
+	CCArray * tools = CCArray::createWithCapacity(6);
+	Bridge * t1 = Bridge::create();
+	Bridge * t2 = Bridge::create();
+	Spring * t3 = Spring::create();
+	Pole * t4 = Pole::create();
+	Pole * t5 = Pole::create();
+	Pole * t6 = Pole::create();
+	tools->addObject(t1);
+	tools->addObject(t2);
+	tools->addObject(t3);
+	tools->addObject(t4);
+	tools->addObject(t5);
+	tools->addObject(t6);
     CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level, tools)));
 }
 
 void LevelSelect::level10() {
 	const char *level = "lvl1-10.tmx";
-	CCArray * tools = CCArray::createWithCapacity(0);
+	CCArray * tools = CCArray::createWithCapacity(8);
+	Bridge * t1 = Bridge::create();
+	Bridge * t2 = Bridge::create();
+	Bridge * t3 = Bridge::create();
+	Spring * t4 = Spring::create();
+	Spring * t5 = Spring::create();
+	Spring * t6 = Spring::create();
+	Spring * t7 = Spring::create();
+	Pole * t8 = Pole::create();
+	tools->addObject(t1);
+	tools->addObject(t2);
+	tools->addObject(t3);
+	tools->addObject(t4);
+	tools->addObject(t5);
+	tools->addObject(t6);
+	tools->addObject(t7);
+	tools->addObject(t8);
     CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level, tools)));
 }
