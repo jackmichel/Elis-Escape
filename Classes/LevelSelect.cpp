@@ -3,6 +3,7 @@
 #include "Constants.h"
 #include "Utils.h"
 #include "Bridge.h"
+#include "Spring.h"
 #include "Game.h"
 
 using namespace cocos2d;
@@ -80,11 +81,13 @@ void LevelSelect::level1() {
 
 void LevelSelect::level2() {
 	const char *level = "lvl1-2.tmx";
-	CCArray * tools = CCArray::createWithCapacity(2);
-	Bridge * b1 = Bridge::create();
-	Bridge * b2 = Bridge::create();
-	tools->addObject(b1);
-	tools->addObject(b2);
+	CCArray * tools = CCArray::createWithCapacity(3);
+	Bridge * t1 = Bridge::create();
+	Bridge * t2 = Bridge::create();
+	Spring * t3 = Spring::create();
+	tools->addObject(t1);
+	tools->addObject(t2);
+	tools->addObject(t3);
     CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(level, tools)));
 }
 

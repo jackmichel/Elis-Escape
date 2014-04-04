@@ -15,6 +15,7 @@ public:
 	~Bridge(void);
 
 	static Bridge * create (void);
+	virtual const char * getType();
 
 };
 

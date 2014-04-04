@@ -20,3 +20,7 @@ Bridge * Bridge::create() {
 	CC_SAFE_DELETE(bridge);
 	return NULL;
 }
+
+const char * Bridge::getType() {
+	return "Bridge";
+}

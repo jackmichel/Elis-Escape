@@ -12,6 +12,7 @@ public:
 
 	Tool(void);
 	~Tool(void);
+	virtual const char * getType();
 
 };
 

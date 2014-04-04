@@ -17,7 +17,8 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/HudLayer.cpp \
                    ../../Classes/Eli.cpp \
                    ../../Classes/Tool.cpp \
-                   ../../Classes/Bridge.cpp
+                   ../../Classes/Bridge.cpp \
+                   ../../Classes/Spring.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 

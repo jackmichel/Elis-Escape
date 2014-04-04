@@ -10,3 +10,7 @@ Tool::~Tool() {
 Tool::Tool() {
 	_screenSize = CCDirector::sharedDirector()->getWinSize();
 }
+
+const char * Tool::getType() {
+	return "Tool";
+}
