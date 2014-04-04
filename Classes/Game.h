@@ -48,6 +48,7 @@ private:
     Eli *eli;
     CCSize windowSize;
     const char * _level;
+    CCArray * _tools;
     int eliWidth;
     int eliHeight;
     int tileHeight;
@@ -60,7 +61,7 @@ private:
     int exitY;
 
 public:
-	static cocos2d::CCScene* scene(const char * level);
+	static cocos2d::CCScene* scene(const char * level, CCArray * tools);
 	void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
 	void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
 	void ccTouchesEnded(CCSet *pTouches, CCEvent *event);

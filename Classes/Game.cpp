@@ -3,17 +3,20 @@
 #include "Constants.h"
 #include "Utils.h"
 #include "Eli.h"
+#include "Tool.h"
+#include "Bridge.h"
 #include "SimpleAudioEngine.h"
 
 using namespace cocos2d;
 using namespace CocosDenshion;
 
 //Create an area for the Game and Hud to exist, loads corresponding level user selected
-CCScene* Game::scene(const char * level) {
+CCScene* Game::scene(const char * level, CCArray * tools) {
     CCScene *sc = CCScene::create();
     sc->setTag(TAG_GAME_SCENE);
     Game *g = new Game();
     g->_level = level;
+    g->_tools = tools;
     g->init();
     sc->addChild(g, 0, TAG_GAME_LAYER);
 
@@ -85,6 +88,15 @@ bool Game::init() {
     	}
     }
 
+    // Add tools to level
+	int toolX = 300;
+	int toolY = 300;
+    for (int i = 0; i < _tools->count(); i++) {
+		Tool *tool = (Tool *) _tools->objectAtIndex(i);
+		tool->setPosition(ccp(toolX,toolY));
+		this->addChild(tool);
+		toolX += 300;
+	}
 
     // Listen for touches
     this->setTouchEnabled(true);
