@@ -184,11 +184,7 @@ void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
 	} else {
 		CCTouch *touch = (CCTouch *)pTouches->anyObject();
 		if (touch) {
-			if (eli->getState() != (kPlayerDying || kPlayerFalling) && !eli->getInAir()) {
-				eli->jumpAnimation();
-				eli->setJumping(true);
-				eli->setInAir(true);
-			}
+			eli->jump();
 		}
 	}
 }

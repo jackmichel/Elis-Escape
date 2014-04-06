@@ -2,6 +2,7 @@
 #define __ELI_H__
 
 #define INITIAL_SPEED 5
+#define INITIAL_JUMP_SPEED 0.5f
 #define TERMINAL_VELOCITY 14
 #define AIR_FRICTION 0.9999f
 #define PLAYER_JUMP 18
@@ -21,6 +22,7 @@ typedef enum
 
 class Eli : public CCSprite {
 	float _speed;
+	float _jumpSpeed;
 	CCSize _screenSize;
 	CCAction * _run;
 	CCAction * _jump;
@@ -45,6 +47,9 @@ public:
 	void jumpAnimation();
 	void reset();
 	void changeDirection();
+	void jump();
+	void hitSpring();
+	void resetJumpSpeed();
 
 };
 

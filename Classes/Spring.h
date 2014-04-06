@@ -8,6 +8,7 @@ USING_NS_CC;
 
 class Spring : public Tool {
 	CCSize _screenSize;
+	bool _canJump;
 
 public:
 
@@ -16,6 +17,8 @@ public:
 
 	static Spring * create (void);
 	virtual const char * getType();
+	virtual void checkCollision(Eli * eli);
+	void allowJump();
 
 };
 

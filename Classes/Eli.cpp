@@ -10,6 +10,7 @@ Eli::~Eli() {
 Eli::Eli() {
 	_screenSize = CCDirector::sharedDirector()->getWinSize();
 	_speed = INITIAL_SPEED;
+	_jumpSpeed = INITIAL_JUMP_SPEED;
 	_nextPosition = CCPointZero;
 	_state = kPlayerMoving;
 	_jumping = false;
@@ -49,7 +50,7 @@ void Eli::update (float dt) {
 
     if (_jumping) {
         _state = kPlayerFalling;
-        _vector.y += PLAYER_JUMP * 0.5f;
+        _vector.y += PLAYER_JUMP * _jumpSpeed;
         SimpleAudioEngine::sharedEngine()->playEffect("Audio/Sound Effects/Jump1.wav", false);
         if (_vector.y > PLAYER_JUMP ) {
         	_jumping = false;
@@ -103,9 +104,31 @@ void Eli::jumpAnimation() {
 	this->runAction(_jump);
 }
 
+void Eli::jump() {
+	if (this->getState() != (kPlayerDying || kPlayerFalling) && !this->getInAir()) {
+		this->jumpAnimation();
+		this->setJumping(true);
+		this->setInAir(true);
+	}
+}
+
 void Eli::changeDirection() {
 	_speed = -_speed;
 	this->setScaleX(-this->getScaleX());
+}
+
+void Eli::hitSpring() {
+	_jumpSpeed = 1.6f;
+	this->setInAir(false);
+	this->setState(kPlayerMoving);
+	this->jump();
+	CCCallFunc* moveCallback = CCCallFunc::create(this, callfunc_selector(Eli::resetJumpSpeed));
+	CCDelayTime* delayAction = CCDelayTime::create(0.1f);
+	this->runAction(CCSequence::create(delayAction, moveCallback, NULL));
+}
+
+void Eli::resetJumpSpeed() {
+	_jumpSpeed = INITIAL_JUMP_SPEED;
 }
 
 void Eli::reset() {
