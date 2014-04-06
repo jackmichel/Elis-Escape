@@ -89,14 +89,15 @@ bool Game::init() {
     }
 
     // Add tools to level
-	int toolX = 300;
-	int toolY = 300;
+	int toolX = 150;
+	int toolY = 700;
     for (int i = 0; i < _tools->count(); i++) {
 		Tool *tool = (Tool *) _tools->objectAtIndex(i);
 		tool->setPosition(ccp(toolX,toolY));
 		this->addChild(tool);
 		toolX += 300;
 	}
+    _tools->retain();
 
     // Listen for touches
     this->setTouchEnabled(true);
@@ -149,6 +150,27 @@ void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
 	    }
 
 	    if (_touches->count() == 1) {
+	    	// Check if we are touching a Tool
+	    	pTouch = (CCTouch *) _touches->objectAtIndex(0);
+	    	CCPoint location = pTouch->getLocation();
+	    	CCPoint screenLocation = this->getPosition();
+	    	// account for position in tilemap
+	    	location = ccp(location.x - screenLocation.x, location.y - screenLocation.y);
+	    	CCLog("Location: %f, %f", location.x, location.y);
+
+	    	for (int i = 0; i < _tools->count(); i++) {
+	    		Tool *tool = (Tool *) _tools->objectAtIndex(i);
+	    		CCRect box = tool->boundingBox();
+	    		if (box.containsPoint(location)) {
+	    			CCLog("Touching a tool");
+	    		}
+	    		/* switched to bounding box method
+	    		if (tool->touchingTool(location)) {
+	    			CCLog("Touching a tool");
+	    		}
+	    		*/
+	    	}
+
 	        _touchMoveBegan = false;
 	        time_t seconds;
 
