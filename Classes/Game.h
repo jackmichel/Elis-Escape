@@ -49,6 +49,7 @@ private:
     CCSize windowSize;
     const char * _level;
     CCArray * _tools;
+    int _movingTool;
     int eliWidth;
     int eliHeight;
     int tileHeight;

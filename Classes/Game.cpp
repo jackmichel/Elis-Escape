@@ -94,10 +94,11 @@ bool Game::init() {
     for (int i = 0; i < _tools->count(); i++) {
 		Tool *tool = (Tool *) _tools->objectAtIndex(i);
 		tool->setPosition(ccp(toolX,toolY));
-		this->addChild(tool);
+		this->addChild(tool, 11);
 		toolX += 300;
 	}
     _tools->retain();
+    _movingTool = -1;
 
     // Listen for touches
     this->setTouchEnabled(true);
@@ -126,7 +127,7 @@ bool Game::init() {
     exit->setPosition(ccp(exitX,exitY));
 
     this->addChild(exit);
-    this->addChild(eli);
+    this->addChild(eli, 10);
     this->setViewPointCenter(eli->getPosition());
 
 	return true;
@@ -162,6 +163,7 @@ void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
 	    		Tool *tool = (Tool *) _tools->objectAtIndex(i);
 	    		CCRect box = tool->boundingBox();
 	    		if (box.containsPoint(location)) {
+	    			_movingTool = i;
 	    			CCLog("Touching a tool");
 	    		}
 	    		/* switched to bounding box method
@@ -193,42 +195,52 @@ void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
 
 void Game::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent) {
 	if (_state == kEditMode) {
-		bool multitouch = _touches->count() > 1;
-		if (multitouch) {
-			// Get the two first touches
-			CCTouch *touch1 = (CCTouch*)_touches->objectAtIndex(0);
-			CCTouch *touch2 = (CCTouch*)_touches->objectAtIndex(1);
-
-			// Get current and previous positions of the touches
-			CCPoint curPosTouch1 = CCDirector::sharedDirector()->convertToGL(touch1->getLocationInView());
-			CCPoint curPosTouch2 = CCDirector::sharedDirector()->convertToGL(touch2->getLocationInView());
-
-			CCPoint prevPosTouch1 = CCDirector::sharedDirector()->convertToGL(touch1->getPreviousLocationInView());
-			CCPoint prevPosTouch2 = CCDirector::sharedDirector()->convertToGL(touch2->getPreviousLocationInView());
-
-			// Calculate current and previous positions of the layer relative the anchor point
-			CCPoint curPosLayer = ccpMidpoint(curPosTouch1, curPosTouch2);
-			CCPoint prevPosLayer = ccpMidpoint(prevPosTouch1, prevPosTouch2);
-
-			// If current and previous position of the multitouch's center aren't equal -> change position of the layer
-			if (!prevPosLayer.equals(curPosLayer))
-			{
-				this->setPosition(ccp(this->getPosition().x + curPosLayer.x - prevPosLayer.x,
-					this->getPosition().y + curPosLayer.y - prevPosLayer.y));
-			}
-			// Don't click with multitouch
-			_touchDistance = INFINITY;
-		} else {
-			// Get the single touch and it's previous & current position.
+		if (_movingTool >= 0) {
 			CCTouch *touch = (CCTouch*)_touches->objectAtIndex(0);
 			CCPoint curTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->getLocationInView());
-			CCPoint prevTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->getPreviousLocationInView());
+			CCPoint screenLocation = this->getPosition();
+			CCPoint newItemLocation = ccp(curTouchPosition.x - screenLocation.x, curTouchPosition.y - screenLocation.y);
+			CCLog("%f, %f", newItemLocation.x, newItemLocation.y);
+			Tool *tool = (Tool *) _tools->objectAtIndex(_movingTool);
+			tool->setPosition(newItemLocation);
+		} else {
+			bool multitouch = _touches->count() > 1;
+			if (multitouch) {
+				// Get the two first touches
+				CCTouch *touch1 = (CCTouch*)_touches->objectAtIndex(0);
+				CCTouch *touch2 = (CCTouch*)_touches->objectAtIndex(1);
 
-			this->setPosition(ccp(this->getPosition().x + curTouchPosition.x - prevTouchPosition.x,
-				this->getPosition().y + curTouchPosition.y - prevTouchPosition.y));
+				// Get current and previous positions of the touches
+				CCPoint curPosTouch1 = CCDirector::sharedDirector()->convertToGL(touch1->getLocationInView());
+				CCPoint curPosTouch2 = CCDirector::sharedDirector()->convertToGL(touch2->getLocationInView());
 
-			// Accumulate touch distance for all modes.
-			_touchDistance += ccpDistance(curTouchPosition, prevTouchPosition);
+				CCPoint prevPosTouch1 = CCDirector::sharedDirector()->convertToGL(touch1->getPreviousLocationInView());
+				CCPoint prevPosTouch2 = CCDirector::sharedDirector()->convertToGL(touch2->getPreviousLocationInView());
+
+				// Calculate current and previous positions of the layer relative the anchor point
+				CCPoint curPosLayer = ccpMidpoint(curPosTouch1, curPosTouch2);
+				CCPoint prevPosLayer = ccpMidpoint(prevPosTouch1, prevPosTouch2);
+
+				// If current and previous position of the multitouch's center aren't equal -> change position of the layer
+				if (!prevPosLayer.equals(curPosLayer))
+				{
+					this->setPosition(ccp(this->getPosition().x + curPosLayer.x - prevPosLayer.x,
+						this->getPosition().y + curPosLayer.y - prevPosLayer.y));
+				}
+				// Don't click with multitouch
+				_touchDistance = INFINITY;
+			} else {
+				// Get the single touch and it's previous & current position.
+				CCTouch *touch = (CCTouch*)_touches->objectAtIndex(0);
+				CCPoint curTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->getLocationInView());
+				CCPoint prevTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->getPreviousLocationInView());
+
+				this->setPosition(ccp(this->getPosition().x + curTouchPosition.x - prevTouchPosition.x,
+					this->getPosition().y + curTouchPosition.y - prevTouchPosition.y));
+
+				// Accumulate touch distance for all modes.
+				_touchDistance += ccpDistance(curTouchPosition, prevTouchPosition);
+			}
 		}
 	}
 }
@@ -236,6 +248,10 @@ void Game::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent) {
 void Game::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent) {
 	if (_state == kEditMode) {
 		_singleTouchTimestamp = INFINITY;
+
+		if (_movingTool >= 0) {
+			_movingTool = -1;
+		}
 
 		// Process click event in single touch.
 		if (  (_touchDistance < _maxTouchDistanceToClick) && (_touches->count() == 1)) {
@@ -364,6 +380,38 @@ void Game::setEliPosition(CCPoint position) {
 				eli->changeDirection();
 				break;
 			}
+		}
+	}
+
+	// Check bridge and tool Collision
+    for (int i = 0; i < _tools->count(); i++) {
+		Tool *tool = (Tool *) _tools->objectAtIndex(i);
+		if (tool->getType() == "Bridge") {
+			int bridgeHeight = tool->getContentSize().height;
+			int bridgeWidth = tool->getContentSize().width;
+			int bridgeLeft = tool->getPosition().x - (bridgeWidth / 2);
+			int bridgeRight = bridgeLeft + bridgeWidth;
+			int bridgeBottom = tool->getPosition().y - (bridgeHeight / 2);
+			int bridgeTop = bridgeBottom + 15;
+
+			if (position.x + eliWidth >= bridgeLeft && position.x - eliWidth < bridgeRight) {
+				if (currentY >= bridgeTop + eliHeight && position.y < bridgeTop + eliHeight) {
+					newY = bridgeTop + eliHeight;
+					if (eli->numberOfRunningActions() == 0) {
+						eli->startRunAnimation();
+					}
+					eli->setInAir(false);
+					eli->setState(kPlayerMoving);
+					break;
+				}
+				if (currentY <= bridgeBottom - eliHeight && position.y > bridgeBottom - eliHeight) {
+					newY = bridgeBottom - eliHeight;
+					eli->setJumping(false);
+					break;
+				}
+			}
+		} else {
+			tool->checkCollision(eli);
 		}
 	}
 

@@ -2,6 +2,7 @@
 #define __TOOL_H__
 
 #include "cocos2d.h"
+#include "Eli.h"
 
 USING_NS_CC;
 
@@ -13,6 +14,7 @@ public:
 	Tool(void);
 	~Tool(void);
 	virtual const char * getType();
+	virtual void checkCollision(Eli * eli);
 	bool touchingTool(CCPoint location);
 
 };
