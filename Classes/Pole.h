@@ -8,6 +8,7 @@ USING_NS_CC;
 
 class Pole : public Tool {
 	CCSize _screenSize;
+	bool _canTurn;
 
 public:
 
@@ -16,6 +17,8 @@ public:
 
 	static Pole * create (void);
 	virtual const char * getType();
+	virtual void checkCollision(Eli * eli);
+	void allowTurn();
 
 };
 
