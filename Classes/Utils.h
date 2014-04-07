@@ -20,6 +20,7 @@ public:
     static void setArtScaleFactor(int s);
     static const char * getLevelMap(int levelNum);
     static CCArray * getLevelTools(int levelNum);
+    static bool reverseEliDirection(int levelNum);
 };
 
 #endif

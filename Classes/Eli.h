@@ -35,6 +35,7 @@ public:
 	CC_SYNTHESIZE(EliState, _state, State);
 	CC_SYNTHESIZE(bool, _jumping, Jumping);
 	CC_SYNTHESIZE(bool, _inAir, InAir);
+	CC_SYNTHESIZE(bool, _reverseDirection, ReverseDirection);
 	CC_SYNTHESIZE(CCPoint, _nextPosition, NextPosition);
 	CC_SYNTHESIZE(float, _width, Width);
 	CC_SYNTHESIZE(float, _height, Height);

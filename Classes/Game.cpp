@@ -123,6 +123,8 @@ bool Game::init() {
 
     eli = Eli::create();
     eli->setPosition(ccp(x,y));
+    eli->setReverseDirection(Utils::reverseEliDirection(_level));
+    eli->reset();
 
     // Create and position exit
     CCSprite *exit = CCSprite::create("exit.png");

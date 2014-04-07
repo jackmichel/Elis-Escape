@@ -134,5 +134,10 @@ void Eli::resetJumpSpeed() {
 void Eli::reset() {
 	_speed = INITIAL_SPEED;
 	this->stopAllActions();
-	this->setScaleX(1.0f);
+	if (_reverseDirection) {
+		this->setScaleX(-1.0f);
+		_speed = -_speed;
+	} else {
+		this->setScaleX(1.0f);
+	}
 }

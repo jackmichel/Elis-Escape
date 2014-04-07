@@ -247,3 +247,11 @@ CCArray * Utils::getLevelTools(int levelNum) {
 	}
 	return tools;
 }
+
+bool Utils::reverseEliDirection(int levelNum) {
+	bool reverseDirection = false;
+	if (levelNum == 5 || levelNum == 6 || levelNum == 8 || levelNum == 9) {
+		reverseDirection = true;
+	}
+	return reverseDirection;
+}
