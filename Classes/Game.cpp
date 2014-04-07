@@ -11,19 +11,19 @@ using namespace cocos2d;
 using namespace CocosDenshion;
 
 //Create an area for the Game and Hud to exist, loads corresponding level user selected
-CCScene* Game::scene(const char * level, CCArray * tools) {
+CCScene* Game::scene(int level) {
     CCScene *sc = CCScene::create();
     sc->setTag(TAG_GAME_SCENE);
     Game *g = new Game();
     g->_level = level;
-    g->_availableTools = tools;
-    g->_tools = CCArray::createWithCapacity(tools->count());
+    g->_availableTools = Utils::getLevelTools(level);
+    g->_tools = CCArray::createWithCapacity(g->_availableTools->count());
     g->init();
     sc->addChild(g, 0, TAG_GAME_LAYER);
 
     HudLayer *hud = HudLayer::create();
     sc->addChild(hud, 11);
-    hud->listTools(tools);
+    hud->listTools(g->_availableTools);
     g->_hud = hud;
 
     return sc;
@@ -44,7 +44,7 @@ bool Game::init() {
 
     // create a Tiled TMX map
     _tileMap = new CCTMXTiledMap();
-    _tileMap->initWithTMXFile(_level);
+    _tileMap->initWithTMXFile(Utils::getLevelMap(_level));
     _platform = _tileMap->layerNamed("Platform");
     _spikes = _tileMap->layerNamed("Spikes");
     this->addChild(_tileMap, 0);
