@@ -1,6 +1,7 @@
 #include "HudLayer.h"
 #include "Utils.h"
 #include "MainMenu.h"
+#include "Tool.h"
 #include "Constants.h"
 
 using namespace cocos2d;
@@ -8,6 +9,9 @@ using namespace cocos2d;
 bool HudLayer::init() {
     if (CCLayer::init()) {
         CCSize windowSize = CCDirector::sharedDirector()->getWinSize();
+        _movingTool = -1;
+        _touches = CCArray::createWithCapacity(10);
+        _touches->retain();
 
         // Create toolbar background
         CCSprite * toolbarBG = CCSprite::create("blank.png");
@@ -67,6 +71,8 @@ bool HudLayer::init() {
         this->addChild(_modal);
         this->addChild(_niceJob);
         this->addChild(_modalMenu);
+
+        this->setTouchEnabled(true);
     }
 
     return true;
@@ -78,11 +84,13 @@ void HudLayer::switchMode() {
 		_runMode->setVisible(true);
 		_editMode->setVisible(false);
 		_returnMenu->setVisible(true);
+		this->showTools();
 	} else if (Utils::gameLayer()->getState() == kEditMode) {
 		_toolbarBG->setVisible(false);
 		_runMode->setVisible(false);
 		_editMode->setVisible(true);
 		_returnMenu->setVisible(false);
+		this->hideTools();
 	}
 	Utils::gameLayer()->switchMode();
 }
@@ -96,4 +104,87 @@ void HudLayer::levelComplete() {
 
 void HudLayer::mainMenu() {
     CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5,MainMenu::scene()));
+}
+
+void HudLayer::listTools(CCArray * tools) {
+	_tools = tools;
+	_tools->retain();
+	int toolX = CCDirector::sharedDirector()->getWinSize().width;
+	int toolY = CCDirector::sharedDirector()->getWinSize().height - 50;
+    for (int i = 0; i < tools->count(); i++) {
+		Tool *tool = (Tool *) tools->objectAtIndex(i);
+		tool->setPosition(ccp(toolX,toolY));
+		this->addChild(tool, 11);
+		toolY -= 100;
+	}
+}
+
+void HudLayer::hideTools() {
+    for (int i = 0; i < _tools->count(); i++) {
+		Tool *tool = (Tool *) _tools->objectAtIndex(i);
+		this->removeChild(tool);
+	}
+}
+
+void HudLayer::showTools() {
+    for (int i = 0; i < _tools->count(); i++) {
+		Tool *tool = (Tool *) _tools->objectAtIndex(i);
+		this->addChild(tool);
+	}
+}
+
+void HudLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
+	if (Utils::gameLayer()->getState() == kEditMode) {
+	    CCTouch *pTouch;
+	    CCSetIterator setIter;
+	    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter) {
+	        pTouch = (CCTouch *)(*setIter);
+	        _touches->addObject(pTouch);
+	    }
+	    pTouch = (CCTouch *) _touches->objectAtIndex(0);
+		CCPoint location = pTouch->getLocation();
+
+		for (int i = 0; i < _tools->count(); i++) {
+			Tool *tool = (Tool *) _tools->objectAtIndex(i);
+			CCRect box = tool->boundingBox();
+			if (box.containsPoint(location)) {
+				_movingTool = i;
+				Utils::gameLayer()->setShouldPan(false);
+			}
+		}
+	}
+}
+
+void HudLayer::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent) {
+	if (Utils::gameLayer()->getState() == kEditMode) {
+		if (_movingTool >= 0) {
+			CCTouch *touch = (CCTouch*)_touches->objectAtIndex(0);
+			CCPoint curTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->getLocationInView());
+			CCPoint screenLocation = this->getPosition();
+			CCPoint newItemLocation = ccp(curTouchPosition.x - screenLocation.x, curTouchPosition.y - screenLocation.y);
+			Tool *tool = (Tool *) _tools->objectAtIndex(_movingTool);
+			tool->setPosition(newItemLocation);
+		}
+	}
+}
+
+void HudLayer::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent) {
+	if (Utils::gameLayer()->getState() == kEditMode) {
+		if (_movingTool >= 0) {
+			Tool *tool = (Tool *) _tools->objectAtIndex(_movingTool);
+			CCPoint location = tool->getPosition();
+			this->removeChild(tool);
+			Utils::gameLayer()->placeTool(_movingTool, location);
+			_movingTool = -1;
+		}
+
+		CCTouch *pTouch;
+		CCSetIterator setIter;
+		for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter) {
+			pTouch = (CCTouch *)(*setIter);
+			_touches->removeObject(pTouch);
+		}
+
+		Utils::gameLayer()->setShouldPan(true);
+	}
 }

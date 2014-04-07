@@ -48,6 +48,7 @@ private:
     Eli *eli;
     CCSize windowSize;
     const char * _level;
+    CCArray * _availableTools;
     CCArray * _tools;
     int _movingTool;
     int eliWidth;
@@ -73,6 +74,7 @@ public:
 	void checkExit();
 	void checkSpikes();
 	void resetEli();
+	void placeTool(int i, CCPoint location);
 	void onEnter();
 	void onExit();
 	CCPoint tileCoordForPosition(CCPoint position);
@@ -85,6 +87,7 @@ public:
 	CC_SYNTHESIZE(CCArray*, _tiles, tiles);
 	CC_SYNTHESIZE(CCArray*, _spiketiles, spiketiles);
 	CC_SYNTHESIZE(float, _touchDistance, touchDistance);
+	CC_SYNTHESIZE(bool, _shouldPan, ShouldPan);
 	CC_SYNTHESIZE(float, _maxTouchDistanceToClick, maxTouchDistanceToClick);
 	double _singleTouchTimestamp;
 	bool _touchMoveBegan;

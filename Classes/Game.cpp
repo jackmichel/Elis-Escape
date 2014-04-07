@@ -16,12 +16,14 @@ CCScene* Game::scene(const char * level, CCArray * tools) {
     sc->setTag(TAG_GAME_SCENE);
     Game *g = new Game();
     g->_level = level;
-    g->_tools = tools;
+    g->_availableTools = tools;
+    g->_tools = CCArray::createWithCapacity(tools->count());
     g->init();
     sc->addChild(g, 0, TAG_GAME_LAYER);
 
     HudLayer *hud = HudLayer::create();
-    sc->addChild(hud);
+    sc->addChild(hud, 11);
+    hud->listTools(tools);
     g->_hud = hud;
 
     return sc;
@@ -58,7 +60,10 @@ bool Game::init() {
     mapWidth = mapWidthTiles * tileWidth;
     _touches = CCArray::createWithCapacity(10);
     _touches->retain();
+    _availableTools->retain();
+    _tools->retain();
     _maxTouchDistanceToClick = 315.0f;
+    _shouldPan = true;
 
     //Create array of all platform tiles in map
     _tiles = CCArray::createWithCapacity(mapHeightTiles * mapWidthTiles);
@@ -97,7 +102,6 @@ bool Game::init() {
 		this->addChild(tool, 11);
 		toolX += 300;
 	}
-    _tools->retain();
     _movingTool = -1;
 
     // Listen for touches
@@ -142,7 +146,7 @@ void Game::gameLoop(float dt) {
 }
 
 void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
-	if (_state == kEditMode) {
+	if (_state == kEditMode && _shouldPan) {
 	    CCTouch *pTouch;
 	    CCSetIterator setIter;
 	    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter) {
@@ -157,20 +161,13 @@ void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
 	    	CCPoint screenLocation = this->getPosition();
 	    	// account for position in tilemap
 	    	location = ccp(location.x - screenLocation.x, location.y - screenLocation.y);
-	    	CCLog("Location: %f, %f", location.x, location.y);
 
 	    	for (int i = 0; i < _tools->count(); i++) {
 	    		Tool *tool = (Tool *) _tools->objectAtIndex(i);
 	    		CCRect box = tool->boundingBox();
 	    		if (box.containsPoint(location)) {
 	    			_movingTool = i;
-	    			CCLog("Touching a tool");
 	    		}
-	    		/* switched to bounding box method
-	    		if (tool->touchingTool(location)) {
-	    			CCLog("Touching a tool");
-	    		}
-	    		*/
 	    	}
 
 	        _touchMoveBegan = false;
@@ -190,13 +187,12 @@ void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
 }
 
 void Game::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent) {
-	if (_state == kEditMode) {
+	if (_state == kEditMode && _shouldPan) {
 		if (_movingTool >= 0) {
 			CCTouch *touch = (CCTouch*)_touches->objectAtIndex(0);
 			CCPoint curTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->getLocationInView());
 			CCPoint screenLocation = this->getPosition();
 			CCPoint newItemLocation = ccp(curTouchPosition.x - screenLocation.x, curTouchPosition.y - screenLocation.y);
-			CCLog("%f, %f", newItemLocation.x, newItemLocation.y);
 			Tool *tool = (Tool *) _tools->objectAtIndex(_movingTool);
 			tool->setPosition(newItemLocation);
 		} else {
@@ -242,7 +238,7 @@ void Game::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent) {
 }
 
 void Game::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent) {
-	if (_state == kEditMode) {
+	if (_state == kEditMode && _shouldPan) {
 		_singleTouchTimestamp = INFINITY;
 
 		if (_movingTool >= 0) {
@@ -453,6 +449,17 @@ void Game::resetEli() {
     int y = ((CCString)*spawnPoint->valueForKey("y")).intValue();
     eli->setPosition(ccp(x,y));
     eli->reset();
+}
+
+void Game::placeTool(int i, CCPoint location) {
+	CCPoint screenLocation = this->getPosition();
+	// account for position in tilemap
+	location = ccp(location.x - screenLocation.x, location.y - screenLocation.y);
+	Tool *tool = (Tool *) _availableTools->objectAtIndex(i);
+	_availableTools->removeObjectAtIndex(i, false);
+	_tools->addObject(tool);
+	tool->setPosition(location);
+	this->addChild(tool, 11);
 }
 
 void Game::onEnter() {

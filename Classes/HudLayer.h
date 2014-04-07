@@ -17,6 +17,8 @@ private:
     CCMenu *_returnMenu;
     CCMenu *_modalMenu;
     CCLabelTTF *_niceJob;
+    CCArray * _tools;
+    int _movingTool;
 
 public:
     virtual bool init();
@@ -24,6 +26,13 @@ public:
     void switchMode();
     void levelComplete();
     void mainMenu();
+    void listTools(CCArray * tools);
+    void hideTools();
+    void showTools();
+    void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
+	void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
+	void ccTouchesEnded(CCSet *pTouches, CCEvent *event);
+    CC_SYNTHESIZE(CCArray*, _touches, touches);
     CREATE_FUNC(HudLayer);
 };
 
