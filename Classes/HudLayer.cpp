@@ -109,13 +109,25 @@ void HudLayer::mainMenu() {
 void HudLayer::listTools(CCArray * tools) {
 	_tools = tools;
 	_tools->retain();
-	int toolX = CCDirector::sharedDirector()->getWinSize().width;
-	int toolY = CCDirector::sharedDirector()->getWinSize().height - 50;
+	int width = CCDirector::sharedDirector()->getWinSize().width;
+	int toolX = width - ((width / 6) / 2);
+	int toolY;
     for (int i = 0; i < tools->count(); i++) {
 		Tool *tool = (Tool *) tools->objectAtIndex(i);
+		if (tool->getType() == "Bridge") {
+			toolY = 600;
+			tool->setScale(0.5f);
+		} else if (tool->getType() == "Spring") {
+			toolY = 500;
+		} else if (tool->getType() == "Pole") {
+			toolY = 400;
+		} else if (tool->getType() == "Catapult") {
+			toolY = 300;
+		} else if (tool->getType() == "Fan") {
+			toolY = 200;
+		}
 		tool->setPosition(ccp(toolX,toolY));
 		this->addChild(tool, 11);
-		toolY -= 100;
 	}
 }
 
@@ -163,6 +175,7 @@ void HudLayer::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent) {
 			CCPoint screenLocation = this->getPosition();
 			CCPoint newItemLocation = ccp(curTouchPosition.x - screenLocation.x, curTouchPosition.y - screenLocation.y);
 			Tool *tool = (Tool *) _tools->objectAtIndex(_movingTool);
+			tool->setScale(1.0f);
 			tool->setPosition(newItemLocation);
 		}
 	}
