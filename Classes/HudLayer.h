@@ -13,10 +13,14 @@ private:
 	CCMenuItemImage *_editMode;
     CCSprite *_toolbarBG;
     CCSprite *_modal;
+    CCSprite *_modalFail;
     CCMenu *_modeMenu;
     CCMenu *_returnMenu;
     CCMenu *_modalMenu;
-    CCLabelTTF *_niceJob;
+    CCMenu *_modalCont;
+    CCMenu *_modalReplay;
+    CCMenu *_modalRetry;
+    CCMenu *_modalBack2Basement;
     CCArray * _tools;
     CCArray * _toolLabels;
     int _movingTool;
@@ -41,7 +45,9 @@ public:
     static CCScene* scene();
     void switchMode();
     void levelComplete();
+    void levelFail();
     void mainMenu();
+    void levelSelect();
     void listTools(CCArray * tools);
     void hideTools();
     void showTools();

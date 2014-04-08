@@ -6,6 +6,7 @@
 #include "Tool.h"
 #include "Bridge.h"
 #include "SimpleAudioEngine.h"
+#include "LevelSelect.h"
 
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -429,13 +430,28 @@ void Game::checkExit() {
 	}
 }
 
+/*void Game::nextLevel() {
+	int lvl = _level;
+	switch (lvl) {
+		case 1:
+			func = LevelSelect::level2();
+			break;
+		case 2:
+			LevelSelect::level3();
+			break;
+		case 3:
+			LevelSelect::level4();
+			break;
+	}
+}*/
+
 void Game::checkSpikes() {
 	CCRect box = eli->boundingBox();
 	for (int i = 0; i < _spiketiles->count(); i++) {
 		CCSprite *tile = (CCSprite *) _spiketiles->objectAtIndex(i);
 		CCPoint location = tile->getPosition();
 		if (box.containsPoint(ccp(location.x + (tileWidth / 2), location.y + (tileHeight / 2)))) {
-			this->resetEli();
+			_hud->levelFail();
 		}
 	}
 }
