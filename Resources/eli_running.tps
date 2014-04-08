@@ -38,7 +38,7 @@
         <key>dataFormat</key>
         <string>cocos2d</string>
         <key>textureFileName</key>
-        <filename>eli_running</filename>
+        <filename>eli_running.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -88,7 +88,7 @@
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
-            <enum type="AlgorithmSettings::AlgorithmId">Basic</enum>
+            <enum type="AlgorithmSettings::AlgorithmId">MaxRects</enum>
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
@@ -164,19 +164,19 @@
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMode</key>
-            <enum type="SpriteSettings::TrimMode">None</enum>
+            <enum type="SpriteSettings::TrimMode">Trim</enum>
             <key>heuristicMask</key>
             <false/>
         </struct>
         <key>fileList</key>
         <array>
-            <filename>../../../../../Downloads/documents-export-2014-02-26/e0001.png</filename>
-            <filename>../../../../../Downloads/documents-export-2014-02-26/e0002.png</filename>
-            <filename>../../../../../Downloads/documents-export-2014-02-26/e0003.png</filename>
-            <filename>../../../../../Downloads/documents-export-2014-02-26/e0004.png</filename>
-            <filename>../../../../../Downloads/documents-export-2014-02-26/e0005.png</filename>
-            <filename>../../../../../Downloads/j0002.png</filename>
+            <filename>../../../../../Downloads/e0001.png</filename>
+            <filename>../../../../../Downloads/e0002.png</filename>
+            <filename>../../../../../Downloads/e0003.png</filename>
+            <filename>../../../../../Downloads/e0004.png</filename>
+            <filename>../../../../../Downloads/e0005.png</filename>
             <filename>../../../../../Downloads/j0001.png</filename>
+            <filename>../../../../../Downloads/j0002.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

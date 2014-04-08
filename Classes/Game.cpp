@@ -93,15 +93,6 @@ bool Game::init() {
     	}
     }
 
-    // Add tools to level
-	int toolX = 150;
-	int toolY = 700;
-    for (int i = 0; i < _tools->count(); i++) {
-		Tool *tool = (Tool *) _tools->objectAtIndex(i);
-		tool->setPosition(ccp(toolX,toolY));
-		this->addChild(tool, 11);
-		toolX += 300;
-	}
     _movingTool = -1;
 
     // Listen for touches
