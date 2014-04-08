@@ -33,7 +33,7 @@ void Pole::checkCollision(Eli * eli) {
 			eli->changeDirection();
 			_canTurn = false;
 			CCCallFunc* moveCallback = CCCallFunc::create(this, callfunc_selector(Pole::allowTurn));
-			CCDelayTime* delayAction = CCDelayTime::create(0.1f);
+			CCDelayTime* delayAction = CCDelayTime::create(0.2f);
 			this->runAction(CCSequence::create(delayAction, moveCallback, NULL));
 		}
 	}

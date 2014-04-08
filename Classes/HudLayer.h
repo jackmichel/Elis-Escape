@@ -46,6 +46,7 @@ public:
     void hideTools();
     void showTools();
     void subtractTool(const char * type);
+    void addTool();
     void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
 	void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
 	void ccTouchesEnded(CCSet *pTouches, CCEvent *event);

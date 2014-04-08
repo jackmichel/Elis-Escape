@@ -297,3 +297,39 @@ void HudLayer::subtractTool(const char * type) {
 		_catapultLabel->setString(_catapults);
 	}
 }
+
+void HudLayer::addTool() {
+	Tool *tool = (Tool *) _tools->objectAtIndex(_tools->count() - 1);
+	int width = CCDirector::sharedDirector()->getWinSize().width;
+	int toolX = width - ((width / 6) / 2);
+	int toolY;
+	if (tool->getType() == "Bridge") {
+		toolY = 650;
+		tool->setScale(0.5f);
+		_numBridges++;
+		sprintf(_bridges,"x %i",_numBridges);
+		_bridgeLabel->setString(_bridges);
+	} else if (tool->getType() == "Spring") {
+		toolY = 500;
+		_numSprings++;
+		sprintf(_springs,"x %i",_numSprings);
+		_springLabel->setString(_springs);
+	} else if (tool->getType() == "Pole") {
+		toolY = 300;
+		_numPoles++;
+		sprintf(_poles,"x %i",_numPoles);
+		_poleLabel->setString(_poles);
+	} else if (tool->getType() == "Catapult") {
+		toolY = 200;
+		_numCatapults++;
+		sprintf(_catapults,"x %i",_numCatapults);
+		_catapultLabel->setString(_catapults);
+	} else if (tool->getType() == "Fan") {
+		toolY = 50;
+		_numFans++;
+		sprintf(_fans,"x %i",_numFans);
+		_fanLabel->setString(_fans);
+	}
+	tool->setPosition(ccp(toolX,toolY));
+	this->addChild(tool, 11);
+}
