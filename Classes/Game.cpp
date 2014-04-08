@@ -245,6 +245,11 @@ void Game::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent) {
 		_singleTouchTimestamp = INFINITY;
 
 		if (_movingTool >= 0) {
+			Tool *tool = (Tool *) _tools->objectAtIndex(_movingTool);
+			CCPoint location = tool->getPosition();
+			if (location.x + this->getPosition().x >= windowSize.width - (windowSize.width / 6)) {
+				returnTool(_movingTool, tool);
+			}
 			_movingTool = -1;
 		}
 
@@ -478,6 +483,13 @@ void Game::placeTool(int i, CCPoint location) {
 	_tools->addObject(tool);
 	tool->setPosition(location);
 	this->addChild(tool, 11);
+}
+
+void Game::returnTool(int i, Tool * tool) {
+	_availableTools->addObject(tool);
+	_tools->removeObjectAtIndex(i, false);
+	_hud->addTool();
+	this->removeChild(tool);
 }
 
 void Game::onEnter() {

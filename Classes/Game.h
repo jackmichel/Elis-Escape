@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "AppDelegate.h"
 #include "HudLayer.h"
+#include "Tool.h"
 #include "Eli.h"
 
 #define kCCLayerPanZoomMultitouchGesturesDetectionDelay 0.5
@@ -76,6 +77,7 @@ public:
 	//void nextLevel();
 	void resetEli();
 	void placeTool(int i, CCPoint location);
+	void returnTool(int i, Tool * tool);
 	void onEnter();
 	void onExit();
 	CCPoint tileCoordForPosition(CCPoint position);

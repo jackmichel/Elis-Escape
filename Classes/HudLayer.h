@@ -22,7 +22,23 @@ private:
     CCMenu *_modalRetry;
     CCMenu *_modalBack2Basement;
     CCArray * _tools;
+    CCArray * _toolLabels;
     int _movingTool;
+    int _numBridges;
+    char _bridges[256];
+    int _numSprings;
+    char _springs[256];
+    int _numFans;
+    char _fans[256];
+    int _numPoles;
+    char _poles[256];
+    int _numCatapults;
+    char _catapults[256];
+    CCLabelTTF* _bridgeLabel;
+    CCLabelTTF* _springLabel;
+    CCLabelTTF* _fanLabel;
+    CCLabelTTF* _poleLabel;
+    CCLabelTTF* _catapultLabel;
 
 public:
     virtual bool init();
@@ -35,6 +51,8 @@ public:
     void listTools(CCArray * tools);
     void hideTools();
     void showTools();
+    void subtractTool(const char * type);
+    void addTool();
     void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
 	void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
 	void ccTouchesEnded(CCSet *pTouches, CCEvent *event);

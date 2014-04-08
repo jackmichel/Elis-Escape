@@ -12,8 +12,36 @@ bool HudLayer::init() {
     if (CCLayer::init()) {
         CCSize windowSize = CCDirector::sharedDirector()->getWinSize();
         _movingTool = -1;
+        _toolLabels = CCArray::createWithCapacity(5);
+        _toolLabels->retain();
         _touches = CCArray::createWithCapacity(10);
         _touches->retain();
+
+        _numBridges = 0;
+        _numSprings = 0;
+        _numPoles = 0;
+        _numCatapults = 0;
+        _numFans = 0;
+
+        sprintf(_bridges,"x %i",_numBridges);
+        _bridgeLabel = CCLabelTTF::create(_bridges,"Arial",20);
+        _bridgeLabel->setPosition(ccp(windowSize.width - ((windowSize.width / 6) / 2),600));
+
+        sprintf(_springs,"x %i",_numSprings);
+        _springLabel = CCLabelTTF::create(_springs,"Arial",20);
+        _springLabel->setPosition(ccp(windowSize.width - ((windowSize.width / 6) / 2),450));
+
+        sprintf(_poles,"x %i",_numPoles);
+        _poleLabel = CCLabelTTF::create(_poles,"Arial",20);
+        _poleLabel->setPosition(ccp(windowSize.width - ((windowSize.width / 6) / 2),220));
+
+        sprintf(_catapults,"x %i",_numCatapults);
+        _catapultLabel = CCLabelTTF::create(_catapults,"Arial",20);
+        _catapultLabel->setPosition(ccp(windowSize.width - ((windowSize.width / 6) / 2),150));
+
+        sprintf(_fans,"x %i",_numFans);
+        _fanLabel = CCLabelTTF::create(_fans,"Arial",20);
+        _fanLabel->setPosition(ccp(windowSize.width - ((windowSize.width / 6) / 2),0));
 
         // Create toolbar background
         CCSprite * toolbarBG = CCSprite::create("blank.png");
@@ -169,20 +197,55 @@ void HudLayer::listTools(CCArray * tools) {
     for (int i = 0; i < tools->count(); i++) {
 		Tool *tool = (Tool *) tools->objectAtIndex(i);
 		if (tool->getType() == "Bridge") {
-			toolY = 600;
+			toolY = 650;
 			tool->setScale(0.5f);
+			_numBridges++;
 		} else if (tool->getType() == "Spring") {
 			toolY = 500;
+			_numSprings++;
 		} else if (tool->getType() == "Pole") {
-			toolY = 400;
-		} else if (tool->getType() == "Catapult") {
 			toolY = 300;
-		} else if (tool->getType() == "Fan") {
+			_numPoles++;
+		} else if (tool->getType() == "Catapult") {
 			toolY = 200;
+			_numCatapults++;
+		} else if (tool->getType() == "Fan") {
+			toolY = 50;
+			_numFans++;
 		}
 		tool->setPosition(ccp(toolX,toolY));
 		this->addChild(tool, 11);
 	}
+    if (_numBridges > 0) {
+		sprintf(_bridges,"x %i",_numBridges);
+		_bridgeLabel->setString(_bridges);
+		this->addChild(_bridgeLabel);
+		_toolLabels->addObject(_bridgeLabel);
+    }
+    if (_numSprings > 0) {
+		sprintf(_springs,"x %i",_numSprings);
+		_springLabel->setString(_springs);
+		this->addChild(_springLabel);
+		_toolLabels->addObject(_springLabel);
+    }
+    if (_numPoles > 0) {
+		sprintf(_poles,"x %i",_numPoles);
+		_poleLabel->setString(_poles);
+		this->addChild(_poleLabel);
+		_toolLabels->addObject(_poleLabel);
+    }
+    if (_numCatapults > 0) {
+		sprintf(_catapults,"x %i",_numCatapults);
+		_catapultLabel->setString(_catapults);
+		this->addChild(_catapultLabel);
+		_toolLabels->addObject(_catapultLabel);
+    }
+    if (_numFans > 0) {
+		sprintf(_fans,"x %i",_numFans);
+		_fanLabel->setString(_fans);
+		this->addChild(_fanLabel);
+		_toolLabels->addObject(_fanLabel);
+    }
 }
 
 void HudLayer::hideTools() {
@@ -190,6 +253,10 @@ void HudLayer::hideTools() {
 		Tool *tool = (Tool *) _tools->objectAtIndex(i);
 		this->removeChild(tool);
 	}
+    for (int i = 0; i < _toolLabels->count(); i++) {
+    	CCLabelTTF * label = (CCLabelTTF *) _toolLabels->objectAtIndex(i);
+    	label->setVisible(false);
+    }
 }
 
 void HudLayer::showTools() {
@@ -197,6 +264,10 @@ void HudLayer::showTools() {
 		Tool *tool = (Tool *) _tools->objectAtIndex(i);
 		this->addChild(tool);
 	}
+    for (int i = 0; i < _toolLabels->count(); i++) {
+    	CCLabelTTF * label = (CCLabelTTF *) _toolLabels->objectAtIndex(i);
+    	label->setVisible(true);
+    }
 }
 
 void HudLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
@@ -240,6 +311,7 @@ void HudLayer::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent) {
 		if (_movingTool >= 0) {
 			Tool *tool = (Tool *) _tools->objectAtIndex(_movingTool);
 			CCPoint location = tool->getPosition();
+			subtractTool(tool->getType());
 			this->removeChild(tool);
 			Utils::gameLayer()->placeTool(_movingTool, location);
 			_movingTool = -1;
@@ -254,4 +326,64 @@ void HudLayer::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent) {
 
 		Utils::gameLayer()->setShouldPan(true);
 	}
+}
+
+void HudLayer::subtractTool(const char * type) {
+	if (type == "Bridge") {
+		_numBridges--;
+		sprintf(_bridges,"x %i",_numBridges);
+		_bridgeLabel->setString(_bridges);
+	} else if (type == "Spring") {
+		_numSprings--;
+		sprintf(_springs,"x %i",_numSprings);
+		_springLabel->setString(_springs);
+	} else if (type == "Pole") {
+		_numPoles--;
+		sprintf(_poles,"x %i",_numPoles);
+		_poleLabel->setString(_poles);
+	} else if (type == "Fan") {
+		_numFans--;
+		sprintf(_fans,"x %i",_numFans);
+		_fanLabel->setString(_fans);
+	} else if (type == "Catapult") {
+		_numCatapults--;
+		sprintf(_catapults,"x %i",_numCatapults);
+		_catapultLabel->setString(_catapults);
+	}
+}
+
+void HudLayer::addTool() {
+	Tool *tool = (Tool *) _tools->objectAtIndex(_tools->count() - 1);
+	int width = CCDirector::sharedDirector()->getWinSize().width;
+	int toolX = width - ((width / 6) / 2);
+	int toolY;
+	if (tool->getType() == "Bridge") {
+		toolY = 650;
+		tool->setScale(0.5f);
+		_numBridges++;
+		sprintf(_bridges,"x %i",_numBridges);
+		_bridgeLabel->setString(_bridges);
+	} else if (tool->getType() == "Spring") {
+		toolY = 500;
+		_numSprings++;
+		sprintf(_springs,"x %i",_numSprings);
+		_springLabel->setString(_springs);
+	} else if (tool->getType() == "Pole") {
+		toolY = 300;
+		_numPoles++;
+		sprintf(_poles,"x %i",_numPoles);
+		_poleLabel->setString(_poles);
+	} else if (tool->getType() == "Catapult") {
+		toolY = 200;
+		_numCatapults++;
+		sprintf(_catapults,"x %i",_numCatapults);
+		_catapultLabel->setString(_catapults);
+	} else if (tool->getType() == "Fan") {
+		toolY = 50;
+		_numFans++;
+		sprintf(_fans,"x %i",_numFans);
+		_fanLabel->setString(_fans);
+	}
+	tool->setPosition(ccp(toolX,toolY));
+	this->addChild(tool, 11);
 }
