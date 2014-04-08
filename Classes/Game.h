@@ -73,6 +73,7 @@ public:
 	void switchMode();
 	void checkExit();
 	void checkSpikes();
+	//void nextLevel();
 	void resetEli();
 	void placeTool(int i, CCPoint location);
 	void onEnter();

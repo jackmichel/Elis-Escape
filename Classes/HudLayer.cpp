@@ -3,6 +3,8 @@
 #include "MainMenu.h"
 #include "Tool.h"
 #include "Constants.h"
+#include "Game.h"
+#include "LevelSelect.h"
 
 using namespace cocos2d;
 
@@ -21,18 +23,19 @@ bool HudLayer::init() {
         this->_toolbarBG = toolbarBG;
 
         //Level complete modal
-    	CCSprite * modal = CCSprite::create("blank.png");
-        modal->setTextureRect(CCRectMake(0, 0, windowSize.width / 2, windowSize.height / 2));
+    	CCSprite * modal = CCSprite::create("WonGame.png");
+        //modal->setTextureRect(CCRectMake(0, 0, windowSize.width / 2, windowSize.height / 2));
         modal->setPosition(ccp(windowSize.width / 2, windowSize.height / 2));
-        modal->setColor(ccc3(206,171,60));
+        //modal->setColor(ccc3(206,171,60));
         this->_modal = modal;
         _modal->setVisible(false);
 
-        //Displays text 'Nice Job!' on modal
-        CCLabelTTF* niceJob = CCLabelTTF::create("Nice Job!", FONT_MAIN, 100);
-        niceJob->setPosition(ccp(windowSize.width / 2, windowSize.height * .6));
-        this->_niceJob = niceJob;
-        _niceJob->setVisible(false);
+        //level fail modal
+        CCSprite * modalF = CCSprite::create("LostGame.png");
+        modalF->setPosition(ccp(windowSize.width / 2, windowSize.height / 2));
+        this->_modalFail = modalF;
+        _modalFail->setVisible(false);
+
 
         // Create button to switch to run mode
         CCMenuItemImage *runMode = CCMenuItemImage::create("run_mode.png", "run_mode.png", this, menu_selector(HudLayer::switchMode));
@@ -55,12 +58,41 @@ bool HudLayer::init() {
         returnMenu->setPosition(ccp(windowSize.width - (windowSize.width / 12), windowSize.height * .08));
         this->_returnMenu = returnMenu;
 
-        //Create modal menu
-        CCMenuItemImage *modalMenuButton = CCMenuItemImage::create("in_game_main_menu.png", "in_game_main_menu.png", this, menu_selector(HudLayer::mainMenu));
+        //Create modal menu - on win screen
+        CCMenuItemImage *modalMenuButton = CCMenuItemImage::create("MainMenuBtn.png", "MainMenuBtn.png", this, menu_selector(HudLayer::mainMenu));
         CCMenu *modalMenu = CCMenu::create(modalMenuButton, NULL);
-        modalMenu->setPosition(ccp(windowSize.width / 2, windowSize.height * .4));
+        modalMenu->setPosition(ccp(windowSize.width * .4, windowSize.height * .45));
         this->_modalMenu = modalMenu;
         _modalMenu->setVisible(false);
+
+
+        //Create modal continue button - on win screen
+        CCMenuItemImage *modalContButton = CCMenuItemImage::create("ContinueBtn.png", "ContinueBtn.png", this, menu_selector(HudLayer::levelSelect));
+        CCMenu *contButton = CCMenu::create(modalContButton, NULL);
+        contButton->setPosition(ccp(windowSize.width / 2, windowSize.height * .56));
+        this->_modalCont = contButton;
+        _modalCont->setVisible(false);
+
+        //create modal replay button - on win screen
+        CCMenuItemImage *modalReplay = CCMenuItemImage::create("ReplayBtn.png", "ReplayBtn.png", this, menu_selector(HudLayer::levelSelect));
+        CCMenu *modalReplayButton = CCMenu::create(modalReplay, NULL);
+        modalReplayButton->setPosition(ccp(windowSize.width * .6, windowSize.height * .45));
+        this->_modalReplay = modalReplayButton;
+        _modalReplay->setVisible(false);
+
+        //create modal retry button - on lose screen
+        CCMenuItemImage *modalRetry = CCMenuItemImage::create("RetryBtn.png", "RetryBtn.png", this, menu_selector(HudLayer::levelSelect));
+        CCMenu *modalRetryButton = CCMenu::create(modalRetry, NULL);
+        modalRetryButton->setPosition(ccp(windowSize.width / 2, windowSize.height * .47));
+        this->_modalRetry = modalRetryButton;
+        _modalRetry->setVisible(false);
+
+        //create modal back to basement button - on lose screen
+        CCMenuItemImage *modalB2B = CCMenuItemImage::create("b2bBtn.png", "b2bBtn.png", this, menu_selector(HudLayer::levelSelect));
+        CCMenu *modalB2BButton = CCMenu::create(modalB2B, NULL);
+        modalB2BButton->setPosition(ccp(windowSize.width * .6, windowSize.height * .35));
+        this->_modalBack2Basement = modalB2BButton;
+        _modalBack2Basement->setVisible(false);
 
         // Add items associated with toolbar
         this->addChild(_modeMenu);
@@ -69,8 +101,15 @@ bool HudLayer::init() {
 
         // Add items associated with level complete modal
         this->addChild(_modal);
-        this->addChild(_niceJob);
         this->addChild(_modalMenu);
+        this->addChild(_modalCont);
+        this->addChild(_modalReplay);
+
+        // Add items associated with level fail modal
+        this->addChild(_modalFail);
+        this->addChild(_modalRetry);
+        this->addChild(_modalBack2Basement);
+
 
         this->setTouchEnabled(true);
     }
@@ -97,13 +136,28 @@ void HudLayer::switchMode() {
 
 void HudLayer::levelComplete() {
 	_modal->setVisible(true);
-	_niceJob->setVisible(true);
 	_modalMenu->setVisible(true);
 	_editMode->setVisible(false);
+	_modalCont->setVisible(true);
+	_modalReplay->setVisible(true);
+}
+
+void HudLayer::levelFail(){
+	_modalFail->setVisible(true);
+	_modalRetry->setVisible(true);
+	_modalMenu->setVisible(true);
+	_modalBack2Basement->setVisible(true);
+	_editMode->setVisible(false);
+
+
 }
 
 void HudLayer::mainMenu() {
     CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5,MainMenu::scene()));
+}
+
+void HudLayer::levelSelect() {
+	CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5,LevelSelect::scene()));
 }
 
 void HudLayer::listTools(CCArray * tools) {
