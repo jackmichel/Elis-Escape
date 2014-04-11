@@ -29,7 +29,7 @@ bool MainMenu::init() {
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
     //Play Background Music
-    SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Audio/Music/Voyager.mp3", true);
+    SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Audio/Music/Menu.mp3", true);
 
     //Create background image and ------ASK JACK HOW "Utils::scaleSprite(bg);" WORKS
     CCSprite* bg = CCSprite::create("Start_Screen.png");
