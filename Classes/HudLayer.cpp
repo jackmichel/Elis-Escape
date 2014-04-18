@@ -95,14 +95,14 @@ bool HudLayer::init() {
 
 
         //Create modal continue button - on win screen
-        CCMenuItemImage *modalContButton = CCMenuItemImage::create("ContinueBtn.png", "ContinueBtn.png", this, menu_selector(HudLayer::levelSelect));
+        CCMenuItemImage *modalContButton = CCMenuItemImage::create("ContinueBtn.png", "ContinueBtn.png", this, menu_selector(HudLayer::nextLevel));
         CCMenu *contButton = CCMenu::create(modalContButton, NULL);
         contButton->setPosition(ccp(windowSize.width / 2, windowSize.height * .56));
         this->_modalCont = contButton;
         _modalCont->setVisible(false);
 
         //create modal replay button - on win screen
-        CCMenuItemImage *modalReplay = CCMenuItemImage::create("ReplayBtn.png", "ReplayBtn.png", this, menu_selector(HudLayer::levelSelect));
+        CCMenuItemImage *modalReplay = CCMenuItemImage::create("ReplayBtn.png", "ReplayBtn.png", this, menu_selector(HudLayer::replay));
         CCMenu *modalReplayButton = CCMenu::create(modalReplay, NULL);
         modalReplayButton->setPosition(ccp(windowSize.width * .6, windowSize.height * .45));
         this->_modalReplay = modalReplayButton;
@@ -176,8 +176,6 @@ void HudLayer::levelFail(){
 	_modalMenu->setVisible(true);
 	_modalBack2Basement->setVisible(true);
 	_editMode->setVisible(false);
-
-
 }
 
 void HudLayer::mainMenu() {
@@ -386,4 +384,12 @@ void HudLayer::addTool() {
 	}
 	tool->setPosition(ccp(toolX,toolY));
 	this->addChild(tool, 11);
+}
+
+void HudLayer::nextLevel() {
+	Utils::gameLayer()->nextLevel();
+}
+
+void HudLayer::replay() {
+	Utils::gameLayer()->replay();
 }

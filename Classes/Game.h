@@ -78,6 +78,8 @@ public:
 	void resetEli();
 	void placeTool(int i, CCPoint location);
 	void returnTool(int i, Tool * tool);
+	void nextLevel();
+	void replay();
 	void onEnter();
 	void onExit();
 	CCPoint tileCoordForPosition(CCPoint position);

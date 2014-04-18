@@ -430,21 +430,6 @@ void Game::checkExit() {
 	}
 }
 
-/*void Game::nextLevel() {
-	int lvl = _level;
-	switch (lvl) {
-		case 1:
-			func = LevelSelect::level2();
-			break;
-		case 2:
-			LevelSelect::level3();
-			break;
-		case 3:
-			LevelSelect::level4();
-			break;
-	}
-}*/
-
 void Game::checkSpikes() {
 	CCRect box = eli->boundingBox();
 	for (int i = 0; i < _spiketiles->count(); i++) {
@@ -481,6 +466,16 @@ void Game::returnTool(int i, Tool * tool) {
 	_tools->removeObjectAtIndex(i, false);
 	_hud->addTool();
 	this->removeChild(tool);
+}
+
+void Game::nextLevel() {
+	if (_level != 10) {
+	    CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(_level + 1)));
+	}
+}
+
+void Game::replay() {
+	CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(_level)));
 }
 
 void Game::onEnter() {
