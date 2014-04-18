@@ -172,7 +172,7 @@ void Game::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
 	    } else {
 	    	 _singleTouchTimestamp = INFINITY;
 	    }
-	} else {
+	} else if (_state == kRunMode) {
 		CCTouch *touch = (CCTouch *)pTouches->anyObject();
 		if (touch) {
 			eli->jump();
