@@ -32,7 +32,7 @@ bool MainMenu::init() {
     SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Audio/Music/Menu.mp3", true);
 
     //Create background image and ------ASK JACK HOW "Utils::scaleSprite(bg);" WORKS
-    CCSprite* bg = CCSprite::create("Start_Screen.png");
+    CCSprite* bg = CCSprite::create("Start_Screen_Alt.png");
     bg->setPosition(ccp(windowSize.width/2,windowSize.height/2));
     Utils::scaleSprite(bg);
     this->addChild(bg,-1);

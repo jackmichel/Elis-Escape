@@ -58,13 +58,6 @@ bool HudLayer::init() {
         this->_modal = modal;
         _modal->setVisible(false);
 
-        //level fail modal
-        CCSprite * modalF = CCSprite::create("LostGame.png");
-        modalF->setPosition(ccp(windowSize.width / 2, windowSize.height / 2));
-        this->_modalFail = modalF;
-        _modalFail->setVisible(false);
-
-
         // Create button to switch to run mode
         CCMenuItemImage *runMode = CCMenuItemImage::create("run_mode.png", "run_mode.png", this, menu_selector(HudLayer::switchMode));
         this->_runMode = runMode;
@@ -108,20 +101,6 @@ bool HudLayer::init() {
         this->_modalReplay = modalReplayButton;
         _modalReplay->setVisible(false);
 
-        //create modal retry button - on lose screen
-        CCMenuItemImage *modalRetry = CCMenuItemImage::create("RetryBtn.png", "RetryBtn.png", this, menu_selector(HudLayer::levelSelect));
-        CCMenu *modalRetryButton = CCMenu::create(modalRetry, NULL);
-        modalRetryButton->setPosition(ccp(windowSize.width / 2, windowSize.height * .47));
-        this->_modalRetry = modalRetryButton;
-        _modalRetry->setVisible(false);
-
-        //create modal back to basement button - on lose screen
-        CCMenuItemImage *modalB2B = CCMenuItemImage::create("b2bBtn.png", "b2bBtn.png", this, menu_selector(HudLayer::levelSelect));
-        CCMenu *modalB2BButton = CCMenu::create(modalB2B, NULL);
-        modalB2BButton->setPosition(ccp(windowSize.width * .6, windowSize.height * .35));
-        this->_modalBack2Basement = modalB2BButton;
-        _modalBack2Basement->setVisible(false);
-
         // Add items associated with toolbar
         this->addChild(_modeMenu);
         this->addChild(_toolbarBG);
@@ -132,12 +111,6 @@ bool HudLayer::init() {
         this->addChild(_modalMenu);
         this->addChild(_modalCont);
         this->addChild(_modalReplay);
-
-        // Add items associated with level fail modal
-        this->addChild(_modalFail);
-        this->addChild(_modalRetry);
-        this->addChild(_modalBack2Basement);
-
 
         this->setTouchEnabled(true);
     }
@@ -168,14 +141,6 @@ void HudLayer::levelComplete() {
 	_editMode->setVisible(false);
 	_modalCont->setVisible(true);
 	_modalReplay->setVisible(true);
-}
-
-void HudLayer::levelFail(){
-	_modalFail->setVisible(true);
-	_modalRetry->setVisible(true);
-	_modalMenu->setVisible(true);
-	_modalBack2Basement->setVisible(true);
-	_editMode->setVisible(false);
 }
 
 void HudLayer::mainMenu() {

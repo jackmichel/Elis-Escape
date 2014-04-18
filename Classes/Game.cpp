@@ -436,7 +436,7 @@ void Game::checkSpikes() {
 		CCSprite *tile = (CCSprite *) _spiketiles->objectAtIndex(i);
 		CCPoint location = tile->getPosition();
 		if (box.containsPoint(ccp(location.x + (tileWidth / 2), location.y + (tileHeight / 2)))) {
-			_hud->levelFail();
+			this->resetEli();
 		}
 	}
 }
@@ -470,12 +470,12 @@ void Game::returnTool(int i, Tool * tool) {
 
 void Game::nextLevel() {
 	if (_level != 10) {
-	    CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(_level + 1)));
+	    CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5,Game::scene(_level + 1)));
 	}
 }
 
 void Game::replay() {
-	CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInT::create(0.5,Game::scene(_level)));
+	CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5,Game::scene(_level)));
 }
 
 void Game::onEnter() {
