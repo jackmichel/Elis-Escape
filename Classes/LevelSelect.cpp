@@ -20,6 +20,14 @@ bool LevelSelect::init() {
 		return false;
 	}
 
+    // Check saved levels unlocked, if this is the first time playing set to level 1
+    _levelsUnlocked = CCUserDefault::sharedUserDefault()->getIntegerForKey("levelsUnlocked");
+    if (_levelsUnlocked == 0) {
+    	_levelsUnlocked = 1;
+    	CCUserDefault::sharedUserDefault()->setIntegerForKey("levelsUnlocked", 1);
+    	CCUserDefault::sharedUserDefault()->flush();
+    }
+
 	//Sets the visible area
 	windowSize = CCDirector::sharedDirector()->getWinSize();
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
@@ -58,7 +66,63 @@ bool LevelSelect::init() {
     levelEight->setPosition(0, -200);
     levelNine->setPosition(200, -200);
     levelTen->setPosition(400, -200);
-    CCMenu *levels = CCMenu::create(levelOne, levelTwo, levelThree, levelFour, levelFive, levelSix, levelSeven, levelEight, levelNine, levelTen, NULL);
+    CCMenu *levels;
+    switch (_levelsUnlocked) {
+    	case 1:
+    	{
+    		levels = CCMenu::create(levelOne, NULL);
+    		break;
+    	}
+    	case 2:
+    	{
+    		levels = CCMenu::create(levelOne, levelTwo, NULL);
+    		break;
+    	}
+    	case 3:
+    	{
+    		levels = CCMenu::create(levelOne, levelTwo, levelThree, NULL);
+    		break;
+    	}
+    	case 4:
+    	{
+    		levels = CCMenu::create(levelOne, levelTwo, levelThree, levelFour, NULL);
+    		break;
+    	}
+    	case 5:
+    	{
+    		levels = CCMenu::create(levelOne, levelTwo, levelThree, levelFour, levelFive, NULL);
+    		break;
+    	}
+    	case 6:
+    	{
+    		levels = CCMenu::create(levelOne, levelTwo, levelThree, levelFour, levelFive, levelSix, NULL);
+    		break;
+    	}
+    	case 7:
+    	{
+    		levels = CCMenu::create(levelOne, levelTwo, levelThree, levelFour, levelFive, levelSix, levelSeven, NULL);
+    		break;
+    	}
+    	case 8:
+    	{
+    		levels = CCMenu::create(levelOne, levelTwo, levelThree, levelFour, levelFive, levelSix, levelSeven, levelEight, NULL);
+    		break;
+    	}
+    	case 9:
+    	{
+    		levels = CCMenu::create(levelOne, levelTwo, levelThree, levelFour, levelFive, levelSix, levelSeven, levelEight, levelNine, NULL);
+    		break;
+    	}
+    	case 10:
+    	{
+    		levels = CCMenu::create(levelOne, levelTwo, levelThree, levelFour, levelFive, levelSix, levelSeven, levelEight, levelNine, levelTen, NULL);
+    		break;
+    	}
+    	default:
+    	{
+    		levels = CCMenu::create(levelOne, levelTwo, levelThree, levelFour, levelFive, levelSix, levelSeven, levelEight, levelNine, levelTen, NULL);
+    	}
+    }
     levels->setPosition(ccp((windowSize.width / 2), windowSize.height / 2 + 80));
     this->addChild(levels,2);
 

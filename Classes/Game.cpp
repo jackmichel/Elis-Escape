@@ -427,6 +427,11 @@ void Game::checkExit() {
 		eli->stopAllActions();
 		eli->setVisible(false);
 		_hud->levelComplete();
+		int levelsUnlocked = CCUserDefault::sharedUserDefault()->getIntegerForKey("levelsUnlocked");
+		if (_level + 1 > levelsUnlocked) {
+			CCUserDefault::sharedUserDefault()->setIntegerForKey("levelsUnlocked", _level + 1);
+			CCUserDefault::sharedUserDefault()->flush();
+		}
 	}
 }
 
