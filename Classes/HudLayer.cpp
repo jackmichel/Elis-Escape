@@ -285,10 +285,12 @@ void HudLayer::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent) {
 			CCTouch *touch = (CCTouch*)_touches->objectAtIndex(0);
 			CCPoint curTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->getLocationInView());
 			CCPoint screenLocation = this->getPosition();
+			int gridX = (int) Utils::gameLayer()->getPosition().x % 50;
+			int gridY = (int) Utils::gameLayer()->getPosition().y % 50;
 			CCPoint newItemLocation = ccp(curTouchPosition.x - screenLocation.x, curTouchPosition.y - screenLocation.y);
 			Tool *tool = (Tool *) _tools->objectAtIndex(_movingTool);
 			tool->setScale(1.0f);
-			tool->setPosition(newItemLocation);
+			tool->setGridPosition(newItemLocation, gridX, gridY);
 		}
 	}
 }

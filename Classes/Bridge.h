@@ -17,6 +17,7 @@ public:
 	static Bridge * create (void);
 	virtual const char * getType();
 	virtual bool touchingTool(CCPoint location);
+	virtual void setGridPosition(CCPoint location, int offsetX, int offsetY);
 
 };
 

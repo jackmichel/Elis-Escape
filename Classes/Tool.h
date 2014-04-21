@@ -16,6 +16,7 @@ public:
 	virtual const char * getType();
 	virtual void checkCollision(Eli * eli);
 	virtual bool touchingTool(CCPoint location);
+	virtual void setGridPosition(CCPoint location, int offsetX, int offsetY);
 
 };
 

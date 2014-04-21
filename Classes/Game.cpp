@@ -197,7 +197,7 @@ void Game::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent) {
 			CCPoint screenLocation = this->getPosition();
 			CCPoint newItemLocation = ccp(curTouchPosition.x - screenLocation.x, curTouchPosition.y - screenLocation.y);
 			Tool *tool = (Tool *) _tools->objectAtIndex(_movingTool);
-			tool->setPosition(newItemLocation);
+			tool->setGridPosition(newItemLocation, 0, 0);
 		} else {
 			bool multitouch = _touches->count() > 1;
 			if (multitouch) {
