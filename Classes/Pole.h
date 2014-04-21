@@ -18,6 +18,7 @@ public:
 	static Pole * create (void);
 	virtual const char * getType();
 	virtual void checkCollision(Eli * eli);
+	virtual bool touchingTool(CCPoint location);
 	void allowTurn();
 
 };

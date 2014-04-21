@@ -24,3 +24,19 @@ Bridge * Bridge::create() {
 const char * Bridge::getType() {
 	return "Bridge";
 }
+
+bool Bridge::touchingTool(CCPoint location) {
+	bool isTouching = false;
+	int height = this->getContentSize().height * 2;
+	int width = this->getContentSize().width;
+	int left = this->getPosition().x - (width / 2);
+	int right = left + width;
+	int bottom = this->getPosition().y - (height / 2);
+	int top = bottom + height;
+
+	if ((location.x >= left && location.x <= right) && (location.y >= bottom && location.y <= top)) {
+		isTouching = true;
+	}
+
+	return isTouching;
+}

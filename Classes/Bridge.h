@@ -16,6 +16,7 @@ public:
 
 	static Bridge * create (void);
 	virtual const char * getType();
+	virtual bool touchingTool(CCPoint location);
 
 };
 

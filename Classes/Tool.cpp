@@ -19,7 +19,6 @@ void Tool::checkCollision(Eli * eli) {
 
 }
 
-// Switched to bounding box method, this is essentially the same as CCrect's containsPoint() method
 bool Tool::touchingTool(CCPoint location) {
 	bool isTouching = false;
 	int height = this->getContentSize().height;

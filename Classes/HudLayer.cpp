@@ -271,8 +271,7 @@ void HudLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
 
 		for (int i = 0; i < _tools->count(); i++) {
 			Tool *tool = (Tool *) _tools->objectAtIndex(i);
-			CCRect box = tool->boundingBox();
-			if (box.containsPoint(location)) {
+			if (tool->touchingTool(location)) {
 				_movingTool = i;
 				Utils::gameLayer()->setShouldPan(false);
 			}

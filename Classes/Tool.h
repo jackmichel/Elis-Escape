@@ -15,7 +15,7 @@ public:
 	~Tool(void);
 	virtual const char * getType();
 	virtual void checkCollision(Eli * eli);
-	bool touchingTool(CCPoint location);
+	virtual bool touchingTool(CCPoint location);
 
 };
 

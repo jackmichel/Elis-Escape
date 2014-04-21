@@ -39,6 +39,22 @@ void Pole::checkCollision(Eli * eli) {
 	}
 }
 
+bool Pole::touchingTool(CCPoint location) {
+	bool isTouching = false;
+	int height = this->getContentSize().height;
+	int width = this->getContentSize().width * 5;
+	int left = this->getPosition().x - (width / 2);
+	int right = left + width;
+	int bottom = this->getPosition().y - (height / 2);
+	int top = bottom + height;
+
+	if ((location.x >= left && location.x <= right) && (location.y >= bottom && location.y <= top)) {
+		isTouching = true;
+	}
+
+	return isTouching;
+}
+
 void Pole::allowTurn() {
 	_canTurn = true;
 }
