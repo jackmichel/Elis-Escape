@@ -426,10 +426,6 @@ void Game::switchMode() {
 	} else if (_state == kRunMode) {
 		_state = kEditMode;
 		this->resetEli();
-		if (_hasGear) {
-			gear->setVisible(true);
-			_hasGear = false;
-		}
 	}
 }
 
@@ -469,6 +465,10 @@ void Game::checkSpikes() {
 }
 
 void Game::resetEli() {
+	if (_hasGear) {
+		gear->setVisible(true);
+		_hasGear = false;
+	}
 	CCTMXObjectGroup *objectGroup = _tileMap->objectGroupNamed("Objects");
     CCDictionary *spawnPoint = objectGroup->objectNamed("SpawnPoint");
     int x = ((CCString)*spawnPoint->valueForKey("x")).intValue();
