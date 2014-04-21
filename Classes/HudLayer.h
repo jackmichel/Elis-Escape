@@ -41,7 +41,7 @@ public:
     virtual bool init();
     static CCScene* scene();
     void switchMode();
-    void levelComplete();
+    void levelComplete(int toolsLeft, bool gotGear, int level);
     void mainMenu();
     void levelSelect();
     void listTools(CCArray * tools);

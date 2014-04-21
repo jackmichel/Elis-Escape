@@ -99,10 +99,51 @@ const char * Utils::getLevelMap(int levelNum) {
 	return levelMap;
 }
 
+const char * Utils::getLevelKey(int levelNum) {
+	const char * levelKey;
+	switch (levelNum) {
+		case 1:
+			levelKey = "levelOne";
+			break;
+		case 2:
+			levelKey = "levelTwo";
+			break;
+		case 3:
+			levelKey = "levelThree";
+			break;
+		case 4:
+			levelKey = "levelFour";
+			break;
+		case 5:
+			levelKey = "levelFive";
+			break;
+		case 6:
+			levelKey = "levelSix";
+			break;
+		case 7:
+			levelKey = "levelSeven";
+			break;
+		case 8:
+			levelKey = "levelEight";
+			break;
+		case 9:
+			levelKey = "levelNine";
+			break;
+		case 10:
+			levelKey = "levelTen";
+			break;
+	}
+	return levelKey;
+}
+
 CCArray * Utils::getLevelTools(int levelNum) {
 	CCArray * tools = CCArray::createWithCapacity(14);
 	switch (levelNum) {
 		case 1:
+			{
+				Bridge * t1 = Bridge::create();
+				tools->addObject(t1);
+			}
 			break;
 		case 2:
 			{

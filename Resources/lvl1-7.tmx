@@ -8,12 +8,13 @@
  </tileset>
  <layer name="Platform" width="38" height="28">
   <data encoding="base64" compression="zlib">
-   eJztlt0OgyAMhY9zP25zmY+4938K4YKkawBbDA0ampwbW+KXAodOAF4CLU53Qz0gi9vBuCbI+q3RDPw0XDGGt3C9Jvy/UlyD04VoztRactF9C32q0Rsp18fpi/p7peVqIVrmuuL/fMc0snVD5NvePL1n/o6VeNwT+TNXkt/ybSuP4sG5OIf13UtxtXLuO5cuOpcujsxFvTfnyyW5MVHPPT7G5f045WeludAP+u7l3hvLWa/GfN+5OteZuLbmVRp7aqQzaNAKvnQJvg==
+   eJztlt0OgjAMhQ/iDypGH9H3fwq3C5LadKUdsYDZSc4N3cKXZjvrAOBm8Cv5HOgLbDrtjGuArd8ej8DbwyUx3I37Pcr/KnF1yQfiUVkbyZVrEb2xcj2Sn4EMkrR+raktcx3xfb4l92xfJ3xbWqf3LN+xmoy7Qj9/NfW53I7KKC7OxTnWuoecayvnvnH51Lh82jMXzV4tl2tqfWE9z3iJK+dxKc9qa1M/6LunvTeRs94v5vvG1bj+iWtuXqVassY6g07+AMGpCao=
   </data>
  </layer>
  <objectgroup name="Objects" width="38" height="28">
   <object name="SpawnPoint" x="182" y="1254" width="48" height="18"/>
   <object name="Exit" x="402" y="120" width="46" height="19"/>
+  <object name="Gear" x="1810" y="411"/>
  </objectgroup>
  <layer name="Spikes" width="38" height="28">
   <data encoding="base64" compression="zlib">

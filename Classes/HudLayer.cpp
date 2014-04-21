@@ -51,10 +51,8 @@ bool HudLayer::init() {
         this->_toolbarBG = toolbarBG;
 
         //Level complete modal
-    	CCSprite * modal = CCSprite::create("WonGame.png");
-        //modal->setTextureRect(CCRectMake(0, 0, windowSize.width / 2, windowSize.height / 2));
+    	CCSprite * modal = CCSprite::create("won_game.png");
         modal->setPosition(ccp(windowSize.width / 2, windowSize.height / 2));
-        //modal->setColor(ccc3(206,171,60));
         this->_modal = modal;
         _modal->setVisible(false);
 
@@ -135,12 +133,39 @@ void HudLayer::switchMode() {
 	Utils::gameLayer()->switchMode();
 }
 
-void HudLayer::levelComplete() {
+void HudLayer::levelComplete(int toolsLeft, bool gotGear, int level) {
 	_modal->setVisible(true);
 	_modalMenu->setVisible(true);
 	_editMode->setVisible(false);
 	_modalCont->setVisible(true);
 	_modalReplay->setVisible(true);
+
+	const char * levelKey = Utils::getLevelKey(level);
+	int previousGears = CCUserDefault::sharedUserDefault()->getIntegerForKey(levelKey);
+
+	int width = CCDirector::sharedDirector()->getWinSize().width;
+	CCSprite *gears;
+	if (toolsLeft > 0 && gotGear) {
+		gears = CCSprite::create("gold.png");
+		if (3 > previousGears) {
+			CCUserDefault::sharedUserDefault()->setIntegerForKey(levelKey, 3);
+			CCUserDefault::sharedUserDefault()->flush();
+		}
+	} else if (toolsLeft > 0 || gotGear) {
+		gears = CCSprite::create("silver.png");
+		if (2 > previousGears) {
+			CCUserDefault::sharedUserDefault()->setIntegerForKey(levelKey, 2);
+			CCUserDefault::sharedUserDefault()->flush();
+		}
+	} else {
+		gears = CCSprite::create("bronze.png");
+		if (1 > previousGears) {
+			CCUserDefault::sharedUserDefault()->setIntegerForKey(levelKey, 1);
+			CCUserDefault::sharedUserDefault()->flush();
+		}
+	}
+	gears->setPosition(ccp(width / 2, 150));
+	this->addChild(gears);
 }
 
 void HudLayer::mainMenu() {

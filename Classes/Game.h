@@ -62,6 +62,10 @@ private:
     int mapHeight;
     int exitX;
     int exitY;
+    CCSprite *gear;
+    int gearX;
+    int gearY;
+    bool _hasGear;
 
 public:
 	static cocos2d::CCScene* scene(int level);
@@ -73,6 +77,7 @@ public:
 	void gameLoop(float dt);
 	void switchMode();
 	void checkExit();
+	void checkGear();
 	void checkSpikes();
 	//void nextLevel();
 	void resetEli();

@@ -14,10 +14,11 @@
  <objectgroup name="Objects" width="42" height="22">
   <object name="SpawnPoint" x="100" y="380" width="50" height="20"/>
   <object name="Exit" x="1904" y="361" width="42" height="13"/>
+  <object name="Gear" x="901" y="999"/>
  </objectgroup>
  <layer name="Spikes" width="42" height="22">
   <data encoding="base64" compression="zlib">
-   eJzt0LEJADAMA0GvEJL9Z03vSq4swR+of1QFAMDc3Q4QpXa+Nhepf7pK6YSHsx0gcu107epSOlUfkEMBBw==
+   eJzt0DEKACAQA8H7guj/32pjJQjpLpEdSL+kCgCAf83uANGrc525SP/TTUonPIzuAJFrp2vXLaVTtQHkZQDM
   </data>
  </layer>
 </map>

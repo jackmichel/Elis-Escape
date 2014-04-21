@@ -109,6 +109,7 @@ bool Game::init() {
     CCTMXObjectGroup *objectGroup = _tileMap->objectGroupNamed("Objects");
     CCDictionary *spawnPoint = objectGroup->objectNamed("SpawnPoint");
     CCDictionary *exitPoint = objectGroup->objectNamed("Exit");
+    CCDictionary *gearPoint = objectGroup->objectNamed("Gear");
 
     int x = ((CCString)*spawnPoint->valueForKey("x")).intValue();
     int y = ((CCString)*spawnPoint->valueForKey("y")).intValue();
@@ -118,6 +119,13 @@ bool Game::init() {
     eli->setReverseDirection(Utils::reverseEliDirection(_level));
     eli->reset();
 
+    // Create and position gear
+    _hasGear = false;
+    gear = CCSprite::create("in_level_gear.png");
+    gearX = ((CCString)*gearPoint->valueForKey("x")).intValue();
+    gearY = ((CCString)*gearPoint->valueForKey("y")).intValue();
+    gear->setPosition(ccp(gearX, gearY));
+
     // Create and position exit
     CCSprite *exit = CCSprite::create("exit.png");
     exitX = ((CCString)*exitPoint->valueForKey("x")).intValue();
@@ -125,6 +133,7 @@ bool Game::init() {
     exit->setPosition(ccp(exitX,exitY));
 
     this->addChild(exit);
+    this->addChild(gear);
     this->addChild(eli, 10);
     this->setViewPointCenter(eli->getPosition());
 
@@ -136,6 +145,7 @@ void Game::gameLoop(float dt) {
 	eli->update(dt);
 	this->setEliPosition(eli->getNextPosition());
 	this->checkSpikes();
+	this->checkGear();
 	this->checkExit();
 }
 
@@ -417,6 +427,10 @@ void Game::switchMode() {
 	} else if (_state == kRunMode) {
 		_state = kEditMode;
 		this->resetEli();
+		if (_hasGear) {
+			gear->setVisible(true);
+			_hasGear = false;
+		}
 	}
 }
 
@@ -426,12 +440,21 @@ void Game::checkExit() {
 		_state = kLevelComplete;
 		eli->stopAllActions();
 		eli->setVisible(false);
-		_hud->levelComplete();
+
+		_hud->levelComplete(_availableTools->count(), _hasGear, _level);
 		int levelsUnlocked = CCUserDefault::sharedUserDefault()->getIntegerForKey("levelsUnlocked");
 		if (_level + 1 > levelsUnlocked) {
 			CCUserDefault::sharedUserDefault()->setIntegerForKey("levelsUnlocked", _level + 1);
 			CCUserDefault::sharedUserDefault()->flush();
 		}
+	}
+}
+
+void Game::checkGear() {
+	CCRect box = eli->boundingBox();
+	if (!_hasGear && box.containsPoint(ccp(gearX,gearY))) {
+		gear->setVisible(false);
+		_hasGear = true;
 	}
 }
 

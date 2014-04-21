@@ -14,6 +14,7 @@
  <objectgroup name="Objects" width="32" height="28">
   <object name="SpawnPoint" x="1386" y="1268" width="48" height="18"/>
   <object name="Exit" x="1372" y="265" width="46" height="19"/>
+  <object name="Gear" x="100" y="307"/>
  </objectgroup>
  <layer name="Spikes" width="32" height="28">
   <data encoding="base64" compression="zlib">

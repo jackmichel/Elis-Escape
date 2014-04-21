@@ -19,6 +19,7 @@ public:
     static float getArtScaleFactor();
     static void setArtScaleFactor(int s);
     static const char * getLevelMap(int levelNum);
+    static const char * getLevelKey(int levelNum);
     static CCArray * getLevelTools(int levelNum);
     static bool reverseEliDirection(int levelNum);
 };

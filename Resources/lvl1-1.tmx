@@ -16,5 +16,6 @@
  <objectgroup name="Objects" width="42" height="22">
   <object name="SpawnPoint" x="100" y="380" width="50" height="20"/>
   <object name="Exit" x="1904" y="361" width="42" height="13"/>
+  <object name="Gear" x="1128" y="450" width="41" height="25"/>
  </objectgroup>
 </map>
