@@ -20,7 +20,7 @@
   </data>
  </layer>
  <objectgroup name="Objects" width="42" height="30">
-  <object name="Exit" x="1400" y="229" width="49" height="19"/>
+  <object name="Exit" x="1400" y="204" width="49" height="19"/>
   <object name="SpawnPoint" x="251" y="1119" width="48" height="27"/>
   <object name="Gear" x="1729" y="425"/>
  </objectgroup>

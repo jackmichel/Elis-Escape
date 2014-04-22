@@ -20,8 +20,8 @@
   </data>
  </layer>
  <objectgroup name="Objects" width="38" height="28">
-  <object name="SpawnPoint" x="182" y="1254" width="48" height="18"/>
-  <object name="Exit" x="402" y="120" width="46" height="19"/>
+  <object name="SpawnPoint" x="182" y="1279" width="48" height="18"/>
+  <object name="Exit" x="402" y="105" width="46" height="19"/>
   <object name="Gear" x="1810" y="411"/>
  </objectgroup>
  <layer name="Spikes" width="38" height="28">

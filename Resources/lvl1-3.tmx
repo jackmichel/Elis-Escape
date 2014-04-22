@@ -21,7 +21,7 @@
  </layer>
  <objectgroup name="Objects" width="30" height="62">
   <object name="SpawnPoint" x="100" y="380" width="50" height="20"/>
-  <object name="Exit" x="1351" y="2873" width="47" height="25"/>
+  <object name="Exit" x="1350" y="2850" width="47" height="25"/>
   <object name="Gear" x="90" y="1854"/>
  </objectgroup>
  <layer name="Spikes" width="30" height="62">

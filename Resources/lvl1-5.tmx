@@ -22,8 +22,8 @@
   </data>
  </layer>
  <objectgroup name="Objects" width="36" height="32">
-  <object name="SpawnPoint" x="1637" y="425" width="48" height="18"/>
-  <object name="Exit" x="110" y="524" width="46" height="19"/>
+  <object name="SpawnPoint" x="1637" y="435" width="48" height="18"/>
+  <object name="Exit" x="110" y="505" width="46" height="19"/>
   <object name="Gear" x="851" y="276" width="29" height="31"/>
  </objectgroup>
 </map>
