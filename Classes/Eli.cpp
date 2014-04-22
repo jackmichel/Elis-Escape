@@ -116,11 +116,17 @@ void Eli::jump() {
 }
 
 void Eli::changeDirection() {
+	if (_soundfxToggle == 0) {
+		SimpleAudioEngine::sharedEngine()->playEffect("Audio/Sound Effects/wallBump.wav", false);
+	}
 	_speed = -_speed;
 	this->setScaleX(-this->getScaleX());
 }
 
 void Eli::hitSpring() {
+	if (_soundfxToggle == 0) {
+		SimpleAudioEngine::sharedEngine()->playEffect("Audio/Sound Effects/bump.wav", false);
+	}
 	_jumpSpeed = 1.6f;
 	this->setInAir(false);
 	this->setState(kPlayerMoving);

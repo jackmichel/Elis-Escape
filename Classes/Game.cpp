@@ -41,6 +41,7 @@ bool Game::init() {
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
     _musicToggle = CCUserDefault::sharedUserDefault()->getIntegerForKey("music");
+    _soundfxToggle = CCUserDefault::sharedUserDefault()->getIntegerForKey("soundfx");
 
     //Play Background Music
     if(_musicToggle == 0) {
@@ -455,6 +456,9 @@ void Game::checkGear() {
 	if (!_hasGear && box.containsPoint(ccp(gearX,gearY))) {
 		gear->setVisible(false);
 		_hasGear = true;
+		if (_soundfxToggle == 0) {
+			SimpleAudioEngine::sharedEngine()->playEffect("Audio/Sound Effects/powerUp.wav", false);
+		}
 	}
 }
 

@@ -67,6 +67,7 @@ private:
     int gearY;
     bool _hasGear;
     int _musicToggle;
+    int _soundfxToggle;
 
 public:
 	static cocos2d::CCScene* scene(int level);
