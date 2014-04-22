@@ -2,8 +2,10 @@
 #include "MainMenu.h"
 #include "Constants.h"
 #include "Utils.h"
+#include "SimpleAudioEngine.h"
 
 using namespace cocos2d;
+using namespace CocosDenshion;
 
 //Create an area for the Options Menu to exist
 CCScene* Options::scene() {
@@ -75,6 +77,9 @@ void Options::mainMenu() {
 void Options::fmusicOff() {
 	musicOn->setVisible(false);
 	musicOff->setVisible(true);
+    if(SimpleAudioEngine::sharedEngine()->isBackgroundMusicPlaying()) {
+        SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+    }
 	CCUserDefault::sharedUserDefault()->setIntegerForKey("music", 1);
 	CCUserDefault::sharedUserDefault()->flush();
 }
@@ -82,6 +87,10 @@ void Options::fmusicOff() {
 void Options::fmusicOn() {
 	musicOn->setVisible(true);
 	musicOff->setVisible(false);
+    if(!SimpleAudioEngine::sharedEngine()->isBackgroundMusicPlaying()) {
+        SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Audio/Music/Menu.mp3", true);
+        SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(0.1f);
+    }
 	CCUserDefault::sharedUserDefault()->setIntegerForKey("music", 0);
 	CCUserDefault::sharedUserDefault()->flush();
 }

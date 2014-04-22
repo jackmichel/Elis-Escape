@@ -40,9 +40,13 @@ bool Game::init() {
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
+    _musicToggle = CCUserDefault::sharedUserDefault()->getIntegerForKey("music");
+
     //Play Background Music
-    SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Audio/Music/BasementTheme.mp3", true);
-    SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(0.1f);
+    if(_musicToggle == 0) {
+		SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Audio/Music/BasementTheme.mp3", true);
+		SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(0.1f);
+    }
 
     // create a Tiled TMX map
     _tileMap = new CCTMXTiledMap();

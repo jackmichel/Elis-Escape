@@ -9,6 +9,7 @@ Eli::~Eli() {
 
 Eli::Eli() {
 	_screenSize = CCDirector::sharedDirector()->getWinSize();
+	_soundfxToggle = CCUserDefault::sharedUserDefault()->getIntegerForKey("soundfx");
 	_speed = INITIAL_SPEED;
 	_jumpSpeed = INITIAL_JUMP_SPEED;
 	_nextPosition = CCPointZero;
@@ -51,7 +52,6 @@ void Eli::update (float dt) {
     if (_jumping) {
         _state = kPlayerFalling;
         _vector.y += PLAYER_JUMP * _jumpSpeed;
-        SimpleAudioEngine::sharedEngine()->playEffect("Audio/Sound Effects/Jump1.wav", false);
         if (_vector.y > PLAYER_JUMP ) {
         	_jumping = false;
         }
@@ -109,6 +109,9 @@ void Eli::jump() {
 		this->jumpAnimation();
 		this->setJumping(true);
 		this->setInAir(true);
+		if (_soundfxToggle == 0) {
+			SimpleAudioEngine::sharedEngine()->playEffect("Audio/Sound Effects/Jump1.wav", false);
+		}
 	}
 }
 

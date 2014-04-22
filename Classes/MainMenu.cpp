@@ -28,8 +28,10 @@ bool MainMenu::init() {
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
+    int _musicToggle = CCUserDefault::sharedUserDefault()->getIntegerForKey("music");
+
     //Play Background Music
-    if(!SimpleAudioEngine::sharedEngine()->isBackgroundMusicPlaying()) {
+    if(_musicToggle == 0 && !SimpleAudioEngine::sharedEngine()->isBackgroundMusicPlaying()) {
         SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Audio/Music/Menu.mp3", true);
         SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(0.1f);
     }

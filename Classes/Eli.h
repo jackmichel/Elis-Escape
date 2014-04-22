@@ -24,6 +24,7 @@ class Eli : public CCSprite {
 	float _speed;
 	float _jumpSpeed;
 	CCSize _screenSize;
+	int _soundfxToggle;
 	CCAction * _run;
 	CCAction * _jump;
 
