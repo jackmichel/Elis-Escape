@@ -5,8 +5,10 @@
 #include "Constants.h"
 #include "Game.h"
 #include "LevelSelect.h"
+#include "SimpleAudioEngine.h"
 
 using namespace cocos2d;
+using namespace CocosDenshion;
 
 bool HudLayer::init() {
     if (CCLayer::init()) {
@@ -80,7 +82,7 @@ bool HudLayer::init() {
         //Create modal menu - on win screen
         CCMenuItemImage *modalMenuButton = CCMenuItemImage::create("MainMenuBtn.png", "MainMenuBtn.png", this, menu_selector(HudLayer::mainMenu));
         CCMenu *modalMenu = CCMenu::create(modalMenuButton, NULL);
-        modalMenu->setPosition(ccp(windowSize.width * .4, windowSize.height * .45));
+        modalMenu->setPosition(ccp(windowSize.width * .35, windowSize.height * .35));
         this->_modalMenu = modalMenu;
         _modalMenu->setVisible(false);
 
@@ -88,14 +90,14 @@ bool HudLayer::init() {
         //Create modal continue button - on win screen
         CCMenuItemImage *modalContButton = CCMenuItemImage::create("ContinueBtn.png", "ContinueBtn.png", this, menu_selector(HudLayer::nextLevel));
         CCMenu *contButton = CCMenu::create(modalContButton, NULL);
-        contButton->setPosition(ccp(windowSize.width / 2, windowSize.height * .56));
+        contButton->setPosition(ccp(windowSize.width / 2, windowSize.height * .47));
         this->_modalCont = contButton;
         _modalCont->setVisible(false);
 
         //create modal replay button - on win screen
         CCMenuItemImage *modalReplay = CCMenuItemImage::create("ReplayBtn.png", "ReplayBtn.png", this, menu_selector(HudLayer::replay));
         CCMenu *modalReplayButton = CCMenu::create(modalReplay, NULL);
-        modalReplayButton->setPosition(ccp(windowSize.width * .6, windowSize.height * .45));
+        modalReplayButton->setPosition(ccp(windowSize.width * .65, windowSize.height * .35));
         this->_modalReplay = modalReplayButton;
         _modalReplay->setVisible(false);
 
@@ -169,10 +171,16 @@ void HudLayer::levelComplete(int toolsLeft, bool gotGear, int level) {
 }
 
 void HudLayer::mainMenu() {
+    if(SimpleAudioEngine::sharedEngine()->isBackgroundMusicPlaying()) {
+        SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+    }
     CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5,MainMenu::scene()));
 }
 
 void HudLayer::levelSelect() {
+    if(SimpleAudioEngine::sharedEngine()->isBackgroundMusicPlaying()) {
+        SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+    }
 	CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5,LevelSelect::scene()));
 }
 

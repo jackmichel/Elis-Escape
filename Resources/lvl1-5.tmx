@@ -3,6 +3,14 @@
  <tileset firstgid="1" name="eli_tileset" tilewidth="50" tileheight="50">
   <image source="Tiled/eli_tileset.png" width="200" height="200"/>
  </tileset>
+ <tileset firstgid="17" name="bg" tilewidth="50" tileheight="50">
+  <image source="Tiled/bg.png" width="50" height="50"/>
+ </tileset>
+ <layer name="bg" width="36" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztwwEJAAAMBKGr8P3LrsdQcNVUVVVVffsAU19MgQ==
+  </data>
+ </layer>
  <layer name="Spikes" width="36" height="32">
   <data encoding="base64" compression="zlib">
    eJztw7ENAAAMAiAn/z/Z3tFAQgIAAADAV70DEhgABw==

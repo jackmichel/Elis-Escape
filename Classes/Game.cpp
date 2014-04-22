@@ -42,6 +42,7 @@ bool Game::init() {
 
     //Play Background Music
     SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Audio/Music/BasementTheme.mp3", true);
+    SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(0.1f);
 
     // create a Tiled TMX map
     _tileMap = new CCTMXTiledMap();

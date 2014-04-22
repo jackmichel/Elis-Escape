@@ -6,6 +6,14 @@
  <tileset firstgid="17" name="spikes" tilewidth="50" tileheight="50">
   <image source="Tiled/spikes.png" width="100" height="100"/>
  </tileset>
+ <tileset firstgid="21" name="bg" tilewidth="50" tileheight="50">
+  <image source="Tiled/bg.png" width="50" height="50"/>
+ </tileset>
+ <layer name="bg" width="32" height="28">
+  <data encoding="base64" compression="zlib">
+   eJztwwEJAAAMBKEr8f2rrsdQcNVUVVV9/wA/LUmB
+  </data>
+ </layer>
  <layer name="Platform" width="32" height="28">
   <data encoding="base64" compression="zlib">
    eJztlt0KgCAMRmdl/xe9/9M272ItWm0iyoRz45QDH5/gDABrIQ5kgnIrut/9hf0D0l3oBffCyzluHognsSMjQZLHgmwf52mPe/9//FYruv/mp32UdtLKz5ErE/fX4ec6adFLqT9XLu6v26/tpdavzcX9bfqfesn9/06gYAj7
