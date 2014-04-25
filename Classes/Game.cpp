@@ -41,7 +41,7 @@ bool Game::init() {
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
     //Play Background Music
-    SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Audio/Music/BasementTheme.mp3", true);
+    SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Audio/Music/BasementTheme2.mp3", true);
 
     // create a Tiled TMX map
     _tileMap = new CCTMXTiledMap();
