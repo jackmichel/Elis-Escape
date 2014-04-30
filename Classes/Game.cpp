@@ -297,10 +297,18 @@ void Game::setPosition(CCPoint  position) {
 }
 
 void Game::setViewPointCenter(CCPoint position) {
-    int x = MAX(position.x, windowSize.width/2);
-    int y = MAX(position.y, windowSize.height/2);
-    x = MIN(x, mapWidth - windowSize.width / 2);
-    y = MIN(y, mapHeight - windowSize.height/2);
+	int x;
+	int y = MAX(position.y, windowSize.height/2);
+	y = MIN(y, mapHeight - windowSize.height/2);
+
+	if (_state == kEditMode) {
+		x = MAX(position.x, windowSize.width/2 - (windowSize.width / 6));
+		x = MIN(x, mapWidth + (windowSize.width / 6) - windowSize.width / 2);
+	} else {
+	    x = MAX(position.x, windowSize.width/2);
+	    x = MIN(x, mapWidth - windowSize.width / 2);
+	}
+
     CCPoint actualPosition = ccp(x, y);
 
     CCPoint centerOfView = ccp(windowSize.width/2, windowSize.height/2);
