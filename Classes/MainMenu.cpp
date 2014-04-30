@@ -42,6 +42,10 @@ bool MainMenu::init() {
     Utils::scaleSprite(bg);
     this->addChild(bg,-1);
 
+    CCSprite* eli = CCSprite::create("main_menu_eli_face.png");
+    eli->setPosition(ccp(windowSize.width * 0.25, 250));
+    this->addChild(eli);
+
     //Create Menu Buttons, places them in a Menu function, and positions them on the screen
     CCMenuItemImage *levelButton = CCMenuItemImage::create("play_button.png", "play_button_selected.png", this, menu_selector(MainMenu::levelSelect));
     CCMenuItemImage *optionsButton = CCMenuItemImage::create("options_button.png", "options_button_selected.png", this, menu_selector(MainMenu::options));

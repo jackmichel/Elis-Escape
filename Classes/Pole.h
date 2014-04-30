@@ -9,6 +9,7 @@ USING_NS_CC;
 class Pole : public Tool {
 	CCSize _screenSize;
 	bool _canTurn;
+	CCAction * _bounce;
 
 public:
 
@@ -20,6 +21,7 @@ public:
 	virtual void checkCollision(Eli * eli);
 	virtual bool touchingTool(CCPoint location);
 	void allowTurn();
+	void createAnimations();
 
 };
 
