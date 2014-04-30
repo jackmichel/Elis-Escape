@@ -85,6 +85,7 @@ public:
 	void resetEli();
 	void placeTool(int i, CCPoint location);
 	void returnTool(int i, Tool * tool);
+	void checkToolsOnScreen();
 	void nextLevel();
 	void replay();
 	void onEnter();

@@ -503,6 +503,17 @@ void Game::placeTool(int i, CCPoint location) {
 	_tools->addObject(tool);
 	tool->setPosition(location);
 	this->addChild(tool, 11);
+	checkToolsOnScreen();
+}
+
+void Game::checkToolsOnScreen() {
+    for (int i = 0; i < _tools->count(); i++) {
+		Tool *tool = (Tool *) _tools->objectAtIndex(i);
+		CCPoint location = tool->getPosition();
+		if (location.x > mapWidth) {
+			returnTool(i, tool);
+		}
+    }
 }
 
 void Game::returnTool(int i, Tool * tool) {
