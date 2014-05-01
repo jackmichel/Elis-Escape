@@ -142,6 +142,7 @@ bool Game::init() {
     this->addChild(gear);
     this->addChild(eli, 10);
     this->setViewPointCenter(eli->getPosition());
+    eli->idleAnimation();
 
 	return true;
 }
@@ -440,6 +441,7 @@ void Game::switchMode() {
 	} else if (_state == kRunMode) {
 		_state = kEditMode;
 		this->resetEli();
+		eli->idleAnimation();
 	}
 }
 

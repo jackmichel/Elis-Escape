@@ -92,6 +92,17 @@ void Eli::createAnimations() {
 	animation->setDelayPerUnit(0.15f);
 	_jump = CCSequence::create(CCAnimate::create(animation), NULL);
 	_jump->retain();
+
+	animation = CCAnimation::create();
+	for (int i = 1; i <= 4; i++) {
+		name = CCString::createWithFormat("i%04d.png", i);
+		frame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(name->getCString());
+		animation->addSpriteFrame(frame);
+	}
+	animation->setDelayPerUnit(0.3f);
+	animation->setLoops(-1);
+	_idle = CCSequence::create(CCAnimate::create(animation), NULL);
+	_idle->retain();
 }
 
 void Eli::startRunAnimation() {
@@ -102,6 +113,11 @@ void Eli::startRunAnimation() {
 void Eli::jumpAnimation() {
 	this->stopAllActions();
 	this->runAction(_jump);
+}
+
+void Eli::idleAnimation() {
+	this->stopAllActions();
+	this->runAction(_idle);
 }
 
 void Eli::jump() {
