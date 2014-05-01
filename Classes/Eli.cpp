@@ -141,6 +141,10 @@ void Eli::resetJumpSpeed() {
 }
 
 void Eli::reset() {
+	_vector.y = 0;
+	_jumping = false;
+	_jumpSpeed = INITIAL_JUMP_SPEED;
+	_state = kPlayerMoving;
 	_speed = INITIAL_SPEED;
 	this->stopAllActions();
 	if (_reverseDirection) {
