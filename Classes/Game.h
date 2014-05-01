@@ -35,7 +35,8 @@ typedef enum
 {
     kRunMode,
     kEditMode,
-    kLevelComplete
+    kLevelComplete,
+    kEliHitSpike
 
 } GameState;
 
@@ -81,7 +82,7 @@ public:
 	void checkExit();
 	void checkGear();
 	void checkSpikes();
-	//void nextLevel();
+	void eliHitSpikes();
 	void resetEli();
 	void placeTool(int i, CCPoint location);
 	void returnTool(int i, Tool * tool);

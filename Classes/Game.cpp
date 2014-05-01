@@ -476,9 +476,21 @@ void Game::checkSpikes() {
 		CCSprite *tile = (CCSprite *) _spiketiles->objectAtIndex(i);
 		CCPoint location = tile->getPosition();
 		if (box.containsPoint(ccp(location.x + (tileWidth / 2), location.y + (tileHeight / 2)))) {
-			this->resetEli();
+			_state = kEliHitSpike;
+			_hud->showOuch();
+			eli->stopAllActions();
+			CCCallFunc* moveCallback = CCCallFunc::create(this, callfunc_selector(Game::eliHitSpikes));
+			CCDelayTime* delayAction = CCDelayTime::create(0.5f);
+			this->runAction(CCSequence::create(delayAction, moveCallback, NULL));
 		}
 	}
+}
+
+void Game::eliHitSpikes() {
+	_state = kRunMode;
+	_hud->hideOuch();
+	this->resetEli();
+	// this->setViewPointCenter(eli->getPosition());
 }
 
 void Game::resetEli() {

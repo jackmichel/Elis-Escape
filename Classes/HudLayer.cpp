@@ -101,6 +101,14 @@ bool HudLayer::init() {
         this->_modalReplay = modalReplayButton;
         _modalReplay->setVisible(false);
 
+        // Ouch! ~~ when eli hits spikes
+        CCSprite * ouch = CCSprite::create("ouch.png");
+        ouch->setPosition(ccp(windowSize.width / 2, windowSize.height / 2));
+        this->_ouch = ouch;
+        _ouch->setVisible(false);
+        this->addChild(_ouch);
+
+
         // Add items associated with toolbar
         this->addChild(_modeMenu);
         this->addChild(_toolbarBG);
@@ -264,6 +272,14 @@ void HudLayer::showTools() {
     	CCLabelTTF * label = (CCLabelTTF *) _toolLabels->objectAtIndex(i);
     	label->setVisible(true);
     }
+}
+
+void HudLayer::showOuch() {
+	_ouch->setVisible(true);
+}
+
+void HudLayer::hideOuch() {
+	_ouch->setVisible(false);
 }
 
 void HudLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
