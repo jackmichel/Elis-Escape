@@ -58,6 +58,12 @@ bool HudLayer::init() {
         this->_modal = modal;
         _modal->setVisible(false);
 
+        // level 10 complete modal
+    	CCSprite * endModal = CCSprite::create("won_level10.png");
+        endModal->setPosition(ccp(windowSize.width / 2, windowSize.height / 2));
+        this->_endModal = endModal;
+        _endModal->setVisible(false);
+
         // Create button to switch to run mode
         CCMenuItemImage *runMode = CCMenuItemImage::create("run_mode.png", "run_mode.png", this, menu_selector(HudLayer::switchMode));
         this->_runMode = runMode;
@@ -116,6 +122,7 @@ bool HudLayer::init() {
 
         // Add items associated with level complete modal
         this->addChild(_modal);
+        this->addChild(_endModal);
         this->addChild(_modalMenu);
         this->addChild(_modalCont);
         this->addChild(_modalReplay);
@@ -144,10 +151,14 @@ void HudLayer::switchMode() {
 }
 
 void HudLayer::levelComplete(int toolsLeft, bool gotGear, int level) {
-	_modal->setVisible(true);
 	_modalMenu->setVisible(true);
 	_editMode->setVisible(false);
-	_modalCont->setVisible(true);
+	if (level < 10) {
+		_modalCont->setVisible(true);
+		_modal->setVisible(true);
+	} else {
+		_endModal->setVisible(true);
+	}
 	_modalReplay->setVisible(true);
 
 	const char * levelKey = Utils::getLevelKey(level);

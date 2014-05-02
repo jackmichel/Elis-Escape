@@ -13,6 +13,7 @@ private:
 	CCMenuItemImage *_editMode;
     CCSprite *_toolbarBG;
     CCSprite *_modal;
+    CCSprite *_endModal;
     CCSprite *_ouch;
     CCMenu *_modeMenu;
     CCMenu *_returnMenu;
