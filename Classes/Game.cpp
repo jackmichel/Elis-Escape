@@ -452,6 +452,19 @@ void Game::checkExit() {
 		eli->stopAllActions();
 		eli->setVisible(false);
 
+	    if(SimpleAudioEngine::sharedEngine()->isBackgroundMusicPlaying()) {
+	        SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+	    }
+
+		if (_soundfxToggle == 0) {
+			if (_level < 10) {
+				SimpleAudioEngine::sharedEngine()->playEffect("Audio/Sound Effects/tada.wav", false);
+			} else {
+				SimpleAudioEngine::sharedEngine()->playEffect("Audio/Sound Effects/cheers.wav", false);
+			}
+
+		}
+
 		_hud->levelComplete(_availableTools->count(), _hasGear, _level);
 		int levelsUnlocked = CCUserDefault::sharedUserDefault()->getIntegerForKey("levelsUnlocked");
 		if (_level + 1 > levelsUnlocked) {
