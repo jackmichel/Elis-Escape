@@ -492,6 +492,9 @@ void Game::checkSpikes() {
 		CCPoint location = tile->getPosition();
 		if (box.containsPoint(ccp(location.x + (tileWidth / 2), location.y + (tileHeight / 2)))) {
 			_state = kEliHitSpike;
+			if (_soundfxToggle == 0) {
+				SimpleAudioEngine::sharedEngine()->playEffect("Audio/Sound Effects/clang.wav", false);
+			}
 			_hud->showOuch();
 			eli->stopAllActions();
 			CCCallFunc* moveCallback = CCCallFunc::create(this, callfunc_selector(Game::eliHitSpikes));
