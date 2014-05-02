@@ -45,7 +45,7 @@ bool Game::init() {
 
     //Play Background Music
     if(_musicToggle == 0) {
-		SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Audio/Music/BasementTheme.mp3", true);
+		SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Audio/Music/BasementTheme2.mp3", true);
 		SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(0.1f);
     }
 
