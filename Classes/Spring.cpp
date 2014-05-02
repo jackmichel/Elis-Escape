@@ -14,6 +14,7 @@ Spring::Spring() {
 Spring * Spring::create() {
 	Spring * spring = new Spring();
 	if (spring && spring->initWithFile("spring.png")) {
+		spring->createAnimations();
 		spring->autorelease();
 		spring->_canJump = true;
 		return spring;
@@ -31,6 +32,7 @@ void Spring::checkCollision(Eli * eli) {
 		CCRect box = eli->boundingBox();
 		if (box.containsPoint(this->getPosition())) {
 			eli->hitSpring();
+			this->runAction(_bounce);
 			_canJump = false;
 			CCCallFunc* moveCallback = CCCallFunc::create(this, callfunc_selector(Spring::allowJump));
 			CCDelayTime* delayAction = CCDelayTime::create(0.1f);
@@ -57,5 +59,23 @@ bool Spring::touchingTool(CCPoint location) {
 
 void Spring::allowJump() {
 	_canJump = true;
+}
+
+void Spring::createAnimations() {
+	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("spring_animation.plist");
+
+	CCAnimation* animation;
+	CCSpriteFrame * frame;
+
+	animation = CCAnimation::create();
+	CCString * name;
+	for (int i = 1; i <= 3; i++) {
+		name = CCString::createWithFormat("s%04d.png", i);
+		frame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(name->getCString());
+		animation->addSpriteFrame(frame);
+	}
+	animation->setDelayPerUnit(0.08f);
+	_bounce = CCSequence::create(CCAnimate::create(animation), NULL);
+	_bounce->retain();
 }
 

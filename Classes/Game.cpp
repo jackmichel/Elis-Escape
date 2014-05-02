@@ -40,8 +40,14 @@ bool Game::init() {
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
+    _musicToggle = CCUserDefault::sharedUserDefault()->getIntegerForKey("music");
+    _soundfxToggle = CCUserDefault::sharedUserDefault()->getIntegerForKey("soundfx");
+
     //Play Background Music
-    SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Audio/Music/BasementTheme2.mp3", true);
+    if(_musicToggle == 0) {
+		SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Audio/Music/BasementTheme.mp3", true);
+		SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(0.1f);
+    }
 
     // create a Tiled TMX map
     _tileMap = new CCTMXTiledMap();
@@ -136,6 +142,7 @@ bool Game::init() {
     this->addChild(gear);
     this->addChild(eli, 10);
     this->setViewPointCenter(eli->getPosition());
+    eli->idleAnimation();
 
 	return true;
 }
@@ -291,10 +298,18 @@ void Game::setPosition(CCPoint  position) {
 }
 
 void Game::setViewPointCenter(CCPoint position) {
-    int x = MAX(position.x, windowSize.width/2);
-    int y = MAX(position.y, windowSize.height/2);
-    x = MIN(x, mapWidth - windowSize.width / 2);
-    y = MIN(y, mapHeight - windowSize.height/2);
+	int x;
+	int y = MAX(position.y, windowSize.height/2);
+	y = MIN(y, mapHeight - windowSize.height/2);
+
+	if (_state == kEditMode) {
+		x = MAX(position.x, windowSize.width/2 - (windowSize.width / 6));
+		x = MIN(x, mapWidth + (windowSize.width / 6) - windowSize.width / 2);
+	} else {
+	    x = MAX(position.x, windowSize.width/2);
+	    x = MIN(x, mapWidth - windowSize.width / 2);
+	}
+
     CCPoint actualPosition = ccp(x, y);
 
     CCPoint centerOfView = ccp(windowSize.width/2, windowSize.height/2);
@@ -426,6 +441,7 @@ void Game::switchMode() {
 	} else if (_state == kRunMode) {
 		_state = kEditMode;
 		this->resetEli();
+		eli->idleAnimation();
 	}
 }
 
@@ -435,6 +451,19 @@ void Game::checkExit() {
 		_state = kLevelComplete;
 		eli->stopAllActions();
 		eli->setVisible(false);
+
+	    if(SimpleAudioEngine::sharedEngine()->isBackgroundMusicPlaying()) {
+	        SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+	    }
+
+		if (_soundfxToggle == 0) {
+			if (_level < 10) {
+				SimpleAudioEngine::sharedEngine()->playEffect("Audio/Sound Effects/tada.wav", false);
+			} else {
+				SimpleAudioEngine::sharedEngine()->playEffect("Audio/Sound Effects/cheers.wav", false);
+			}
+
+		}
 
 		_hud->levelComplete(_availableTools->count(), _hasGear, _level);
 		int levelsUnlocked = CCUserDefault::sharedUserDefault()->getIntegerForKey("levelsUnlocked");
@@ -450,6 +479,9 @@ void Game::checkGear() {
 	if (!_hasGear && box.containsPoint(ccp(gearX,gearY))) {
 		gear->setVisible(false);
 		_hasGear = true;
+		if (_soundfxToggle == 0) {
+			SimpleAudioEngine::sharedEngine()->playEffect("Audio/Sound Effects/powerUp.wav", false);
+		}
 	}
 }
 
@@ -459,9 +491,24 @@ void Game::checkSpikes() {
 		CCSprite *tile = (CCSprite *) _spiketiles->objectAtIndex(i);
 		CCPoint location = tile->getPosition();
 		if (box.containsPoint(ccp(location.x + (tileWidth / 2), location.y + (tileHeight / 2)))) {
-			this->resetEli();
+			_state = kEliHitSpike;
+			if (_soundfxToggle == 0) {
+				SimpleAudioEngine::sharedEngine()->playEffect("Audio/Sound Effects/clang.wav", false);
+			}
+			_hud->showOuch();
+			eli->stopAllActions();
+			CCCallFunc* moveCallback = CCCallFunc::create(this, callfunc_selector(Game::eliHitSpikes));
+			CCDelayTime* delayAction = CCDelayTime::create(0.5f);
+			this->runAction(CCSequence::create(delayAction, moveCallback, NULL));
 		}
 	}
+}
+
+void Game::eliHitSpikes() {
+	_state = kRunMode;
+	_hud->hideOuch();
+	this->resetEli();
+	// this->setViewPointCenter(eli->getPosition());
 }
 
 void Game::resetEli() {
@@ -486,6 +533,17 @@ void Game::placeTool(int i, CCPoint location) {
 	_tools->addObject(tool);
 	tool->setPosition(location);
 	this->addChild(tool, 11);
+	checkToolsOnScreen();
+}
+
+void Game::checkToolsOnScreen() {
+    for (int i = 0; i < _tools->count(); i++) {
+		Tool *tool = (Tool *) _tools->objectAtIndex(i);
+		CCPoint location = tool->getPosition();
+		if (location.x > mapWidth) {
+			returnTool(i, tool);
+		}
+    }
 }
 
 void Game::returnTool(int i, Tool * tool) {

@@ -173,12 +173,10 @@ CCArray * Utils::getLevelTools(int levelNum) {
 				Bridge * t2 = Bridge::create();
 				Bridge * t3 = Bridge::create();
 				Bridge * t4 = Bridge::create();
-				Bridge * t5 = Bridge::create();
 				tools->addObject(t1);
 				tools->addObject(t2);
 				tools->addObject(t3);
 				tools->addObject(t4);
-				tools->addObject(t5);
 			}
 			break;
 		case 5:

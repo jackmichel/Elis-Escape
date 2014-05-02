@@ -5,8 +5,10 @@
 #include "Constants.h"
 #include "Game.h"
 #include "LevelSelect.h"
+#include "SimpleAudioEngine.h"
 
 using namespace cocos2d;
+using namespace CocosDenshion;
 
 bool HudLayer::init() {
     if (CCLayer::init()) {
@@ -25,29 +27,30 @@ bool HudLayer::init() {
 
         sprintf(_bridges,"x %i",_numBridges);
         _bridgeLabel = CCLabelTTF::create(_bridges,"Arial",20);
-        _bridgeLabel->setPosition(ccp(windowSize.width - ((windowSize.width / 6) / 2),600));
+        _bridgeLabel->setColor(ccc3(0,0,0));
+        _bridgeLabel->setPosition(ccp(windowSize.width - ((windowSize.width / 6) / 2),510));
 
         sprintf(_springs,"x %i",_numSprings);
         _springLabel = CCLabelTTF::create(_springs,"Arial",20);
-        _springLabel->setPosition(ccp(windowSize.width - ((windowSize.width / 6) / 2),450));
+        _springLabel->setColor(ccc3(0,0,0));
+        _springLabel->setPosition(ccp(windowSize.width - ((windowSize.width / 6) / 2),360));
 
         sprintf(_poles,"x %i",_numPoles);
         _poleLabel = CCLabelTTF::create(_poles,"Arial",20);
-        _poleLabel->setPosition(ccp(windowSize.width - ((windowSize.width / 6) / 2),220));
+        _poleLabel->setColor(ccc3(0,0,0));
+        _poleLabel->setPosition(ccp(windowSize.width - ((windowSize.width / 6) / 2),135));
 
         sprintf(_catapults,"x %i",_numCatapults);
         _catapultLabel = CCLabelTTF::create(_catapults,"Arial",20);
-        _catapultLabel->setPosition(ccp(windowSize.width - ((windowSize.width / 6) / 2),150));
+        _catapultLabel->setPosition(ccp(windowSize.width - ((windowSize.width / 6) / 2),0));
 
         sprintf(_fans,"x %i",_numFans);
         _fanLabel = CCLabelTTF::create(_fans,"Arial",20);
         _fanLabel->setPosition(ccp(windowSize.width - ((windowSize.width / 6) / 2),0));
 
         // Create toolbar background
-        CCSprite * toolbarBG = CCSprite::create("blank.png");
-        toolbarBG->setTextureRect(CCRectMake(0, 0, windowSize.width / 6, windowSize.height));
+        CCSprite * toolbarBG = CCSprite::create("toolbar.png");
         toolbarBG->setPosition(ccp(windowSize.width - ((windowSize.width / 6) / 2), windowSize.height / 2));
-        toolbarBG->setColor(ccc3(206,171,60));
         this->_toolbarBG = toolbarBG;
 
         //Level complete modal
@@ -55,6 +58,12 @@ bool HudLayer::init() {
         modal->setPosition(ccp(windowSize.width / 2, windowSize.height / 2));
         this->_modal = modal;
         _modal->setVisible(false);
+
+        // level 10 complete modal
+    	CCSprite * endModal = CCSprite::create("won_level10.png");
+        endModal->setPosition(ccp(windowSize.width / 2, windowSize.height / 2));
+        this->_endModal = endModal;
+        _endModal->setVisible(false);
 
         // Create button to switch to run mode
         CCMenuItemImage *runMode = CCMenuItemImage::create("run_mode.png", "run_mode.png", this, menu_selector(HudLayer::switchMode));
@@ -72,7 +81,7 @@ bool HudLayer::init() {
         this->_modeMenu = modeMenu;
 
         //Create button for returning to main menu
-        CCMenuItemImage *mainMenuButton = CCMenuItemImage::create("in_game_main_menu.png", "in_game_main_menu.png", this, menu_selector(HudLayer::mainMenu));
+        CCMenuItemImage *mainMenuButton = CCMenuItemImage::create("MainMenuBtn.png", "MainMenuBtn.png", this, menu_selector(HudLayer::mainMenu));
         CCMenu *returnMenu = CCMenu::create(mainMenuButton, NULL);
         returnMenu->setPosition(ccp(windowSize.width - (windowSize.width / 12), windowSize.height * .08));
         this->_returnMenu = returnMenu;
@@ -80,7 +89,7 @@ bool HudLayer::init() {
         //Create modal menu - on win screen
         CCMenuItemImage *modalMenuButton = CCMenuItemImage::create("MainMenuBtn.png", "MainMenuBtn.png", this, menu_selector(HudLayer::mainMenu));
         CCMenu *modalMenu = CCMenu::create(modalMenuButton, NULL);
-        modalMenu->setPosition(ccp(windowSize.width * .4, windowSize.height * .45));
+        modalMenu->setPosition(ccp(windowSize.width * .35, windowSize.height * .35));
         this->_modalMenu = modalMenu;
         _modalMenu->setVisible(false);
 
@@ -88,16 +97,24 @@ bool HudLayer::init() {
         //Create modal continue button - on win screen
         CCMenuItemImage *modalContButton = CCMenuItemImage::create("ContinueBtn.png", "ContinueBtn.png", this, menu_selector(HudLayer::nextLevel));
         CCMenu *contButton = CCMenu::create(modalContButton, NULL);
-        contButton->setPosition(ccp(windowSize.width / 2, windowSize.height * .56));
+        contButton->setPosition(ccp(windowSize.width / 2, windowSize.height * .47));
         this->_modalCont = contButton;
         _modalCont->setVisible(false);
 
         //create modal replay button - on win screen
         CCMenuItemImage *modalReplay = CCMenuItemImage::create("ReplayBtn.png", "ReplayBtn.png", this, menu_selector(HudLayer::replay));
         CCMenu *modalReplayButton = CCMenu::create(modalReplay, NULL);
-        modalReplayButton->setPosition(ccp(windowSize.width * .6, windowSize.height * .45));
+        modalReplayButton->setPosition(ccp(windowSize.width * .65, windowSize.height * .35));
         this->_modalReplay = modalReplayButton;
         _modalReplay->setVisible(false);
+
+        // Ouch! ~~ when eli hits spikes
+        CCSprite * ouch = CCSprite::create("ouch.png");
+        ouch->setPosition(ccp(windowSize.width / 2, windowSize.height / 2));
+        this->_ouch = ouch;
+        _ouch->setVisible(false);
+        this->addChild(_ouch);
+
 
         // Add items associated with toolbar
         this->addChild(_modeMenu);
@@ -106,6 +123,7 @@ bool HudLayer::init() {
 
         // Add items associated with level complete modal
         this->addChild(_modal);
+        this->addChild(_endModal);
         this->addChild(_modalMenu);
         this->addChild(_modalCont);
         this->addChild(_modalReplay);
@@ -134,10 +152,14 @@ void HudLayer::switchMode() {
 }
 
 void HudLayer::levelComplete(int toolsLeft, bool gotGear, int level) {
-	_modal->setVisible(true);
 	_modalMenu->setVisible(true);
 	_editMode->setVisible(false);
-	_modalCont->setVisible(true);
+	if (level < 10) {
+		_modalCont->setVisible(true);
+		_modal->setVisible(true);
+	} else {
+		_endModal->setVisible(true);
+	}
 	_modalReplay->setVisible(true);
 
 	const char * levelKey = Utils::getLevelKey(level);
@@ -169,10 +191,16 @@ void HudLayer::levelComplete(int toolsLeft, bool gotGear, int level) {
 }
 
 void HudLayer::mainMenu() {
+    if(SimpleAudioEngine::sharedEngine()->isBackgroundMusicPlaying()) {
+        SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+    }
     CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5,MainMenu::scene()));
 }
 
 void HudLayer::levelSelect() {
+    if(SimpleAudioEngine::sharedEngine()->isBackgroundMusicPlaying()) {
+        SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+    }
 	CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5,LevelSelect::scene()));
 }
 
@@ -185,20 +213,20 @@ void HudLayer::listTools(CCArray * tools) {
     for (int i = 0; i < tools->count(); i++) {
 		Tool *tool = (Tool *) tools->objectAtIndex(i);
 		if (tool->getType() == "Bridge") {
-			toolY = 650;
+			toolY = 550;
 			tool->setScale(0.5f);
 			_numBridges++;
 		} else if (tool->getType() == "Spring") {
-			toolY = 500;
+			toolY = 400;
 			_numSprings++;
 		} else if (tool->getType() == "Pole") {
-			toolY = 300;
+			toolY = 220;
 			_numPoles++;
 		} else if (tool->getType() == "Catapult") {
-			toolY = 200;
+			toolY = 0;
 			_numCatapults++;
 		} else if (tool->getType() == "Fan") {
-			toolY = 50;
+			toolY = 0;
 			_numFans++;
 		}
 		tool->setPosition(ccp(toolX,toolY));
@@ -256,6 +284,14 @@ void HudLayer::showTools() {
     	CCLabelTTF * label = (CCLabelTTF *) _toolLabels->objectAtIndex(i);
     	label->setVisible(true);
     }
+}
+
+void HudLayer::showOuch() {
+	_ouch->setVisible(true);
+}
+
+void HudLayer::hideOuch() {
+	_ouch->setVisible(false);
 }
 
 void HudLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent) {
@@ -347,28 +383,28 @@ void HudLayer::addTool() {
 	int toolX = width - ((width / 6) / 2);
 	int toolY;
 	if (tool->getType() == "Bridge") {
-		toolY = 650;
+		toolY = 550;
 		tool->setScale(0.5f);
 		_numBridges++;
 		sprintf(_bridges,"x %i",_numBridges);
 		_bridgeLabel->setString(_bridges);
 	} else if (tool->getType() == "Spring") {
-		toolY = 500;
+		toolY = 400;
 		_numSprings++;
 		sprintf(_springs,"x %i",_numSprings);
 		_springLabel->setString(_springs);
 	} else if (tool->getType() == "Pole") {
-		toolY = 300;
+		toolY = 220;
 		_numPoles++;
 		sprintf(_poles,"x %i",_numPoles);
 		_poleLabel->setString(_poles);
 	} else if (tool->getType() == "Catapult") {
-		toolY = 200;
+		toolY = 0;
 		_numCatapults++;
 		sprintf(_catapults,"x %i",_numCatapults);
 		_catapultLabel->setString(_catapults);
 	} else if (tool->getType() == "Fan") {
-		toolY = 50;
+		toolY = 0;
 		_numFans++;
 		sprintf(_fans,"x %i",_numFans);
 		_fanLabel->setString(_fans);

@@ -35,7 +35,8 @@ typedef enum
 {
     kRunMode,
     kEditMode,
-    kLevelComplete
+    kLevelComplete,
+    kEliHitSpike
 
 } GameState;
 
@@ -66,6 +67,8 @@ private:
     int gearX;
     int gearY;
     bool _hasGear;
+    int _musicToggle;
+    int _soundfxToggle;
 
 public:
 	static cocos2d::CCScene* scene(int level);
@@ -79,10 +82,11 @@ public:
 	void checkExit();
 	void checkGear();
 	void checkSpikes();
-	//void nextLevel();
+	void eliHitSpikes();
 	void resetEli();
 	void placeTool(int i, CCPoint location);
 	void returnTool(int i, Tool * tool);
+	void checkToolsOnScreen();
 	void nextLevel();
 	void replay();
 	void onEnter();

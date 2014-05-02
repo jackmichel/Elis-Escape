@@ -13,6 +13,8 @@ private:
 	CCMenuItemImage *_editMode;
     CCSprite *_toolbarBG;
     CCSprite *_modal;
+    CCSprite *_endModal;
+    CCSprite *_ouch;
     CCMenu *_modeMenu;
     CCMenu *_returnMenu;
     CCMenu *_modalMenu;
@@ -51,6 +53,8 @@ public:
     void addTool();
     void nextLevel();
     void replay();
+    void showOuch();
+    void hideOuch();
     void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
 	void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
 	void ccTouchesEnded(CCSet *pTouches, CCEvent *event);

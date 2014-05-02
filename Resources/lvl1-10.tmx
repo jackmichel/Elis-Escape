@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="36" height="30" tilewidth="50" tileheight="50">
+<map version="1.0" orientation="orthogonal" width="42" height="30" tilewidth="50" tileheight="50">
  <tileset firstgid="1" name="eli_tileset" tilewidth="50" tileheight="50">
   <image source="Tiled/eli_tileset.png" width="200" height="200"/>
  </tileset>
  <tileset firstgid="17" name="spikes" tilewidth="50" tileheight="50">
   <image source="Tiled/spikes.png" width="100" height="100"/>
  </tileset>
- <layer name="Platform" width="36" height="30">
+ <tileset firstgid="21" name="bg" tilewidth="50" tileheight="50">
+  <image source="Tiled/bg.png" width="50" height="50"/>
+ </tileset>
+ <layer name="bg" width="42" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt1zkKwDAMRNHJRpw99z9tZAjYhRlSRSrmw/SvUKMEYA2y2zYjThPkYcnD+9Nz2K5qp7PnS/Lw5OHJw5OHJw9PHp48PHl4LU9n698NATwLyn+2BfB4Jg8ve0aU+/XebnsAGrkDiQ==
+   eJztw0ENAAAMA6EzUf9WZ2MPSFg1VVVVVfXFA4+uZ10=
   </data>
  </layer>
- <objectgroup name="Objects" width="36" height="30">
-  <object name="Exit" x="1400" y="229" width="49" height="19"/>
+ <layer name="Platform" width="42" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt17sKgDAQRNHxhW/N/3+tWwix2EYYlg3MhSmFQ4JFFgBb8hXbjPxNkJOZnNwinaft/uz68a3Ok5uc3OTkJic3ObnJyU1ObnJya9nZ2fp3Q7jIz3OuqO/7PVzk1/K9Z6wl54j632TdYXsAMn4D0Q==
+  </data>
+ </layer>
+ <objectgroup name="Objects" width="42" height="30">
+  <object name="Exit" x="1400" y="204" width="49" height="19"/>
   <object name="SpawnPoint" x="251" y="1119" width="48" height="27"/>
-  <object name="Gear" x="1629" y="425"/>
+  <object name="Gear" x="1729" y="425"/>
  </objectgroup>
- <layer name="Spikes" width="36" height="30">
+ <layer name="Spikes" width="42" height="30">
   <data encoding="base64" compression="zlib">
-   eJztzrkNACAQxMBrgaf/WiFEBE73Ao/k3FX9rNsMN76fNH+YP8wf5g/zh/nD/GH+MH+YP8wf5g/r/rPDvT+dHJvZCLE=
+   eJztzrsJADAMxFCvkM/+syale6uwQQ8OrlTEHOdvN17u7Gqlb2ednSw7WXay7GTZybKTZSfLTpadLDtZdrKmdt7Gm+QB+UUJmQ==
   </data>
  </layer>
- <layer name="Presentation" width="36" height="30">
+ <layer name="Presentation" width="42" height="30">
   <data encoding="base64" compression="zlib">
-   eJztzqERACAMBLCfgWP/WWsR+L5IJkjS52wH0nEAAACA190OpOPwM3R2AE0=
+   eJzt2EENAEAIBDEsQM6/1nPAd0PSKpj3VN0x6YBFpwMAAAAAgl46YHHt23zIngBJ
   </data>
  </layer>
 </map>

@@ -9,6 +9,7 @@ Eli::~Eli() {
 
 Eli::Eli() {
 	_screenSize = CCDirector::sharedDirector()->getWinSize();
+	_soundfxToggle = CCUserDefault::sharedUserDefault()->getIntegerForKey("soundfx");
 	_speed = INITIAL_SPEED;
 	_jumpSpeed = INITIAL_JUMP_SPEED;
 	_nextPosition = CCPointZero;
@@ -51,7 +52,6 @@ void Eli::update (float dt) {
     if (_jumping) {
         _state = kPlayerFalling;
         _vector.y += PLAYER_JUMP * _jumpSpeed;
-        SimpleAudioEngine::sharedEngine()->playEffect("Audio/Sound Effects/Jump1.wav", false);
         if (_vector.y > PLAYER_JUMP ) {
         	_jumping = false;
         }
@@ -92,6 +92,17 @@ void Eli::createAnimations() {
 	animation->setDelayPerUnit(0.15f);
 	_jump = CCSequence::create(CCAnimate::create(animation), NULL);
 	_jump->retain();
+
+	animation = CCAnimation::create();
+	for (int i = 1; i <= 4; i++) {
+		name = CCString::createWithFormat("i%04d.png", i);
+		frame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(name->getCString());
+		animation->addSpriteFrame(frame);
+	}
+	animation->setDelayPerUnit(0.3f);
+	animation->setLoops(-1);
+	_idle = CCSequence::create(CCAnimate::create(animation), NULL);
+	_idle->retain();
 }
 
 void Eli::startRunAnimation() {
@@ -104,20 +115,34 @@ void Eli::jumpAnimation() {
 	this->runAction(_jump);
 }
 
+void Eli::idleAnimation() {
+	this->stopAllActions();
+	this->runAction(_idle);
+}
+
 void Eli::jump() {
 	if (this->getState() != (kPlayerDying || kPlayerFalling) && !this->getInAir()) {
 		this->jumpAnimation();
 		this->setJumping(true);
 		this->setInAir(true);
+		if (_soundfxToggle == 0) {
+			SimpleAudioEngine::sharedEngine()->playEffect("Audio/Sound Effects/Jump1.wav", false);
+		}
 	}
 }
 
 void Eli::changeDirection() {
+	if (_soundfxToggle == 0) {
+		SimpleAudioEngine::sharedEngine()->playEffect("Audio/Sound Effects/wallBump.wav", false);
+	}
 	_speed = -_speed;
 	this->setScaleX(-this->getScaleX());
 }
 
 void Eli::hitSpring() {
+	if (_soundfxToggle == 0) {
+		SimpleAudioEngine::sharedEngine()->playEffect("Audio/Sound Effects/bump.wav", false);
+	}
 	_jumpSpeed = 1.6f;
 	this->setInAir(false);
 	this->setState(kPlayerMoving);
@@ -132,6 +157,10 @@ void Eli::resetJumpSpeed() {
 }
 
 void Eli::reset() {
+	_vector.y = 0;
+	_jumping = false;
+	_jumpSpeed = INITIAL_JUMP_SPEED;
+	_state = kPlayerMoving;
 	_speed = INITIAL_SPEED;
 	this->stopAllActions();
 	if (_reverseDirection) {

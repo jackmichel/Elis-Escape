@@ -6,14 +6,22 @@
  <tileset firstgid="17" name="spikes" tilewidth="50" tileheight="50">
   <image source="Tiled/spikes.png" width="100" height="100"/>
  </tileset>
+ <tileset firstgid="21" name="bg" tilewidth="50" tileheight="50">
+  <image source="Tiled/bg.png" width="50" height="50"/>
+ </tileset>
+ <layer name="bg" width="38" height="28">
+  <data encoding="base64" compression="zlib">
+   eJztw0ENAAAMA6EzUf9WJ2MfSFg1VVVV1ccHcDpXSQ==
+  </data>
+ </layer>
  <layer name="Platform" width="38" height="28">
   <data encoding="base64" compression="zlib">
    eJztlt0OgjAMhQ/iDypGH9H3fwq3C5LadKUdsYDZSc4N3cKXZjvrAOBm8Cv5HOgLbDrtjGuArd8ej8DbwyUx3I37Pcr/KnF1yQfiUVkbyZVrEb2xcj2Sn4EMkrR+raktcx3xfb4l92xfJ3xbWqf3LN+xmoy7Qj9/NfW53I7KKC7OxTnWuoecayvnvnH51Lh82jMXzV4tl2tqfWE9z3iJK+dxKc9qa1M/6LunvTeRs94v5vvG1bj+iWtuXqVassY6g07+AMGpCao=
   </data>
  </layer>
  <objectgroup name="Objects" width="38" height="28">
-  <object name="SpawnPoint" x="182" y="1254" width="48" height="18"/>
-  <object name="Exit" x="402" y="120" width="46" height="19"/>
+  <object name="SpawnPoint" x="182" y="1279" width="48" height="18"/>
+  <object name="Exit" x="402" y="105" width="46" height="19"/>
   <object name="Gear" x="1810" y="411"/>
  </objectgroup>
  <layer name="Spikes" width="38" height="28">

@@ -3,6 +3,14 @@
  <tileset firstgid="1" name="eli_tileset" tilewidth="50" tileheight="50">
   <image source="Tiled/eli_tileset.png" width="200" height="200"/>
  </tileset>
+ <tileset firstgid="17" name="bg" tilewidth="50" tileheight="50">
+  <image source="Tiled/bg.png" width="50" height="50"/>
+ </tileset>
+ <layer name="bg" width="36" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztwwEJAAAMBKGr8P3LrsdQcNVUVVVVffsAU19MgQ==
+  </data>
+ </layer>
  <layer name="Spikes" width="36" height="32">
   <data encoding="base64" compression="zlib">
    eJztw7ENAAAMAiAn/z/Z3tFAQgIAAADAV70DEhgABw==
@@ -14,8 +22,8 @@
   </data>
  </layer>
  <objectgroup name="Objects" width="36" height="32">
-  <object name="SpawnPoint" x="1637" y="425" width="48" height="18"/>
-  <object name="Exit" x="110" y="524" width="46" height="19"/>
+  <object name="SpawnPoint" x="1637" y="435" width="48" height="18"/>
+  <object name="Exit" x="110" y="505" width="46" height="19"/>
   <object name="Gear" x="851" y="276" width="29" height="31"/>
  </objectgroup>
 </map>

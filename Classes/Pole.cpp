@@ -13,7 +13,8 @@ Pole::Pole() {
 
 Pole * Pole::create() {
 	Pole * pole = new Pole();
-	if (pole && pole->initWithFile("pole.png")) {
+	if (pole && pole->initWithFile("mattress.png")) {
+		pole->createAnimations();
 		pole->_canTurn = true;
 		pole->autorelease();
 		return pole;
@@ -30,6 +31,8 @@ void Pole::checkCollision(Eli * eli) {
 	if (_canTurn) {
 		CCRect box = eli->boundingBox();
 		if (box.containsPoint(this->getPosition())) {
+			this->setScaleX(-eli->getScaleX());
+			this->runAction(_bounce);
 			eli->changeDirection();
 			_canTurn = false;
 			CCCallFunc* moveCallback = CCCallFunc::create(this, callfunc_selector(Pole::allowTurn));
@@ -57,4 +60,22 @@ bool Pole::touchingTool(CCPoint location) {
 
 void Pole::allowTurn() {
 	_canTurn = true;
+}
+
+void Pole::createAnimations() {
+	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("mattress_bounce.plist");
+
+	CCAnimation* animation;
+	CCSpriteFrame * frame;
+
+	animation = CCAnimation::create();
+	CCString * name;
+	for (int i = 1; i <= 3; i++) {
+		name = CCString::createWithFormat("m%04d.png", i);
+		frame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(name->getCString());
+		animation->addSpriteFrame(frame);
+	}
+	animation->setDelayPerUnit(0.08f);
+	_bounce = CCSequence::create(CCAnimate::create(animation), NULL);
+	_bounce->retain();
 }
