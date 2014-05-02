@@ -81,7 +81,7 @@ bool HudLayer::init() {
         this->_modeMenu = modeMenu;
 
         //Create button for returning to main menu
-        CCMenuItemImage *mainMenuButton = CCMenuItemImage::create("in_game_main_menu.png", "in_game_main_menu.png", this, menu_selector(HudLayer::mainMenu));
+        CCMenuItemImage *mainMenuButton = CCMenuItemImage::create("MainMenuBtn.png", "MainMenuBtn.png", this, menu_selector(HudLayer::mainMenu));
         CCMenu *returnMenu = CCMenu::create(mainMenuButton, NULL);
         returnMenu->setPosition(ccp(windowSize.width - (windowSize.width / 12), windowSize.height * .08));
         this->_returnMenu = returnMenu;
